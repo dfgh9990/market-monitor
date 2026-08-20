@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: market-monitor
+    env: python
+    plan: free
+    region: oregon
+    buildCommand: "python -m compileall -q server.py || true"
+    startCommand: "python server.py"
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: REFRESH_INTERVAL
+        value: "3600"
