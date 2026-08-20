@@ -1,0 +1,2 @@
+# 本服务为零依赖实现（仅使用 Python 标准库 http.server / urllib），
+# 无需安装任何第三方包。保留此文件以便 Render 的 Python 构建步骤通过。
