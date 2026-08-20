@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>盘中市场强弱监控 · 六维评分 + 动态仓位</title>
+<style>
+  :root{
+    --bg:#f4f6fa; --card:#ffffff; --ink:#1f2733; --sub:#6b7785; --line:#e6eaf0;
+    --red:#e23b3b; --green:#15a85a; --blue:#2f6fed; --amber:#f5a623; --purple:#8a5cf6;
+    --shadow:0 4px 18px rgba(31,39,51,.08);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5;}
+  .wrap{max-width:1080px;margin:0 auto;padding:14px 14px 40px;}
+  header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;}
+  .title{font-size:19px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .title .dot{width:10px;height:10px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px rgba(47,111,237,.15)}
+  .meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;color:var(--sub);font-size:12.5px}
+  .pill{background:#eef2fb;color:var(--blue);padding:3px 10px;border-radius:20px;font-weight:600}
+  .pill.live{background:#e8f8ef;color:var(--green)}
+  .pill.closed{background:#f0f1f3;color:var(--sub)}
+  .pill.warn{background:#fff4e5;color:#a35a00}
+  .btn{border:1px solid var(--line);background:#fff;color:var(--ink);padding:7px 14px;border-radius:10px;
+    font-size:13px;cursor:pointer;font-weight:600;transition:.15s}
+  .btn:hover{border-color:var(--blue);color:var(--blue)}
+  .btn:disabled{opacity:.5;cursor:default}
+  .count{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink)}
+
+  .grid{display:grid;gap:14px}
+  @media(min-width:760px){.top{grid-template-columns:300px 1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+  .card h3{margin:0 0 12px;font-size:14px;color:var(--sub);font-weight:600;letter-spacing:.3px}
+
+  .thermo{display:flex;gap:16px;align-items:stretch}
+  .thermo svg{flex:0 0 auto}
+  .thermo .read{flex:1;display:flex;flex-direction:column;justify-content:center}
+  .big{font-size:42px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+  .big small{font-size:18px;color:var(--sub);font-weight:600}
+  .label{margin-top:6px;font-size:13px;color:var(--sub)}
+  .advice{margin-top:10px;display:inline-block;padding:6px 12px;border-radius:10px;font-weight:700;font-size:13px}
+
+  .radar{display:flex;justify-content:center}
+  .radar svg{width:100%;max-width:420px;height:auto}
+
+  .ringwrap{display:flex;flex-direction:column;align-items:center;gap:8px}
+  .ringwrap .pos{font-size:34px;font-weight:800;font-variant-numeric:tabular-nums}
+  .ringwrap .pl{font-size:12.5px;color:var(--sub)}
+
+  .diag{display:grid;gap:12px}
+  @media(min-width:680px){.diag{grid-template-columns:1fr 1fr 1fr}}
+  .dcard{border:1px solid var(--line);border-radius:14px;padding:13px 14px;background:#fbfcfe}
+  .dhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+  .dname{font-weight:700;font-size:13.5px}
+  .dscore{font-weight:800;font-size:18px;font-variant-numeric:tabular-nums}
+  .bar{height:7px;border-radius:6px;background:#eceff4;overflow:hidden;margin:6px 0 9px}
+  .bar>i{display:block;height:100%;border-radius:6px;transition:width .5s}
+  .dkv{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--sub)}
+  .dkv b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+  .ddiag{margin-top:8px;font-size:12px;color:var(--sub);border-top:1px dashed var(--line);padding-top:7px}
+
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+  th:first-child,td:first-child{text-align:left}
+  th{color:var(--sub);font-weight:600;font-size:12px}
+  td .nm{font-weight:600}
+  .up{color:var(--red)} .dn{color:var(--green)}
+  tbody tr:hover{background:#f7f9fc}
+  .two{display:grid;gap:14px}
+  @media(min-width:820px){.two{grid-template-columns:1fr 1fr}}
+
+  .banner{display:none;background:#fff4e5;border:1px solid #ffd591;color:#a35a00;
+    padding:10px 14px;border-radius:12px;font-size:13px;margin-bottom:14px}
+  .foot{margin-top:18px;color:var(--sub);font-size:11.5px;line-height:1.7}
+  .src{display:inline-block;background:#eef2fb;color:var(--blue);padding:2px 8px;border-radius:6px;font-size:11px;margin-right:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="title"><span class="dot"></span>盘中市场强弱监控</div>
+    <div class="meta">
+      <span id="statusPill" class="pill closed">—</span>
+      <span>更新：<b id="updTime" class="count">—</b></span>
+      <span>下次刷新 <b id="countdown" class="count">--:--</b></span>
+      <button id="refreshBtn" class="btn">立即刷新</button>
+    </div>
+  </header>
+
+  <div id="banner" class="banner"></div>
+
+  <div class="grid top">
+    <!-- 温度计 -->
+    <div class="card">
+      <h3>市场温度（综合评分）</h3>
+      <div class="thermo">
+        <svg width="64" height="200" viewBox="0 0 64 200" id="thermoSvg"></svg>
+        <div class="read">
+          <div class="big"><span id="scoreBig">--</span><small>/100</small></div>
+          <div class="label" id="statusText">数据加载中…</div>
+          <div class="advice" id="adviceBox">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 仓位环 + 雷达 -->
+    <div class="card">
+      <h3>动态仓位系数 & 六维雷达</h3>
+      <div class="two" style="grid-template-columns:200px 1fr;align-items:center">
+        <div class="ringwrap">
+          <svg width="160" height="160" viewBox="0 0 160 160" id="ringSvg"></svg>
+          <div class="pos" id="posText">--<span style="font-size:18px">%</span></div>
+          <div class="pl">建议仓位系数</div>
+        </div>
+        <div class="radar"><svg viewBox="0 0 360 300" id="radarSvg"></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 六维诊断 -->
+  <div class="card" style="margin-top:14px">
+    <h3>六维强弱诊断</h3>
+    <div class="diag" id="diagGrid"></div>
+  </div>
+
+  <!-- 指数 + 板块 -->
+  <div class="two" style="margin-top:14px">
+    <div class="card">
+      <h3>大盘指数实时</h3>
+      <table id="idxTable"><thead><tr><th>指数</th><th>现价</th><th>涨跌幅</th><th>成交额</th></tr></thead>
+        <tbody><tr><td colspan="4" style="color:var(--sub)">加载中…</td></tr></tbody></table>
+    </div>
+    <div class="card">
+      <h3>板块资金流向 TOP10（主力净流入）</h3>
+      <table id="secTable"><thead><tr><th>板块</th><th>涨跌幅</th><th>主力净流入</th><th>涨跌家数</th></tr></thead>
+        <tbody><tr><td colspan="4" style="color:var(--sub)">加载中…</td></tr></tbody></table>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div style="margin-bottom:6px">
+      <span class="src">数据源 · 东方财富 push2（盘中实时）</span>
+      <span class="src">指数 · 东方财富 + 新浪兜底</span>
+      <span class="src">后端零依赖 · Python 标准库</span>
+    </div>
+    数据来自公开行情接口，盘中每 60 分钟自动刷新（收盘后保留最近一次结果）。本工具为量化参考，<b>不构成投资建议</b>；市场有风险，决策需谨慎。
+  </div>
+</div>
+
+<script>
+"use strict";
+const REFRESH_MS = 60 * 60 * 1000;
+const DIM_NAMES = {breadth:'涨跌比广度',volume:'量能健康度',sector:'板块资金集中度',fund:'主力资金流向',rsrs:'指数趋势',sentiment:'市场情绪温度'};
+const WEIGHTS = {breadth:.25,volume:.15,sector:.20,fund:.20,rsrs:.10,sentiment:.10};
+const $ = id => document.getElementById(id);
+const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
+function fmtYi(yuan){ const yi = Number(yuan||0)/1e8; const s = yi>=0?'+':''; return s+yi.toFixed(1)+'亿'; }
+function isTrading(){ const d=new Date(); if(d.getDay()===0||d.getDay()===6) return false; const t=d.getHours()*100+d.getMinutes(); return (t>=925&&t<=1130)||(t>=1300&&t<=1500); }
+function nowStr(){ const d=new Date(); const p=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`; }
+
+function showBanner(msg){ const b=$('banner'); b.textContent=msg; b.style.display='block'; }
+function hideBanner(){ $('banner').style.display='none'; }
+
+async function api(path, timeout=30000){
+  const ctrl = new AbortController();
+  const tm = setTimeout(()=>ctrl.abort(), timeout);
+  try{
+    const r = await fetch(path, {signal:ctrl.signal});
+    clearTimeout(tm);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    return await r.json();
+  }catch(e){ clearTimeout(tm); throw e; }
+}
+
+/* ============== 渲染 ============== */
+function renderThermo(score){
+  const h=180, top=10, bot=h-10, y=bot-(bot-top)*(score/100);
+  const col=score>=60?'var(--red)':(score>=40?'var(--amber)':'var(--green)');
+  $('thermoSvg').innerHTML=`
+    <defs><linearGradient id="tg" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#15a85a"/><stop offset=".5" stop-color="#f5a623"/><stop offset="1" stop-color="#e23b3b"/>
+    </linearGradient></defs>
+    <rect x="26" y="${top}" width="12" height="${bot-top}" rx="6" fill="#eceff4"/>
+    <rect x="26" y="${y}" width="12" height="${bot-y}" rx="6" fill="url(#tg)"/>
+    <circle cx="32" cy="${y}" r="9" fill="${col}" stroke="#fff" stroke-width="3"/>
+    <text x="32" y="6" text-anchor="middle" font-size="10" fill="#6b7785">强</text>
+    <text x="32" y="${h+2}" text-anchor="middle" font-size="10" fill="#6b7785">弱</text>`;
+  $('scoreBig').textContent=score.toFixed(0);
+  $('scoreBig').style.color=col;
+}
+function renderRing(pos,color){
+  const cx=80,cy=80,r=62,c=2*Math.PI*r, off=c*(1-pos/100);
+  $('ringSvg').innerHTML=`
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#eceff4" stroke-width="14"/>
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="14"
+      stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${off}"
+      transform="rotate(-90 ${cx} ${cy})" style="transition:stroke-dashoffset .6s"/>
+    <text x="${cx}" y="${cy+5}" text-anchor="middle" font-size="15" fill="${color}" font-weight="700">${pos}%</text>`;
+  $('posText').textContent=pos+'%';
+  $('posText').style.color=color;
+}
+function renderRadar(scores){
+  const R=110,cx=180,cy=150,keys=Object.keys(WEIGHTS);
+  const ang=i=> -Math.PI/2 + i*2*Math.PI/keys.length;
+  const pt=(i,rad)=>[cx+Math.cos(ang(i))*rad, cy+Math.sin(ang(i))*rad];
+  let grid='',labels='';
+  for(let g=1;g<=4;g++){
+    const rr=R*g/4; let pts=keys.map((_,i)=>pt(i,rr).join(',')).join(' ');
+    grid+=`<polygon points="${pts}" fill="none" stroke="#e6eaf0" stroke-width="1"/>`;
+  }
+  keys.forEach((k,i)=>{
+    const [x,y]=pt(i,R);
+    grid+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#e6eaf0"/>`;
+    const [lx,ly]=pt(i,R+22);
+    labels+=`<text x="${lx}" y="${ly}" text-anchor="middle" font-size="11" fill="#6b7785">${DIM_NAMES[k]}</text>
+             <text x="${lx}" y="${ly+13}" text-anchor="middle" font-size="11" font-weight="700" fill="#1f2733">${(scores[k]||0).toFixed(0)}</text>`;
+  });
+  const polyPts=keys.map((k,i)=>pt(i,R*((scores[k]||0)/100)).join(',')).join(' ');
+  $('radarSvg').innerHTML=grid+`<polygon points="${polyPts}" fill="rgba(47,111,237,.18)" stroke="#2f6fed" stroke-width="2"/>`+labels;
+}
+function renderDiag(scores,details){
+  const col=v=>v>=60?'var(--red)':(v>=40?'var(--amber)':'var(--green)');
+  const verdict=v=>v>=80?'强劲':(v>=60?'偏强':(v>=40?'中性':(v>=20?'偏弱':'疲弱')));
+  $('diagGrid').innerHTML=Object.keys(WEIGHTS).map(k=>{
+    const sc=scores[k]||0, det=details[k]||{};
+    const kv=Object.entries(det).map(([k,v])=>`<span>${k} <b>${v}</b></span>`).join('');
+    return `<div class="dcard">
+      <div class="dhead"><span class="dname">${DIM_NAMES[k]}</span><span class="dscore" style="color:${col(sc)}">${sc.toFixed(0)}</span></div>
+      <div class="bar"><i style="width:${sc}%;background:${col(sc)}"></i></div>
+      <div class="dkv">${kv}</div>
+      <div class="ddiag">诊断：${verdict(sc)}</div>
+    </div>`;
+  }).join('');
+}
+function renderIndices(idx){
+  $('idxTable').innerHTML=`<thead><tr><th>指数</th><th>现价</th><th>涨跌幅</th><th>成交额</th></tr></thead><tbody>`+
+    idx.map(i=>`<tr><td class="nm">${i.name}</td><td>${Number(i.price||0).toFixed(2)}</td>
+      <td class="${i.pct>=0?'up':'dn'}">${i.pct>=0?'+':''}${Number(i.pct||0).toFixed(2)}%</td>
+      <td>${(Number(i.amount||0)/1e8).toFixed(0)}亿</td></tr>`).join('')+`</tbody>`;
+}
+function renderSectors(secs){
+  const top=[...secs].sort((a,b)=>Number(b.main||0)-Number(a.main||0)).slice(0,10);
+  $('secTable').innerHTML=`<thead><tr><th>板块</th><th>涨跌幅</th><th>主力净流入</th><th>涨跌家数</th></tr></thead><tbody>`+
+    top.map(s=>`<tr><td class="nm">${s.name}</td>
+      <td class="${s.pct>=0?'up':'dn'}">${s.pct>=0?'+':''}${Number(s.pct||0).toFixed(2)}%</td>
+      <td class="${s.main>=0?'up':'dn'}">${fmtYi(s.main)}</td>
+      <td style="color:#6b7785">${s.up||0}/${s.down||0}</td></tr>`).join('')+`</tbody>`;
+}
+
+/* ============== 主流程 ============== */
+let nextAt=0, timer=null;
+function positionColor(pos){
+  if(pos>=80) return 'var(--red)';
+  if(pos>=60) return 'var(--red)';
+  if(pos>=40) return 'var(--amber)';
+  return 'var(--green)';
+}
+async function refresh(force=false){
+  $('refreshBtn').disabled=true; $('refreshBtn').textContent='刷新中…';
+  hideBanner();
+  try{
+    const data = await api(force?'/api/refresh':'/api/status', 35000);
+    if(!data || data.total_score==null){
+      showBanner('后端首次扫描中，请稍候自动刷新…');
+      // 首次扫描未完成时，5 秒后自动重试一次
+      setTimeout(()=>refresh(false), 5000);
+      return;
+    }
+    if(data.error && !data.total_score){
+      showBanner('数据获取失败：'+data.error);
+      return;
+    }
+    renderThermo(data.total_score);
+    renderRing(data.position, positionColor(data.position));
+    renderRadar(data.scores);
+    renderDiag(data.scores, data.details);
+    if(data.indices && data.indices.length) renderIndices(data.indices);
+    if(data.top_sectors && data.top_sectors.length) renderSectors(data.top_sectors);
+    $('statusText').textContent = data.status;
+    const ab=$('adviceBox'); ab.textContent=data.status; ab.style.background=positionColor(data.position); ab.style.color='#fff';
+    $('updTime').textContent = data.last_update || nowStr();
+    if(data.error) showBanner('数据部分异常：'+data.error);
+  }catch(err){
+    showBanner('连接后端失败：'+err.message+'（请确认服务已启动）');
+  }finally{
+    const trading=isTrading();
+    const sp=$('statusPill');
+    sp.textContent=trading?'盘中':'休市'; sp.className='pill '+(trading?'live':'closed');
+    $('refreshBtn').disabled=false; $('refreshBtn').textContent='立即刷新';
+    nextAt=Date.now()+REFRESH_MS;
+  }
+}
+function tick(){
+  if(!nextAt) return;
+  let s=Math.max(0,Math.round((nextAt-Date.now())/1000));
+  const m=String(Math.floor(s/60)).padStart(2,'0'), ss=String(s%60).padStart(2,'0');
+  $('countdown').textContent=m+':'+ss;
+  if(s===0) refresh();
+}
+$('refreshBtn').addEventListener('click',()=>refresh(true));
+refresh(false);
+setInterval(tick,1000);
+</script>
+</body>
+</html>
