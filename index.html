@@ -56,8 +56,6 @@
   .dscore{font-weight:800;font-size:18px;font-variant-numeric:tabular-nums}
   .bar{height:7px;border-radius:6px;background:#eceff4;overflow:hidden;margin:6px 0 9px}
   .bar>i{display:block;height:100%;border-radius:6px;transition:width .5s}
-  .dkv{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--sub)}
-  .dkv b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
   .ddiag{margin-top:8px;font-size:12px;color:var(--sub);border-top:1px dashed var(--line);padding-top:7px}
 
   table{width:100%;border-collapse:collapse;font-size:13px}
@@ -72,6 +70,9 @@
 
   .banner{display:none;background:#fff4e5;border:1px solid #ffd591;color:#a35a00;
     padding:10px 14px;border-radius:12px;font-size:13px;margin-bottom:14px}
+  .diaglist{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+  .diaglist li{background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:12.5px;color:var(--ink)}
+  .diaglist li::before{content:"›";color:var(--blue);font-weight:800;margin-right:8px}
   .foot{margin-top:18px;color:var(--sub);font-size:11.5px;line-height:1.7}
   .src{display:inline-block;background:#eef2fb;color:var(--blue);padding:2px 8px;border-radius:6px;font-size:11px;margin-right:6px}
 </style>
@@ -91,7 +92,6 @@
   <div id="banner" class="banner"></div>
 
   <div class="grid top">
-    <!-- 温度计 -->
     <div class="card">
       <h3>市场温度（综合评分）</h3>
       <div class="thermo">
@@ -104,7 +104,6 @@
       </div>
     </div>
 
-    <!-- 仓位环 + 雷达 -->
     <div class="card">
       <h3>动态仓位系数 & 六维雷达</h3>
       <div class="two" style="grid-template-columns:200px 1fr;align-items:center">
@@ -118,44 +117,43 @@
     </div>
   </div>
 
-  <!-- 六维诊断 -->
   <div class="card" style="margin-top:14px">
     <h3>六维强弱诊断</h3>
     <div class="diag" id="diagGrid"></div>
+    <ul class="diaglist" id="diagList"></ul>
   </div>
 
-  <!-- 指数 + 板块 -->
   <div class="two" style="margin-top:14px">
     <div class="card">
-      <h3>大盘指数实时</h3>
-      <table id="idxTable"><thead><tr><th>指数</th><th>现价</th><th>涨跌幅</th><th>成交额</th></tr></thead>
-        <tbody><tr><td colspan="4" style="color:var(--sub)">加载中…</td></tr></tbody></table>
+      <h3>大盘指数</h3>
+      <table id="idxTable"><thead><tr><th>指数</th><th>现价</th><th>涨跌幅</th></tr></thead>
+        <tbody><tr><td colspan="3" style="color:var(--sub)">加载中…</td></tr></tbody></table>
     </div>
     <div class="card">
-      <h3>板块资金流向 TOP10（主力净流入）</h3>
-      <table id="secTable"><thead><tr><th>板块</th><th>涨跌幅</th><th>主力净流入</th><th>涨跌家数</th></tr></thead>
-        <tbody><tr><td colspan="4" style="color:var(--sub)">加载中…</td></tr></tbody></table>
+      <h3>板块主力净流入 TOP（来自腾讯自选股）</h3>
+      <table id="secTable"><thead><tr><th>板块</th><th>涨跌幅</th><th>主力净流入</th></tr></thead>
+        <tbody><tr><td colspan="3" style="color:var(--sub)">加载中…</td></tr></tbody></table>
     </div>
   </div>
 
   <div class="foot">
     <div style="margin-bottom:6px">
-      <span class="src">数据源 · 东方财富 push2（盘中实时）</span>
-      <span class="src">指数 · 东方财富 + 新浪兜底</span>
-      <span class="src">后端零依赖 · Python 标准库</span>
+      <span class="src">数据源 · 腾讯自选股 MCP (westock-mcp)</span>
+      <span class="src">评分 · 六维加权（涨跌比/量能/板块/资金/趋势/情绪）</span>
+      <span class="src">托管 · 静态站点（Cloudflare Pages / GitHub Pages）</span>
     </div>
-    数据来自公开行情接口，盘中每 60 分钟自动刷新（收盘后保留最近一次结果）。本工具为量化参考，<b>不构成投资建议</b>；市场有风险，决策需谨慎。
+    数据由量化规则合成，盘中每 30 分钟自动刷新（收盘后保留最近一次结果）。本工具为参考分析，<b>不构成投资建议</b>；市场有风险，决策需谨慎。
   </div>
 </div>
 
 <script>
 "use strict";
-const REFRESH_MS = 60 * 60 * 1000;
-const DIM_NAMES = {breadth:'涨跌比广度',volume:'量能健康度',sector:'板块资金集中度',fund:'主力资金流向',rsrs:'指数趋势',sentiment:'市场情绪温度'};
-const WEIGHTS = {breadth:.25,volume:.15,sector:.20,fund:.20,rsrs:.10,sentiment:.10};
+const REFRESH_MS = 30 * 60 * 1000;
+const DIM_NAMES = {breadth:'涨跌比广度',volume:'量能健康度',sector:'板块资金集中度',fund:'主力资金流向',trend:'指数趋势',sentiment:'市场情绪温度'};
+const WEIGHTS = {breadth:.25,volume:.15,sector:.20,fund:.20,trend:.10,sentiment:.10};
 const $ = id => document.getElementById(id);
 const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
-function fmtYi(yuan){ const yi = Number(yuan||0)/1e8; const s = yi>=0?'+':''; return s+yi.toFixed(1)+'亿'; }
+function fmtYi(yi){ const v=Number(yi||0); const s=v>=0?'+':''; return s+v.toFixed(1)+'亿'; }
 function isTrading(){ const d=new Date(); if(d.getDay()===0||d.getDay()===6) return false; const t=d.getHours()*100+d.getMinutes(); return (t>=925&&t<=1130)||(t>=1300&&t<=1500); }
 function nowStr(){ const d=new Date(); const p=n=>String(n).padStart(2,'0'); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`; }
 
@@ -173,9 +171,54 @@ async function api(path, timeout=30000){
   }catch(e){ clearTimeout(tm); throw e; }
 }
 
+/* 优先读静态 data.json；回退到旧 server.py 的 /api/status（兼容本地调试） */
+async function loadData(){
+  try{
+    const d = await api('./data.json?t='+Date.now(), 20000);
+    if(d && d.score!=null) return normalizeStatic(d);
+  }catch(e){ /* 继续回退 */ }
+  const d = await api('/api/status', 20000);
+  return normalizeLegacy(d);
+}
+
+function normalizeStatic(d){
+  const dims = d.dimensions || {};
+  const scores = {};
+  Object.keys(WEIGHTS).forEach(k=>{ scores[k] = (dims[k] && dims[k].score!=null) ? dims[k].score : 0; });
+  return {
+    score: d.score,
+    position: d.position_pct,
+    position_label: d.position_label,
+    verdict: d.verdict,
+    scores: scores,
+    indices: (d.indices||[]).map(i=>({name:i.name, price:i.close, pct:i.chg_pct, amount:null})),
+    sectors: (d.sectors_top||[]).map(s=>({name:s.name, pct:s.zdf, main:s.zljlr})),
+    diagnostics: d.diagnostics || [],
+    updated: d.updated_at,
+    source: d.source,
+  };
+}
+function normalizeLegacy(d){
+  const scores = d.scores || {};
+  const out = {
+    score: d.total_score,
+    position: d.position,
+    position_label: d.status,
+    verdict: d.status,
+    scores: scores,
+    indices: (d.indices||[]).map(i=>({name:i.name, price:i.price, pct:i.pct, amount:i.amount})),
+    sectors: (d.top_sectors||[]).map(s=>({name:s.name, pct:s.pct, main:s.main})),
+    diagnostics: [],
+    updated: d.last_update,
+  };
+  // 旧版把诊断塞进 details，简单拼成文字
+  if(d.details){ Object.keys(d.details).forEach(k=>{ const o=d.details[k]; if(o&&o.诊断) out.diagnostics.push(o.诊断); }); }
+  return out;
+}
+
 /* ============== 渲染 ============== */
 function renderThermo(score){
-  const h=180, top=10, bot=h-10, y=bot-(bot-top)*(score/100);
+  const h=180, top=10, bot=h-10, y=bot-(bot-top)*(clamp(score,0,100)/100);
   const col=score>=60?'var(--red)':(score>=40?'var(--amber)':'var(--green)');
   $('thermoSvg').innerHTML=`
     <defs><linearGradient id="tg" x1="0" y1="1" x2="0" y2="0">
@@ -190,7 +233,7 @@ function renderThermo(score){
   $('scoreBig').style.color=col;
 }
 function renderRing(pos,color){
-  const cx=80,cy=80,r=62,c=2*Math.PI*r, off=c*(1-pos/100);
+  const cx=80,cy=80,r=62,c=2*Math.PI*r, off=c*(1-clamp(pos,0,100)/100);
   $('ringSvg').innerHTML=`
     <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#eceff4" stroke-width="14"/>
     <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="14"
@@ -216,40 +259,43 @@ function renderRadar(scores){
     labels+=`<text x="${lx}" y="${ly}" text-anchor="middle" font-size="11" fill="#6b7785">${DIM_NAMES[k]}</text>
              <text x="${lx}" y="${ly+13}" text-anchor="middle" font-size="11" font-weight="700" fill="#1f2733">${(scores[k]||0).toFixed(0)}</text>`;
   });
-  const polyPts=keys.map((k,i)=>pt(i,R*((scores[k]||0)/100)).join(',')).join(' ');
+  const polyPts=keys.map((k,i)=>pt(i,R*((clamp(scores[k]||0,0,100))/100)).join(',')).join(' ');
   $('radarSvg').innerHTML=grid+`<polygon points="${polyPts}" fill="rgba(47,111,237,.18)" stroke="#2f6fed" stroke-width="2"/>`+labels;
 }
-function renderDiag(scores,details){
+function renderDiag(scores){
   const col=v=>v>=60?'var(--red)':(v>=40?'var(--amber)':'var(--green)');
-  const verdict=v=>v>=80?'强劲':(v>=60?'偏强':(v>=40?'中性':(v>=20?'偏弱':'疲弱')));
   $('diagGrid').innerHTML=Object.keys(WEIGHTS).map(k=>{
-    const sc=scores[k]||0, det=details[k]||{};
-    const kv=Object.entries(det).map(([k,v])=>`<span>${k} <b>${v}</b></span>`).join('');
+    const sc=scores[k]||0; const lab=(normalizeLabel(k,sc));
     return `<div class="dcard">
       <div class="dhead"><span class="dname">${DIM_NAMES[k]}</span><span class="dscore" style="color:${col(sc)}">${sc.toFixed(0)}</span></div>
       <div class="bar"><i style="width:${sc}%;background:${col(sc)}"></i></div>
-      <div class="dkv">${kv}</div>
-      <div class="ddiag">诊断：${verdict(sc)}</div>
+      <div class="ddiag">状态：${lab}</div>
     </div>`;
   }).join('');
 }
+function normalizeLabel(k,sc){
+  // 用新 schema 的 dimensions[k].label（已在 scores 之外），这里用通用分级
+  if(sc>=80) return '强势';
+  if(sc>=60) return '偏强';
+  if(sc>=40) return '中性';
+  if(sc>=20) return '偏弱';
+  return '极弱';
+}
 function renderIndices(idx){
-  $('idxTable').innerHTML=`<thead><tr><th>指数</th><th>现价</th><th>涨跌幅</th><th>成交额</th></tr></thead><tbody>`+
+  $('idxTable').innerHTML=`<thead><tr><th>指数</th><th>现价</th><th>涨跌幅</th></tr></thead><tbody>`+
     idx.map(i=>`<tr><td class="nm">${i.name}</td><td>${Number(i.price||0).toFixed(2)}</td>
-      <td class="${i.pct>=0?'up':'dn'}">${i.pct>=0?'+':''}${Number(i.pct||0).toFixed(2)}%</td>
-      <td>${(Number(i.amount||0)/1e8).toFixed(0)}亿</td></tr>`).join('')+`</tbody>`;
+      <td class="${i.pct>=0?'up':'dn'}">${i.pct>=0?'+':''}${Number(i.pct||0).toFixed(2)}%</td></tr>`).join('')+`</tbody>`;
 }
 function renderSectors(secs){
   const top=[...secs].sort((a,b)=>Number(b.main||0)-Number(a.main||0)).slice(0,10);
-  $('secTable').innerHTML=`<thead><tr><th>板块</th><th>涨跌幅</th><th>主力净流入</th><th>涨跌家数</th></tr></thead><tbody>`+
+  $('secTable').innerHTML=`<thead><tr><th>板块</th><th>涨跌幅</th><th>主力净流入</th></tr></thead><tbody>`+
     top.map(s=>`<tr><td class="nm">${s.name}</td>
       <td class="${s.pct>=0?'up':'dn'}">${s.pct>=0?'+':''}${Number(s.pct||0).toFixed(2)}%</td>
-      <td class="${s.main>=0?'up':'dn'}">${fmtYi(s.main)}</td>
-      <td style="color:#6b7785">${s.up||0}/${s.down||0}</td></tr>`).join('')+`</tbody>`;
+      <td class="${s.main>=0?'up':'dn'}">${fmtYi(s.main)}</td></tr>`).join('')+`</tbody>`;
 }
 
 /* ============== 主流程 ============== */
-let nextAt=0, timer=null;
+let nextAt=0;
 function positionColor(pos){
   if(pos>=80) return 'var(--red)';
   if(pos>=60) return 'var(--red)';
@@ -260,29 +306,27 @@ async function refresh(force=false){
   $('refreshBtn').disabled=true; $('refreshBtn').textContent='刷新中…';
   hideBanner();
   try{
-    const data = await api(force?'/api/refresh':'/api/status', 35000);
-    if(!data || data.total_score==null){
-      showBanner('后端首次扫描中，请稍候自动刷新…');
-      // 首次扫描未完成时，5 秒后自动重试一次
-      setTimeout(()=>refresh(false), 5000);
+    const d = await loadData();
+    if(!d || d.score==null){
+      showBanner('数据加载失败，请稍后重试');
       return;
     }
-    if(data.error && !data.total_score){
-      showBanner('数据获取失败：'+data.error);
-      return;
+    renderThermo(d.score);
+    renderRing(d.position, positionColor(d.position));
+    renderRadar(d.scores);
+    renderDiag(d.scores);
+    if(d.indices && d.indices.length) renderIndices(d.indices);
+    if(d.sectors && d.sectors.length) renderSectors(d.sectors);
+    $('statusText').textContent = d.verdict || '';
+    const ab=$('adviceBox'); ab.textContent=d.position_label||''; ab.style.background=positionColor(d.position); ab.style.color='#fff';
+    $('updTime').textContent = d.updated || nowStr();
+    if(d.diagnostics && d.diagnostics.length){
+      $('diagList').innerHTML = d.diagnostics.map(x=>`<li>${x}</li>`).join('');
+    } else {
+      $('diagList').innerHTML = '';
     }
-    renderThermo(data.total_score);
-    renderRing(data.position, positionColor(data.position));
-    renderRadar(data.scores);
-    renderDiag(data.scores, data.details);
-    if(data.indices && data.indices.length) renderIndices(data.indices);
-    if(data.top_sectors && data.top_sectors.length) renderSectors(data.top_sectors);
-    $('statusText').textContent = data.status;
-    const ab=$('adviceBox'); ab.textContent=data.status; ab.style.background=positionColor(data.position); ab.style.color='#fff';
-    $('updTime').textContent = data.last_update || nowStr();
-    if(data.error) showBanner('数据部分异常：'+data.error);
   }catch(err){
-    showBanner('连接后端失败：'+err.message+'（请确认服务已启动）');
+    showBanner('数据获取失败：'+err.message);
   }finally{
     const trading=isTrading();
     const sp=$('statusPill');
