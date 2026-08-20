@@ -1,0 +1,60 @@
+{
+  "ok": true,
+  "data": [
+    {
+      "listCode": "market_statis_updown",
+      "row": {
+        "CNT_RED": 4096,
+        "CNT_GREEN": 1347,
+        "CNT_ZERO": 105,
+        "CNT_TOTAL": 5548,
+        "CNT_REACH_UPLIMIT": 77,
+        "CNT_REACH_DNLIMIT": 0,
+        "CNT_HIGH20": 429,
+        "CNT_LOW20": 200,
+        "date": "2026-08-20"
+      }
+    },
+    {
+      "listCode": "market_statis_daily_trade",
+      "row": {
+        "CLOSE_PRICE_SZZS": 3903.72,
+        "CHANGE_PCT_SZZS": 0.24,
+        "CLOSE_PRICE_SZCZ": 13972.78,
+        "CHANGE_PCT_SZCZ": 0.59,
+        "CLOSE_PRICE_CYBZ": 3495.59,
+        "CHANGE_PCT_CYBZ": 0.64,
+        "MONEY": 20793.63,
+        "MONEY_5DAVG_RATIO": 90.24,
+        "MONEY_10DAVG_RATIO": 87.61,
+        "MONEY_20DAVG_RATIO": 89.73,
+        "date": "2026-08-20"
+      }
+    },
+    {
+      "listCode": "market_statis_technical",
+      "row": {
+        "MA_5": 3939.654,
+        "MA_10": 3941.263,
+        "MA_20": 3888.7265,
+        "MA_60": 3973.5955,
+        "MA_250": 3977.9774,
+        "MACD": 17.8009,
+        "DIF": 1.7988,
+        "DEA": -7.1016,
+        "RSI_6": 44.0011,
+        "RSI_12": 48.0795,
+        "RSI_24": 47.4265,
+        "KDJ_K": 50.043,
+        "KDJ_D": 69.1116,
+        "KDJ_J": 11.9058
+      }
+    },
+    {
+      "listCode": "market_statis_valuation",
+      "row": {
+        "PE_TTM_PCT_10Y": 88.25
+      }
+    }
+  ]
+}
