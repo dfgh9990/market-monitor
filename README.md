@@ -3,9 +3,10 @@
 基于六维市场强弱评分（涨跌比广度 / 量能健康度 / 板块资金集中度 / 主力资金流向 / 指数趋势 / 市场情绪温度），
 加权合成综合评分并映射成动态仓位系数（0~100%），**盘中每 30 分钟自动刷新**。
 
-数据来源为 **腾讯自选股 MCP（westock-mcp）+ 通达信实时广度**：
-- **板块资金流 / 量能 / 指数趋势** → 腾讯自选股 MCP（`data_market_overview` + `data_sector`）
+数据来源为 **腾讯自选股 MCP（westock-mcp）+ 通达信实时（广度/连板/指数）**：
+- **板块资金流（板块集中度 / 主力资金流向）** → 腾讯自选股 MCP `data_sector`（盘中实时）
 - **涨跌比广度 / 市场情绪温度** → 通达信 `tdx_screener`（`message="上涨/下跌/平盘/涨停/跌停"`，读 `meta.total`，盘中实时刷新）
+- **大盘指数 / 量能 / 指数趋势** → 通达信 `tdx_quotes`（三大指数 + 深证综指，盘中实时，替代腾讯 overview 的日线滞后）
 
 由定时任务抓取真实盘面 → 跑评分引擎 → 生成 `data.json`（含**当日温度曲线历史**与**连板最高标 Top5**）→
 托管到静态站点（Cloudflare Pages / GitHub Pages），任意设备浏览器即可访问。**完全免费、无需信用卡、数据真实**。
@@ -17,6 +18,7 @@
 │  腾讯自选股 MCP ──> overview_raw.json / sector_raw.json             │
 │  通达信 tdx_screener ──> tdx_breadth.py ──> breadth_raw.json (实时) │
 │  通达信 tdx_screener(连续涨停) ──> tdx_limitup.py ──> limitup_raw.json │
+│  通达信 tdx_quotes(三大指数) ──> tdx_indices.py ──> indices_raw.json  │
 └──────────────────────────────┬─────────────────────────────────────┘
                                 ▼ pipeline.py（六维评分引擎）
                             data.json
@@ -31,6 +33,7 @@
 - `tdx_breadth.py` 取数/落盘失败时（tdx_screener 异常、或 total<4000 被截断）**自动回退**到 overview 的日线广度，页面不会崩、不会写脏数据。
 - **连板最高标走通达信 `tdx_screener(message="连续涨停")`**：返回含 `连续涨停天数0#` 字段的当前连板股列表，`tdx_limitup.py` 抽取为 `limitup_raw.json`，pipeline 排序取最高标 + Top5。
 - **当日温度曲线**：每次盘中刷新把当前综合评分快照追加进 `temperature_history.json`（按日期分桶、同分钟去重），前端绘制 09:30–15:00 的盘中评分曲线。
+- **大盘指数/量能走通达信 `tdx_quotes`**：腾讯 overview 的指数收盘与量能为日线口径（盘中不变），故三大指数实时行情（现价/涨跌幅/成交额/换手率）改由通达信提供：`tdx_indices.py` 解析 4 个指数（上证 000001、深证成指 399001、创业板指 399006 + 深证综指 399106 用于两市成交额）→ `indices_raw.json`，pipeline 用其覆盖 `indices`（前端表格）、量能 `amount_yi`（两市实时成交额 vs 10日均值）与趋势 `price`（上证实时价 vs 日线均线）。失败自动回退腾讯日线。
 
 ## 六维权重
 
@@ -152,11 +155,13 @@ python tdx_limitup.py limitup_raw_mcp.json
 | `pipeline.py` | 管线入口：读 MCP 原始 JSON（+ 可选 breadth_raw.json / limitup_raw.json）→ 生成 `data.json`；维护 `icepoint_state.json` 并追加 `temperature_history.json` |
 | `tdx_breadth.py` | 通达信实时涨跌家数落盘（读 tdx_screener 的 5 个口径，带一致性校验，失败回退日线） |
 | `tdx_limitup.py` | 通达信连板数据落盘（读 `tdx_screener(message="连续涨停")` 返回 JSON，抽取 `连续涨停天数0#` 等字段） |
+| `tdx_indices.py` | 通达信三大指数实时行情落盘（读 `tdx_quotes` 4 个指数返回，输出 `indices_raw.json` 含两市成交额） |
 | `realtime_breadth.py` | ⚠️ 已弃用：东方财富 push2 在沙箱被限流，不再使用（保留备用） |
 | `make_initial.py` | 用真实收盘快照生成首份 `data.json`（部署 / 自测用） |
 | `overview_raw.json` / `sector_raw.json` | MCP 原始数据落盘（供 pipeline 消费） |
 | `breadth_raw.json` | 通达信实时广度快照（盘中生成，失败则不存在→回退日线 overview） |
 | `limitup_raw.json` | 通达信连板数据快照（`连续涨停天数0#` 排序，供 pipeline 注入最高标与 Top5） |
+| `indices_raw.json` | 通达信三大指数实时快照（含两市成交额，供 pipeline 覆盖指数/量能/趋势维度） |
 | `temperature_history.json` | 当日温度曲线历史（按日期分桶，每次刷新追加 `{time, score, position}`；**不可手动删除**） |
 | `icepoint_state.json` | 冰点逆修正的连续天数状态（持久化、随仓库推送；**不可手动删除**） |
 | `update_github.py` | 推送数据文件到 GitHub（仅数据，不动源码；Token 取自 `GITHUB_PAT`；清单含 `icepoint_state.json`/`limitup_raw.json`/`temperature_history.json`） |
