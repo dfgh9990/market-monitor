@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-08-20 15:00",
+  "updated_at": "2026-08-21 09:41",
   "trading": true,
-  "score": 65.1,
-  "position_pct": 65,
-  "position_label": "偏强操作",
-  "verdict": "偏强震荡，可适度加仓",
+  "score": 59.0,
+  "position_pct": 59,
+  "position_label": "震荡灵活",
+  "verdict": "震荡行情，灵活应对",
   "dimensions": {
     "breadth": {
       "score": 91.8,
@@ -15,11 +15,11 @@
       "label": "偏弱"
     },
     "sector": {
-      "score": 76.4,
-      "label": "偏强"
+      "score": 44.3,
+      "label": "中性"
     },
     "fund": {
-      "score": 49.5,
+      "score": 51.0,
       "label": "中性"
     },
     "trend": {
@@ -53,35 +53,25 @@
   ],
   "sectors_top": [
     {
-      "name": "医疗服务",
-      "zdf": 4.24,
-      "zljlr": 38.722381
+      "name": "通信设备",
+      "zdf": -0.17,
+      "zljlr": 4.470756
+    },
+    {
+      "name": "电子化学品Ⅱ",
+      "zdf": -0.69,
+      "zljlr": 1.71386
     },
     {
       "name": "生物制品",
-      "zdf": 7.85,
-      "zljlr": 33.054364
-    },
-    {
-      "name": "化学制药",
-      "zdf": 2.55,
-      "zljlr": 27.707253
-    },
-    {
-      "name": "贵金属",
-      "zdf": 5.5,
-      "zljlr": 13.0
-    },
-    {
-      "name": "医疗器械",
-      "zdf": 4.27,
-      "zljlr": 9.0
+      "zdf": -1.2,
+      "zljlr": 0.9687309999999999
     }
   ],
   "diagnostics": [
     "量能仅为10日均值的88%，反弹持续性存疑",
     "指数低于中长期均线，中期趋势仍偏弱",
-    "主线集中于医疗服务（4.24%），注意板块轮动风险",
+    "主线集中于通信设备（-0.17%），注意板块轮动风险",
     "普涨格局（涨股比74%），情绪高涨"
   ],
   "breadth_detail": {
