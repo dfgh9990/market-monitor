@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-08-21 09:41",
+  "updated_at": "2026-08-21 10:15",
   "trading": true,
-  "score": 59.0,
-  "position_pct": 59,
-  "position_label": "震荡灵活",
-  "verdict": "震荡行情，灵活应对",
+  "score": 65.1,
+  "position_pct": 65,
+  "position_label": "偏强操作",
+  "verdict": "偏强震荡，可适度加仓",
   "dimensions": {
     "breadth": {
       "score": 91.8,
@@ -15,12 +15,12 @@
       "label": "偏弱"
     },
     "sector": {
-      "score": 44.3,
+      "score": 58.9,
       "label": "中性"
     },
     "fund": {
-      "score": 51.0,
-      "label": "中性"
+      "score": 67.2,
+      "label": "偏强"
     },
     "trend": {
       "score": 28.4,
@@ -54,24 +54,24 @@
   "sectors_top": [
     {
       "name": "通信设备",
-      "zdf": -0.17,
-      "zljlr": 4.470756
+      "zdf": 3.48,
+      "zljlr": 57.96571899999999
     },
     {
-      "name": "电子化学品Ⅱ",
-      "zdf": -0.69,
-      "zljlr": 1.71386
+      "name": "半导体",
+      "zdf": 1.63,
+      "zljlr": 29.573619
     },
     {
-      "name": "生物制品",
-      "zdf": -1.2,
-      "zljlr": 0.9687309999999999
+      "name": "元件",
+      "zdf": 2.96,
+      "zljlr": 15.370234
     }
   ],
   "diagnostics": [
     "量能仅为10日均值的88%，反弹持续性存疑",
     "指数低于中长期均线，中期趋势仍偏弱",
-    "主线集中于通信设备（-0.17%），注意板块轮动风险",
+    "主线集中于通信设备（3.48%），注意板块轮动风险",
     "普涨格局（涨股比74%），情绪高涨"
   ],
   "breadth_detail": {
