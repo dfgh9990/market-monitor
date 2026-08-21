@@ -346,12 +346,12 @@ function renderSectors(secs, ranks){
       <td class="${s.pct>=0?'up':'dn'}">${s.pct>=0?'+':''}${Number(s.pct||0).toFixed(2)}%</td>
       <td>${s.leader?`${s.leader} <span class="${s.leaderPct>=0?'up':'dn'}" style="font-size:11px">${s.leaderPct>=0?'+':''}${Number(s.leaderPct||0).toFixed(2)}%</span>`:'—'}</td></tr>`).join('')
       :'<tr><td colspan="3" style="color:var(--sub)">暂无板块涨幅数据</td></tr>')+`</tbody>`;
-  // 主力净流入 TOP（fundflow.plate.top/bottom）
-  const top=[...secs].sort((a,b)=>Number(b.main||0)-Number(a.main||0)).slice(0,10);
+  // 主力净流入 TOP（fundflow.plate.top/bottom；公开接口无资金流时显示"—"）
+  const top=[...secs].sort((a,b)=>Number(b.main||-9999)-Number(a.main||-9999)).slice(0,10);
   $('secTable').innerHTML=`<thead><tr><th>板块</th><th>涨跌幅</th><th>主力净流入</th></tr></thead><tbody>`+
     (top.length? top.map(s=>`<tr><td class="nm">${s.name}</td>
       <td class="${s.pct>=0?'up':'dn'}">${s.pct>=0?'+':''}${Number(s.pct||0).toFixed(2)}%</td>
-      <td class="${s.main>=0?'up':'dn'}">${fmtYi(s.main)}</td></tr>`).join('')
+      <td class="${s.main==null?'':(s.main>=0?'up':'dn')}">${s.main==null?'—':fmtYi(s.main)}</td></tr>`).join('')
       :'<tr><td colspan="3" style="color:var(--sub)">暂无资金流数据</td></tr>')+`</tbody>`;
 }
 
