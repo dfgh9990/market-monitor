@@ -1,13 +1,13 @@
 {
-  "updated_at": "2026-08-21 13:07",
+  "updated_at": "2026-08-21 13:08",
   "trading": true,
-  "score": 52.2,
+  "score": 51.0,
   "position_pct": 60,
   "position_label": "震荡灵活",
   "verdict": "高抛低吸",
   "dimensions": {
     "breadth": {
-      "score": 51.7,
+      "score": 46.2,
       "label": "正常"
     },
     "volume": {
@@ -27,7 +27,7 @@
       "label": "偏弱"
     },
     "sentiment": {
-      "score": 44.0,
+      "score": 45.6,
       "label": "⚠️ 情绪偏热，注意分化"
     }
   },
@@ -74,16 +74,16 @@
     "主线集中于通信设备（2.88%），注意板块轮动风险"
   ],
   "breadth_detail": {
-    "up": 1834,
-    "down": 3557,
-    "flat": 152,
-    "total": 5543,
-    "limit_up": 47,
+    "up": 1730,
+    "down": 3679,
+    "flat": 139,
+    "total": 5548,
+    "limit_up": 45,
     "limit_down": 9,
     "high20": 429,
     "low20": 200,
-    "上涨比例": "33.1%",
-    "涨跌停比": 0.84,
+    "上涨比例": "31.2%",
+    "涨跌停比": 0.83,
     "市场状态": "正常",
     "计分模型": "反身性冷却(非对称)",
     "情绪定性": "⚠️ 情绪偏热，注意分化",
@@ -99,7 +99,7 @@
     "corrected_score": null,
     "message": "",
     "note": "",
-    "up_ratio": 33.1
+    "up_ratio": 31.2
   },
   "source": "腾讯自选股 MCP + 通达信实时广度"
 }
