@@ -171,8 +171,8 @@
         </div>
         <div id="luHReason" style="margin-top:8px;font-size:12.5px;color:var(--sub);line-height:1.6"></div>
       </div>
-      <table id="luTable"><thead><tr><th>#</th><th>名称</th><th>代码</th><th>连板</th><th>几天几板</th><th>涨幅</th><th>板型</th></tr></thead>
-        <tbody><tr><td colspan="7" style="color:var(--sub)">加载中…</td></tr></tbody></table>
+      <table id="luTable"><thead><tr><th>#</th><th>名称</th><th>代码</th><th>连板</th><th>几天几板</th><th>涨幅</th><th>板型</th><th>题材</th></tr></thead>
+        <tbody><tr><td colspan="8" style="color:var(--sub)">加载中…</td></tr></tbody></table>
     </div>
   </div>
 
@@ -401,7 +401,7 @@ function renderTempCurve(history){
 function renderLimitup(lu){
   const wrap=$('limitupWrap');
   if(!lu || !lu.top5 || lu.top5.length===0){
-    $('luTable').innerHTML='<tbody><tr><td colspan="7" style="color:var(--sub)">暂无连板数据</td></tr></tbody>';
+    $('luTable').innerHTML='<tbody><tr><td colspan="8" style="color:var(--sub)">暂无连板数据</td></tr></tbody>';
     $('limitupHighest').style.display='none';
     return;
   }
@@ -420,7 +420,7 @@ function renderLimitup(lu){
     $('limitupHighest').style.display='block';
   }
   // Top5 表
-  $('luTable').innerHTML='<thead><tr><th>#</th><th>名称</th><th>代码</th><th>连板</th><th>几天几板</th><th>涨幅</th><th>板型</th></tr></thead><tbody>'+
+  $('luTable').innerHTML='<thead><tr><th>#</th><th>名称</th><th>代码</th><th>连板</th><th>几天几板</th><th>涨幅</th><th>板型</th><th>题材</th></tr></thead><tbody>'+
     lu.top5.map((s,i)=>`<tr>
       <td>${i+1}</td>
       <td class="nm">${s.name}</td>
@@ -429,6 +429,7 @@ function renderLimitup(lu){
       <td>${s.days_boards||'—'}</td>
       <td class="up">+${s.chg.toFixed(2)}%</td>
       <td style="font-size:11.5px;color:var(--sub)">${s.board_type||'—'}</td>
+      <td style="font-size:11px;color:var(--sub);max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${(s.themes||'').replace(/"/g,'&quot;')}">${s.themes||'—'}</td>
     </tr>`).join('')+`</tbody>`;
 }
 
