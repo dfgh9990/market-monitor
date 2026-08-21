@@ -1,10 +1,10 @@
 {
-  "updated_at": "2026-08-21 11:50",
+  "updated_at": "2026-08-21 13:07",
   "trading": true,
-  "score": 51.9,
-  "position_pct": 52,
+  "score": 52.2,
+  "position_pct": 60,
   "position_label": "震荡灵活",
-  "verdict": "震荡行情，灵活应对",
+  "verdict": "高抛低吸",
   "dimensions": {
     "breadth": {
       "score": 51.7,
@@ -15,11 +15,11 @@
       "label": "偏弱"
     },
     "sector": {
-      "score": 56.6,
+      "score": 56.5,
       "label": "中性"
     },
     "fund": {
-      "score": 72.5,
+      "score": 74.0,
       "label": "偏强"
     },
     "trend": {
@@ -54,24 +54,24 @@
   "sectors_top": [
     {
       "name": "通信设备",
-      "zdf": 2.75,
-      "zljlr": 70.530908
-    },
-    {
-      "name": "元件",
-      "zdf": 2.89,
-      "zljlr": 27.649865000000002
+      "zdf": 2.88,
+      "zljlr": 74.692759
     },
     {
       "name": "工业金属",
-      "zdf": 1.62,
-      "zljlr": 25.745479
+      "zdf": 1.68,
+      "zljlr": 29.494271
+    },
+    {
+      "name": "元件",
+      "zdf": 2.64,
+      "zljlr": 27.934520000000003
     }
   ],
   "diagnostics": [
     "量能仅为10日均值的88%，反弹持续性存疑",
     "指数低于中长期均线，中期趋势仍偏弱",
-    "主线集中于通信设备（2.75%），注意板块轮动风险"
+    "主线集中于通信设备（2.88%），注意板块轮动风险"
   ],
   "breadth_detail": {
     "up": 1834,
@@ -92,5 +92,14 @@
   "breadth_realtime": true,
   "overheat": false,
   "market_status": "正常",
+  "icepoint": {
+    "active": false,
+    "days": 0,
+    "level": 0,
+    "corrected_score": null,
+    "message": "",
+    "note": "",
+    "up_ratio": 33.1
+  },
   "source": "腾讯自选股 MCP + 通达信实时广度"
 }
