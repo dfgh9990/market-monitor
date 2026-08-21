@@ -1,10 +1,10 @@
 {
-  "up": 2517,
-  "down": 2841,
-  "flat": 173,
-  "total": 5531,
-  "limit_up": 57,
+  "up": 2505,
+  "down": 2862,
+  "flat": 177,
+  "total": 5544,
+  "limit_up": 58,
   "limit_down": 15,
   "source": "tongdaxin_realtime",
-  "fetched_at": "2026-08-21 14:51"
+  "fetched_at": "2026-08-21 15:13"
 }
