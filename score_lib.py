@@ -102,10 +102,15 @@ def extract_overview(overview_json):
 
 def extract_sector(sector_json):
     """sector_json: westock data_sector(mode='ranking') 的原始返回。
-    注意：MCP 返回的 zljlr 单位为「万元」，这里统一换算成「亿元」。"""
+    注意：MCP 返回的 zljlr 单位为「万元」，这里统一换算成「亿元」。
+    输出两块：
+      - sector_top/sector_bottom：按主力净流入排名的板块（fundflow.plate.top/bottom）
+      - sector_rank：按涨跌幅排名的板块（rank.plate，含领涨股，供前端「板块涨幅 TOP」）"""
     top, bottom = [], []
+    rank = []
     if isinstance(sector_json, dict) and sector_json.get("ok"):
-        ff = sector_json.get("data", {}).get("fundflow", {})
+        data = sector_json.get("data", {})
+        ff = data.get("fundflow", {})
         plate = ff.get("plate", {})
         for t in plate.get("top", [])[:5]:
             z = _to_float(t.get("zljlr"))
@@ -115,8 +120,20 @@ def extract_sector(sector_json):
             z = _to_float(t.get("zljlr"))
             bottom.append({"name": t.get("name"), "zdf": _to_float(t.get("zdf")),
                            "zljlr": (z / 10000.0) if z is not None else None})
+        # 板块涨幅排行（rank.plate：bd_name/bd_zdf/bd_lb/bd_hsl/nzg_name/nzg_zdf）
+        for t in data.get("rank", {}).get("plate", [])[:10]:
+            if not t.get("bd_name"):
+                continue
+            rank.append({
+                "name": t.get("bd_name"),
+                "zdf": _to_float(t.get("bd_zdf")),
+                "lb": _to_float(t.get("bd_lb")),
+                "hsl": _to_float(t.get("bd_hsl")),
+                "leader": t.get("nzg_name"),
+                "leader_zdf": _to_float(t.get("nzg_zdf")),
+            })
     # 默认按「主线清晰（上涨板块 60~80%）」给 0.7；精确值可由调用方覆盖
-    return {"sector_top": top, "sector_bottom": bottom, "sector_rising_ratio": 0.7}
+    return {"sector_top": top, "sector_bottom": bottom, "sector_rank": rank, "sector_rising_ratio": 0.7}
 
 
 # ---------- 六维评分 ----------
@@ -401,6 +418,7 @@ def compute(raw, ts=None, icepoint=None):
         "dimensions": dimensions_out,
         "indices": raw.get("indices", []),
         "sectors_top": sectors_top,
+        "sectors_rank": raw.get("sector_rank", []),
         "diagnostics": diags,
         "breadth_detail": bd,
         "breadth_realtime": breadth_realtime,
