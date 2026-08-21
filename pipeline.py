@@ -107,6 +107,89 @@ def update_icepoint(breadth, state, date_str):
     }
 
 
+# ---------- 连板最高标 ----------
+def load_limitup(limitup_path):
+    """读取 tdx_screener(message='连续涨停') 的返回 JSON，提取连板数最高的 Top5。
+
+    返回 {"highest": {...}, "top5": [...], "total": N} 或 None。
+    """
+    if not limitup_path or not os.path.exists(limitup_path):
+        return None
+    try:
+        with open(limitup_path, "r", encoding="utf-8") as f:
+            raw = json.load(f)
+    except Exception:
+        return None
+    # screener 返回可能被包在 markdown 里，尝试提取 JSON
+    if not isinstance(raw, dict):
+        return None
+    data = raw.get("data")
+    if not data:
+        # 可能存的是 MCP 返回的完整响应文本，尝试从中提取 JSON
+        return None
+
+    def _f(v, d=0.0):
+        try:
+            return float(v)
+        except (TypeError, ValueError):
+            return d
+
+    def sort_key(s):
+        return _f(s.get("连续涨停天数0#", 0))
+
+    data_sorted = sorted(data, key=sort_key, reverse=True)
+    top5 = []
+    for s in data_sorted[:5]:
+        top5.append({
+            "code": str(s.get("sec_code", "")),
+            "name": str(s.get("sec_name", "")),
+            "price": str(s.get("now_price", "")),
+            "chg": _f(s.get("chg", 0)),
+            "consecutive_days": int(_f(s.get("连续涨停天数0#", 0))),
+            "days_boards": str(s.get("几天几板", "")),
+            "board_type": str(s.get("板型", "")),
+            "seal_amount_wan": _f(s.get("涨停成交额(万)", 0)),
+            "themes": str(s.get("短线主题名称", "")),
+            "reason": str(s.get("原因揭秘", "")),
+        })
+    highest = top5[0] if top5 else None
+    total = raw.get("meta", {}).get("total", len(data)) if isinstance(raw.get("meta"), dict) else len(data)
+    return {"highest": highest, "top5": top5, "total": total}
+
+
+# ---------- 当日温度曲线 ----------
+def append_temperature(out, history_path):
+    """把本次评分快照追加到 temperature_history.json（按日期分组，同分钟去重）。
+
+    返回当日温度历史列表 [{"time":"HH:MM","score":N,"position":N}, ...]。
+    """
+    ts = out.get("updated_at", "")
+    date = ts[:10] if len(ts) >= 10 else datetime.date.today().isoformat()
+    time = ts[11:16] if len(ts) >= 16 else datetime.datetime.now().strftime("%H:%M")
+    entry = {"time": time, "score": out.get("score", 0), "position": out.get("position_pct", 0)}
+
+    try:
+        with open(history_path, "r", encoding="utf-8") as f:
+            hist = json.load(f)
+        if not isinstance(hist, dict):
+            hist = {}
+    except Exception:
+        hist = {}
+
+    day_data = hist.get(date, [])
+    if not isinstance(day_data, list):
+        day_data = []
+    day_data = [e for e in day_data if e.get("time") != time]  # 同分钟去重
+    day_data.append(entry)
+    day_data.sort(key=lambda e: e.get("time", ""))
+    hist[date] = day_data
+
+    with open(history_path, "w", encoding="utf-8") as f:
+        json.dump(hist, f, ensure_ascii=False, indent=2)
+
+    return day_data
+
+
 def merge_realtime_breadth(raw, breadth_path):
     """用实时广度覆盖 raw['breadth'] 的盘中字段；high20/low20 仍取日线（实时无此统计）。"""
     if not breadth_path or not os.path.exists(breadth_path):
@@ -176,7 +259,7 @@ def cross_validate_tdx(raw, tdx_path):
     return "；".join(notes) if notes else None
 
 
-def build(overview_path, sector_path, out_path, breadth_path=None, ts=None):
+def build(overview_path, sector_path, out_path, breadth_path=None, ts=None, limitup_path=None):
     with open(overview_path, "r", encoding="utf-8") as f:
         ov = json.load(f)
     with open(sector_path, "r", encoding="utf-8") as f:
@@ -193,6 +276,17 @@ def build(overview_path, sector_path, out_path, breadth_path=None, ts=None):
     out = compute(raw, ts=ts, icepoint=ip)
     if tdx_note:
         out.setdefault("diagnostics", []).append(tdx_note)
+
+    # 连板最高标 Top5
+    work_dir = os.path.dirname(os.path.abspath(out_path))
+    lp = load_limitup(limitup_path or os.path.join(work_dir, "limitup_raw.json"))
+    if lp:
+        out["limitup"] = lp
+
+    # 当日温度曲线（追加并写入 temperature_history.json）
+    history_path = os.path.join(work_dir, "temperature_history.json")
+    out["temperature_history"] = append_temperature(out, history_path)
+
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
     return out
@@ -200,12 +294,16 @@ def build(overview_path, sector_path, out_path, breadth_path=None, ts=None):
 
 if __name__ == "__main__":
     if len(sys.argv) < 4:
-        print("usage: python pipeline.py overview_raw.json sector_raw.json data.json [breadth_raw.json]")
+        print("usage: python pipeline.py overview_raw.json sector_raw.json data.json [breadth_raw.json] [limitup_raw.json]")
         sys.exit(1)
     out = build(sys.argv[1], sys.argv[2], sys.argv[3],
-                breadth_path=(sys.argv[4] if len(sys.argv) > 4 else None))
+                breadth_path=(sys.argv[4] if len(sys.argv) > 4 else None),
+                limitup_path=(sys.argv[5] if len(sys.argv) > 5 else None))
     rt = "（实时广度+通达信校验）" if out.get("breadth_realtime") else "（日线广度）"
     print("综合评分: {score}  仓位系数: {position_pct}%  ({position_label}) {rt}".format(rt=rt, **out))
     if out.get("overheat"):
         print("⚠️ 高潮预警：", out.get("market_status"))
+    if out.get("limitup") and out["limitup"].get("highest"):
+        h = out["limitup"]["highest"]
+        print("连板最高标：{}（{}）{}连板 {}".format(h["name"], h["code"], h["consecutive_days"], h["days_boards"]))
     print("已写入:", sys.argv[3])
