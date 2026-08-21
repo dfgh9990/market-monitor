@@ -1,13 +1,13 @@
 {
-  "updated_at": "2026-08-21 14:46",
+  "updated_at": "2026-08-21 14:51",
   "trading": true,
-  "score": 51.0,
-  "position_pct": 60,
-  "position_label": "震荡灵活",
-  "verdict": "高抛低吸",
+  "score": 62.2,
+  "position_pct": 80,
+  "position_label": "偏强操作",
+  "verdict": "顺势加码",
   "dimensions": {
     "breadth": {
-      "score": 46.2,
+      "score": 87.2,
       "label": "正常"
     },
     "volume": {
@@ -27,7 +27,7 @@
       "label": "偏弱"
     },
     "sentiment": {
-      "score": 45.6,
+      "score": 56.0,
       "label": "⚠️ 情绪偏热，注意分化"
     }
   },
@@ -71,19 +71,20 @@
   "diagnostics": [
     "量能仅为10日均值的88%，反弹持续性存疑",
     "指数低于中长期均线，中期趋势仍偏弱",
-    "主线集中于通信设备（2.88%），注意板块轮动风险"
+    "主线集中于通信设备（2.88%），注意板块轮动风险",
+    "普涨格局（涨股比46%），情绪高涨"
   ],
   "breadth_detail": {
-    "up": 1730,
-    "down": 3679,
-    "flat": 139,
-    "total": 5548,
-    "limit_up": 45,
-    "limit_down": 9,
+    "up": 2517,
+    "down": 2841,
+    "flat": 173,
+    "total": 5531,
+    "limit_up": 57,
+    "limit_down": 15,
     "high20": 429,
     "low20": 200,
-    "上涨比例": "31.2%",
-    "涨跌停比": 0.83,
+    "上涨比例": "45.5%",
+    "涨跌停比": 0.79,
     "市场状态": "正常",
     "计分模型": "反身性冷却(非对称)",
     "情绪定性": "⚠️ 情绪偏热，注意分化",
@@ -99,7 +100,7 @@
     "corrected_score": null,
     "message": "",
     "note": "",
-    "up_ratio": 31.2
+    "up_ratio": 45.5
   },
   "source": "腾讯自选股 MCP + 通达信实时广度",
   "limitup": {
@@ -184,6 +185,11 @@
       "time": "14:46",
       "score": 51.0,
       "position": 60
+    },
+    {
+      "time": "14:51",
+      "score": 62.2,
+      "position": 80
     }
   ]
 }
