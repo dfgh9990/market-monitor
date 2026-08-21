@@ -3,10 +3,11 @@
 基于六维市场强弱评分（涨跌比广度 / 量能健康度 / 板块资金集中度 / 主力资金流向 / 指数趋势 / 市场情绪温度），
 加权合成综合评分并映射成动态仓位系数（0~100%），**盘中每 30 分钟自动刷新**。
 
-数据来源为 **腾讯自选股 MCP（westock-mcp）+ 通达信实时（广度/连板/指数）**：
-- **板块资金流（板块集中度 / 主力资金流向）** → 腾讯自选股 MCP `data_sector`（盘中实时）
-- **涨跌比广度 / 市场情绪温度** → 通达信 `tdx_screener`（`message="上涨/下跌/平盘/涨停/跌停"`，读 `meta.total`，盘中实时刷新）
-- **大盘指数 / 量能 / 指数趋势** → 通达信 `tdx_quotes`（三大指数 + 深证综指，盘中实时，替代腾讯 overview 的日线滞后）
+数据来源为 **公开 HTTP 行情接口（新浪 + 腾讯，GitHub Actions 云端执行）**：
+- **涨跌家数 / 涨停跌停 / 两市成交额** → 新浪 `Market_Center.getHQNodeData` 分页全市场（约 56 页，需 Referer 防盗链头）
+- **大盘指数 / 量能 / 指数趋势** → 腾讯 `qt.gtimg.cn` 实时行情 + `web.ifzq.gtimg.cn` 日K 计算 MA/MACD/RSI
+- **板块涨幅 TOP** → 新浪 `newSinaHy`（49 个新浪行业分类，含领涨股）
+- **连板天数** → 涨停列表 + 腾讯日K 逐只判断连续涨停
 
 由定时任务抓取真实盘面 → 跑评分引擎 → 生成 `data.json`（含**当日温度曲线历史**与**连板最高标 Top5**）→
 托管到静态站点（Cloudflare Pages / GitHub Pages），任意设备浏览器即可访问。**完全免费、无需信用卡、数据真实**。
@@ -14,15 +15,15 @@
 ## 架构（取数在自动化沙箱 · 展示在云端）
 
 ```
-┌─ 取数层（WorkBuddy 自动化沙箱，通达信 MCP 取实时广度）──────────────┐
-│  腾讯自选股 MCP ──> overview_raw.json / sector_raw.json             │
-│  通达信 tdx_screener ──> tdx_breadth.py ──> breadth_raw.json (实时) │
-│  通达信 tdx_screener(连续涨停) ──> tdx_limitup.py ──> limitup_raw.json │
-│  通达信 tdx_quotes(三大指数) ──> tdx_indices.py ──> indices_raw.json  │
+┌─ 取数层（GitHub Actions 云端 Cron，公开接口，电脑可关机）────────────┐
+│  新浪 Market_Center 分页 ──> 涨跌家数/涨停跌停/两市成交额/连板        │
+│  腾讯 qt.gtimg.cn ──> 三大指数实时行情                               │
+│  腾讯 web.ifzq.gtimg.cn 日K ──> 均线/MACD/RSI（趋势）+ 连板天数       │
+│  新浪 newSinaHy ──> 行业板块涨幅 TOP（49 行业，替代板块资金流）        │
 └──────────────────────────────┬─────────────────────────────────────┘
-                                ▼ pipeline.py（六维评分引擎）
+                                ▼ ga_pipeline.py（六维评分引擎，纯标准库）
                             data.json
-                                ▼ 推送到 GitHub 仓库
+                                ▼ git push 回 main
                        Cloudflare Pages（静态托管）◄── 自动重新部署
                                 ▼
                   任意设备浏览器打开 https://<项目>.pages.dev
@@ -156,6 +157,8 @@ python tdx_limitup.py limitup_raw_mcp.json
 | `tdx_breadth.py` | 通达信实时涨跌家数落盘（读 tdx_screener 的 5 个口径，带一致性校验，失败回退日线） |
 | `tdx_limitup.py` | 通达信连板数据落盘（读 `tdx_screener(message="连续涨停")` 返回 JSON，抽取 `连续涨停天数0#` 等字段） |
 | `tdx_indices.py` | 通达信三大指数实时行情落盘（读 `tdx_quotes` 4 个指数返回，输出 `indices_raw.json` 含两市成交额） |
+| `ga_pipeline.py` | **GitHub Actions 云端流水线**（纯标准库）：新浪/腾讯公开接口取数 → 六维评分 → data.json（含温度曲线/连板/冰点状态维护） |
+| `.github/workflows/market-monitor.yml` | 云端定时任务：工作日 北京 10:00/11:00/13:30/14:30/14:55 自动跑 `ga_pipeline.py` 并推送回 main |
 | `realtime_breadth.py` | ⚠️ 已弃用：东方财富 push2 在沙箱被限流，不再使用（保留备用） |
 | `make_initial.py` | 用真实收盘快照生成首份 `data.json`（部署 / 自测用） |
 | `overview_raw.json` / `sector_raw.json` | MCP 原始数据落盘（供 pipeline 消费） |
