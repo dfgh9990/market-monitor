@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-21 10:17",
+  "updated_at": "2026-08-21 10:54",
   "trading": true,
   "score": 64.3,
   "position_pct": 64,
@@ -84,5 +84,6 @@
     "high20": 429,
     "low20": 200
   },
+  "breadth_realtime": false,
   "source": "腾讯自选股 MCP (westock-mcp)"
 }
