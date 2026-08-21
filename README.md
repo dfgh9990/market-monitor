@@ -7,7 +7,7 @@
 - **板块资金流 / 量能 / 指数趋势** → 腾讯自选股 MCP（`data_market_overview` + `data_sector`）
 - **涨跌比广度 / 市场情绪温度** → 通达信 `tdx_screener`（`message="上涨/下跌/平盘/涨停/跌停"`，读 `meta.total`，盘中实时刷新）
 
-由定时任务抓取真实盘面 → 跑评分引擎 → 生成 `data.json` →
+由定时任务抓取真实盘面 → 跑评分引擎 → 生成 `data.json`（含**当日温度曲线历史**与**连板最高标 Top5**）→
 托管到静态站点（Cloudflare Pages / GitHub Pages），任意设备浏览器即可访问。**完全免费、无需信用卡、数据真实**。
 
 ## 架构（取数在自动化沙箱 · 展示在云端）
@@ -16,6 +16,7 @@
 ┌─ 取数层（WorkBuddy 自动化沙箱，通达信 MCP 取实时广度）──────────────┐
 │  腾讯自选股 MCP ──> overview_raw.json / sector_raw.json             │
 │  通达信 tdx_screener ──> tdx_breadth.py ──> breadth_raw.json (实时) │
+│  通达信 tdx_screener(连续涨停) ──> tdx_limitup.py ──> limitup_raw.json │
 └──────────────────────────────┬─────────────────────────────────────┘
                                 ▼ pipeline.py（六维评分引擎）
                             data.json
@@ -28,6 +29,8 @@
 - **云端只托管静态 `data.json` + `index.html`，不直连任何行情接口**，所以浏览器侧无 CORS / 无限流。
 - **实时广度走通达信 MCP（`tdx_screener`）**：自动化运行在 WorkBuddy 云端沙箱，东方财富 `push2` 对该出口限流不可用，故实时涨跌家数改由通达信提供（同股票池、含可核验的涨停/跌停个股）。腾讯自选股 `overview` 的 `CNT_*` 仅作为实时广度不可用时的日线回退。
 - `tdx_breadth.py` 取数/落盘失败时（tdx_screener 异常、或 total<4000 被截断）**自动回退**到 overview 的日线广度，页面不会崩、不会写脏数据。
+- **连板最高标走通达信 `tdx_screener(message="连续涨停")`**：返回含 `连续涨停天数0#` 字段的当前连板股列表，`tdx_limitup.py` 抽取为 `limitup_raw.json`，pipeline 排序取最高标 + Top5。
+- **当日温度曲线**：每次盘中刷新把当前综合评分快照追加进 `temperature_history.json`（按日期分桶、同分钟去重），前端绘制 09:30–15:00 的盘中评分曲线。
 
 ## 六维权重
 
@@ -115,14 +118,19 @@ python -m http.server 8080
 
 仅更新评分（已有 overview_raw.json / sector_raw.json 时）：
 ```bash
-python pipeline.py overview_raw.json sector_raw.json data.json breadth_raw.json
-# 末尾的 breadth_raw.json 可选：带它 → 用通达信实时广度（盘中跳动）
-#                               不带它 → 回退 overview 日线广度（收盘才更新）
+python pipeline.py overview_raw.json sector_raw.json data.json breadth_raw.json limitup_raw.json
+# breadth_raw.json 可选：带它 → 用通达信实时广度（盘中跳动）；不带 → 回退 overview 日线广度（收盘才更新）
+# limitup_raw.json 可选：带它 → 注入连板最高标/Top5；不带 → 前端显示"暂无连板数据"
 ```
 
 用通达信实时广度生成一次 breadth_raw.json（5 个口径取自 tdx_screener 的 meta.total；取数不完整会自动拒绝写入）：
 ```bash
 python tdx_breadth.py <up> <down> <flat> <limit_up> <limit_down>
+```
+
+用通达信连板数据生成 limitup_raw.json（源文件为 tdx_screener 返回的原始 JSON，兼容 markdown 包裹 / 纯 JSON / stdin）：
+```bash
+python tdx_limitup.py limitup_raw_mcp.json
 ```
 
 ## 部署到 Cloudflare Pages（推荐，国内可达、免费无卡）
@@ -139,17 +147,20 @@ python tdx_breadth.py <up> <down> <flat> <limit_up> <limit_down>
 
 | 文件 | 作用 |
 |------|------|
-| `index.html` | 前端页面（温度计 / 雷达 / 仓位环 / 六维诊断 / 指数 / 板块主力净流入 / 红色高潮预警条 / 金色冰点横幅） |
+| `index.html` | 前端页面（温度计 / 雷达 / 仓位环 / 六维诊断 / 指数 / 板块主力净流入 / 红色高潮预警条 / 金色冰点横幅 / 当日温度曲线 / 连板最高标+Top5） |
 | `score_lib.py` | 六维评分引擎（纯标准库，从 MCP 原始 JSON 抽取并加权；含反身性冷却非对称模型 + 冰点逆修正 + 绝对仓位映射表） |
-| `pipeline.py` | 管线入口：读 MCP 原始 JSON（+ 可选 breadth_raw.json）→ 生成 `data.json`；并维护 `icepoint_state.json` |
+| `pipeline.py` | 管线入口：读 MCP 原始 JSON（+ 可选 breadth_raw.json / limitup_raw.json）→ 生成 `data.json`；维护 `icepoint_state.json` 并追加 `temperature_history.json` |
 | `tdx_breadth.py` | 通达信实时涨跌家数落盘（读 tdx_screener 的 5 个口径，带一致性校验，失败回退日线） |
+| `tdx_limitup.py` | 通达信连板数据落盘（读 `tdx_screener(message="连续涨停")` 返回 JSON，抽取 `连续涨停天数0#` 等字段） |
 | `realtime_breadth.py` | ⚠️ 已弃用：东方财富 push2 在沙箱被限流，不再使用（保留备用） |
 | `make_initial.py` | 用真实收盘快照生成首份 `data.json`（部署 / 自测用） |
 | `overview_raw.json` / `sector_raw.json` | MCP 原始数据落盘（供 pipeline 消费） |
 | `breadth_raw.json` | 通达信实时广度快照（盘中生成，失败则不存在→回退日线 overview） |
+| `limitup_raw.json` | 通达信连板数据快照（`连续涨停天数0#` 排序，供 pipeline 注入最高标与 Top5） |
+| `temperature_history.json` | 当日温度曲线历史（按日期分桶，每次刷新追加 `{time, score, position}`；**不可手动删除**） |
 | `icepoint_state.json` | 冰点逆修正的连续天数状态（持久化、随仓库推送；**不可手动删除**） |
-| `update_github.py` | 推送数据文件到 GitHub（仅数据，不动源码；Token 取自 `GITHUB_PAT`；清单含 `icepoint_state.json`） |
-| `data.json` | 评分快照（前端读取，含 `overheat`/`market_status`/`icepoint` 字段） |
+| `update_github.py` | 推送数据文件到 GitHub（仅数据，不动源码；Token 取自 `GITHUB_PAT`；清单含 `icepoint_state.json`/`limitup_raw.json`/`temperature_history.json`） |
+| `data.json` | 评分快照（前端读取，含 `overheat`/`market_status`/`icepoint`/`limitup`/`temperature_history` 字段） |
 | `server.py` / `seed.json` | 旧版零依赖后端（备用，仍可用但非主线） |
 
 ## 免责声明
