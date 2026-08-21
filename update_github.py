@@ -18,6 +18,7 @@ FILES = [
     "data.json", "breadth_raw.json", "overview_raw.json", "sector_raw.json", "icepoint_state.json",
     "limitup_raw.json", "temperature_history.json", "indices_raw.json",
     "index.html", "score_lib.py", "pipeline.py", "tdx_breadth.py", "tdx_limitup.py", "tdx_indices.py",
+    "ga_pipeline.py", ".github/workflows/market-monitor.yml",
     "update_github.py", "README.md",
 ]
 
