@@ -210,6 +210,61 @@ def merge_realtime_breadth(raw, breadth_path):
     return raw
 
 
+def merge_tdx_indices(raw, indices_path, overview=None):
+    """用通达信 tdx_quotes 实时指数覆盖腾讯日线指数（8/20 滞后）：
+    1. raw['indices'] → 三大指数实时行情（前端大盘指数表格）
+    2. raw['volume']['amount_yi'] → 两市实时成交额(亿)；avg10_ratio 用 overview 的 MONEY_10DAVG 基准重算
+    3. raw['technical']['price'] → 上证实时现价（score_trend 用；MA 仍取日线，实时价 vs 昨日均线合理）
+    返回 (raw, 是否生效)。
+    """
+    if not indices_path or not os.path.exists(indices_path):
+        return raw, False
+    try:
+        with open(indices_path, "r", encoding="utf-8") as f:
+            idx = json.load(f)
+    except Exception:
+        return raw, False
+    if not isinstance(idx, dict):
+        return raw, False
+    inds = idx.get("indices")
+    if not isinstance(inds, list) or len(inds) < 3:
+        return raw, False
+
+    # 1) 大盘指数表格 → 实时（前端 normalizeStatic 用 close/chg_pct）
+    raw["indices"] = [
+        {"name": i.get("name"), "code": i.get("code", ""),
+         "close": i.get("close"), "chg_pct": i.get("chg_pct")}
+        for i in inds
+    ]
+    raw["indices_source"] = "tongdaxin_realtime"
+
+    # 2) 量能健康度：两市实时成交额 vs 10日均值
+    amt = idx.get("market_amount_yi")
+    if amt:
+        v = raw.setdefault("volume", {})
+        v["amount_yi"] = amt
+        v["source"] = "tongdaxin_realtime"
+        # 基准：腾讯 overview 的 MONEY_10DAVG（10日均值，滞后可忽略）
+        base10 = None
+        if isinstance(overview, dict):
+            for item in overview.get("data", []):
+                if isinstance(item, dict) and item.get("listCode") == "market_statis_daily_trade":
+                    base10 = (item.get("row") or {}).get("MONEY_10DAVG")
+                    break
+        if base10:
+            v["avg10_ratio"] = round(amt / float(base10) * 100, 1)
+
+    # 3) 指数趋势：上证实时现价
+    for i in inds:
+        if i.get("code") == "000001" or i.get("name") == "上证指数":
+            t = raw.setdefault("technical", {})
+            t["price"] = i.get("close")
+            t["price_source"] = "tongdaxin_realtime"
+            break
+
+    return raw, True
+
+
 def _auto_tdx_path(out_path):
     p = os.path.join(os.path.dirname(os.path.abspath(out_path)), "tdx_breadth.json")
     return p if os.path.exists(p) else None
@@ -259,7 +314,7 @@ def cross_validate_tdx(raw, tdx_path):
     return "；".join(notes) if notes else None
 
 
-def build(overview_path, sector_path, out_path, breadth_path=None, ts=None, limitup_path=None):
+def build(overview_path, sector_path, out_path, breadth_path=None, ts=None, limitup_path=None, indices_path=None):
     with open(overview_path, "r", encoding="utf-8") as f:
         ov = json.load(f)
     with open(sector_path, "r", encoding="utf-8") as f:
@@ -267,6 +322,7 @@ def build(overview_path, sector_path, out_path, breadth_path=None, ts=None, limi
     raw = extract_overview(ov)
     raw.update(extract_sector(sec))
     merge_realtime_breadth(raw, breadth_path)
+    merged_idx, idx_ok = merge_tdx_indices(raw, indices_path, overview=ov)
     tdx_note = cross_validate_tdx(raw, _auto_tdx_path(out_path))
     # 冰点逆修正：读取/更新连续冰点天数状态（与 data.json 同目录持久化）
     state_path = os.path.join(os.path.dirname(os.path.abspath(out_path)), "icepoint_state.json")
@@ -274,6 +330,8 @@ def build(overview_path, sector_path, out_path, breadth_path=None, ts=None, limi
     ip = update_icepoint(raw.get("breadth", {}), state, _trading_date(raw.get("breadth", {})))
     save_icepoint_state(state_path, state)
     out = compute(raw, ts=ts, icepoint=ip)
+    if idx_ok:
+        out.setdefault("diagnostics", []).append("指数/量能来自通达信实时行情（腾讯日线回退：上证昨收 3903.72）")
     if tdx_note:
         out.setdefault("diagnostics", []).append(tdx_note)
 
@@ -294,11 +352,12 @@ def build(overview_path, sector_path, out_path, breadth_path=None, ts=None, limi
 
 if __name__ == "__main__":
     if len(sys.argv) < 4:
-        print("usage: python pipeline.py overview_raw.json sector_raw.json data.json [breadth_raw.json] [limitup_raw.json]")
+        print("usage: python pipeline.py overview_raw.json sector_raw.json data.json [breadth_raw.json] [limitup_raw.json] [indices_raw.json]")
         sys.exit(1)
     out = build(sys.argv[1], sys.argv[2], sys.argv[3],
                 breadth_path=(sys.argv[4] if len(sys.argv) > 4 else None),
-                limitup_path=(sys.argv[5] if len(sys.argv) > 5 else None))
+                limitup_path=(sys.argv[5] if len(sys.argv) > 5 else None),
+                indices_path=(sys.argv[6] if len(sys.argv) > 6 else None))
     rt = "（实时广度+通达信校验）" if out.get("breadth_realtime") else "（日线广度）"
     print("综合评分: {score}  仓位系数: {position_pct}%  ({position_label}) {rt}".format(rt=rt, **out))
     if out.get("overheat"):
