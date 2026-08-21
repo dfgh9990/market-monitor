@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-08-21 11:40",
+  "updated_at": "2026-08-21 11:50",
   "trading": true,
-  "score": 49.5,
-  "position_pct": 50,
+  "score": 51.9,
+  "position_pct": 52,
   "position_label": "震荡灵活",
   "verdict": "震荡行情，灵活应对",
   "dimensions": {
@@ -27,8 +27,8 @@
       "label": "偏弱"
     },
     "sentiment": {
-      "score": 20.0,
-      "label": "🔥 情绪极度亢奋，危险！"
+      "score": 44.0,
+      "label": "⚠️ 情绪偏热，注意分化"
     }
   },
   "indices": [
@@ -78,15 +78,15 @@
     "down": 3557,
     "flat": 152,
     "total": 5543,
-    "limit_up": 45,
+    "limit_up": 47,
     "limit_down": 9,
     "high20": 429,
     "low20": 200,
     "上涨比例": "33.1%",
-    "涨跌停比": 0.83,
+    "涨跌停比": 0.84,
     "市场状态": "正常",
     "计分模型": "反身性冷却(非对称)",
-    "情绪定性": "🔥 情绪极度亢奋，危险！",
+    "情绪定性": "⚠️ 情绪偏热，注意分化",
     "overheat": false
   },
   "breadth_realtime": true,
