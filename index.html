@@ -70,6 +70,13 @@
 
   .banner{display:none;background:#fff4e5;border:1px solid #ffd591;color:#a35a00;
     padding:10px 14px;border-radius:12px;font-size:13px;margin-bottom:14px}
+  /* 冰点逆修正·金色横幅（区别于红色高潮警报 / 绿色常规） */
+  #icepointBanner{display:none;background:linear-gradient(90deg,#fff3c4,#ffe08a);
+    border:1px solid #e6b800;color:#7a5a00;padding:11px 14px;border-radius:12px;
+    margin-bottom:14px;font-weight:700;font-size:13.5px;
+    box-shadow:0 2px 10px rgba(214,175,55,.25)}
+  #icepointBanner .ipday{display:inline-block;background:#7a5a00;color:#fff;
+    border-radius:8px;padding:1px 8px;margin-right:8px;font-size:12px}
   .diaglist{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:8px}
   .diaglist li{background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-size:12.5px;color:var(--ink)}
   .diaglist li::before{content:"›";color:var(--blue);font-weight:800;margin-right:8px}
@@ -90,6 +97,13 @@
   </header>
 
   <div id="banner" class="banner"></div>
+  <div id="overheatAlert" style="display:none; background:#ff1744; color:white; padding:10px; border-radius:8px; margin-bottom:15px; font-weight:bold;">
+    🚨 市场情绪极度亢奋（高潮预警）！建议降低仓位，防范退潮风险！
+  </div>
+
+  <div id="icepointBanner">
+    <span class="ipday" id="ipDay">冰点</span><span id="ipMsg">—</span>
+  </div>
 
   <div class="grid top">
     <div class="card">
@@ -196,6 +210,10 @@ function normalizeStatic(d){
     diagnostics: d.diagnostics || [],
     updated: d.updated_at,
     source: d.source,
+    overheat: !!d.overheat,
+    marketStatus: (d.breadth_detail && d.breadth_detail['市场状态']) || '',
+    breadthDetail: d.breadth_detail || {},
+    icepoint: d.icepoint || null,
   };
 }
 function normalizeLegacy(d){
@@ -324,6 +342,22 @@ async function refresh(force=false){
       $('diagList').innerHTML = d.diagnostics.map(x=>`<li>${x}</li>`).join('');
     } else {
       $('diagList').innerHTML = '';
+    }
+    // 高潮预警：广度或情绪任一进入高潮区则弹出红色警报条
+    const oh = $('overheatAlert');
+    if(d.overheat || (d.marketStatus && d.marketStatus.indexOf('高潮') >= 0)){
+      oh.style.display = 'block';
+    } else {
+      oh.style.display = 'none';
+    }
+    // 冰点逆修正：金色横幅（区别于红色高潮警报），显示连续天数与抄底/观望建议
+    const ip = $('icepointBanner');
+    if(d.icepoint && d.icepoint.active){
+      $('ipDay').textContent = d.icepoint.days > 1 ? ('连续 ' + d.icepoint.days + ' 天冰点') : '冰点·首日';
+      $('ipMsg').textContent = d.icepoint.message || '';
+      ip.style.display = 'block';
+    } else {
+      ip.style.display = 'none';
     }
   }catch(err){
     showBanner('数据获取失败：'+err.message);
