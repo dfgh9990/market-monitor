@@ -1,0 +1,40 @@
+{
+  "fetched_at": "2026-08-21 15:44",
+  "indices": [
+    {
+      "code": "000001",
+      "name": "上证指数",
+      "close": 3905.20264,
+      "prev_close": 3903.72095,
+      "chg_pct": 0.04,
+      "amount_yi": 8834.2,
+      "hsl": 0.92191273,
+      "pe": 18.0463,
+      "zs_yi": null
+    },
+    {
+      "code": "399001",
+      "name": "深证成指",
+      "close": 14094.168,
+      "prev_close": 13972.7803,
+      "chg_pct": 0.87,
+      "amount_yi": 9958.4,
+      "hsl": 2.21900678,
+      "pe": 44.1248,
+      "zs_yi": null
+    },
+    {
+      "code": "399006",
+      "name": "创业板指",
+      "close": 3545.57739,
+      "prev_close": 3495.58862,
+      "chg_pct": 1.43,
+      "amount_yi": 4944.9,
+      "hsl": 3.08499861,
+      "pe": 63.5461,
+      "zs_yi": null
+    }
+  ],
+  "market_amount_yi": 18792.6,
+  "source": "tongdaxin_realtime"
+}
