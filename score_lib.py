@@ -187,6 +187,10 @@ def score_breadth(b):
 
 
 def score_volume(v):
+    amt = v.get("amount_yi")
+    if v.get("source") in ("public_realtime", "tongdaxin_realtime") and amt:
+        # 无 10 日均值基准时用绝对成交额映射：<1.2万亿 偏弱 / 1.5~1.8万亿 中性 / >2.2万亿 强
+        return clamp((amt - 12000) / (22000 - 12000) * 100)
     r = v.get("avg10_ratio", 100) or 100
     s = (r - 60) / (130 - 60) * 100
     return clamp(s)
@@ -202,17 +206,25 @@ def score_sector(top, rising_ratio):
 
 
 def score_fund(top, bottom):
-    net = 0.0
-    for t in (top or [])[:3]:
-        z = t.get("zljlr")
-        if z is not None:
-            net += z
-    for t in (bottom or [])[:3]:
-        z = t.get("zljlr")
-        if z is not None:
-            net += z
-    s = 50 + net * 0.3
-    return clamp(s)
+    """主力资金流向：有资金流数据（zljlr）用净流入；公开接口无资金流时改用板块涨幅动能替代
+    （领涨板块均涨幅 - 领跌板块均跌幅，再乘系数映射）。"""
+    has_flow = any(t.get("zljlr") is not None for t in (top or [])[:3]) or \
+               any(t.get("zljlr") is not None for t in (bottom or [])[:3])
+    if has_flow:
+        net = 0.0
+        for t in (top or [])[:3]:
+            z = t.get("zljlr")
+            if z is not None:
+                net += z
+        for t in (bottom or [])[:3]:
+            z = t.get("zljlr")
+            if z is not None:
+                net += z
+        return clamp(50 + net * 0.3)
+    # 涨幅动能替代：top 领涨均涨幅 vs bottom 领跌均跌幅
+    tp = sum((t.get("zdf") or 0) for t in (top or [])[:3]) / max(len([1 for t in (top or [])[:3]]), 1)
+    bt = sum((t.get("zdf") or 0) for t in (bottom or [])[:3]) / max(len([1 for t in (bottom or [])[:3]]), 1)
+    return clamp(50 + (tp - bt) * 6)
 
 
 def score_trend(t):
