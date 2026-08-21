@@ -1,14 +1,14 @@
 {
-  "updated_at": "2026-08-21 11:10",
+  "updated_at": "2026-08-21 11:24",
   "trading": true,
-  "score": 65.7,
-  "position_pct": 66,
+  "score": 62.2,
+  "position_pct": 62,
   "position_label": "偏强操作",
   "verdict": "偏强震荡，可适度加仓",
   "dimensions": {
     "breadth": {
-      "score": 91.8,
-      "label": "强势"
+      "score": 77.3,
+      "label": "偏热"
     },
     "volume": {
       "score": 39.4,
@@ -27,8 +27,8 @@
       "label": "偏弱"
     },
     "sentiment": {
-      "score": 82.2,
-      "label": "强势"
+      "score": 82.6,
+      "label": "⚠️ 情绪偏热，注意分化"
     }
   },
   "indices": [
@@ -71,8 +71,7 @@
   "diagnostics": [
     "量能仅为10日均值的88%，反弹持续性存疑",
     "指数低于中长期均线，中期趋势仍偏弱",
-    "主线集中于通信设备（2.75%），注意板块轮动风险",
-    "普涨格局（涨股比74%），情绪高涨"
+    "主线集中于通信设备（2.75%），注意板块轮动风险"
   ],
   "breadth_detail": {
     "up": 4096,
@@ -82,8 +81,16 @@
     "limit_up": 77,
     "limit_down": 0,
     "high20": 429,
-    "low20": 200
+    "low20": 200,
+    "上涨比例": "73.8%",
+    "涨跌停比": 0.64,
+    "市场状态": "偏热",
+    "计分模型": "抛物线冷却",
+    "情绪定性": "⚠️ 情绪偏热，注意分化",
+    "overheat": false
   },
   "breadth_realtime": false,
+  "overheat": false,
+  "market_status": "偏热",
   "source": "腾讯自选股 MCP (westock-mcp)"
 }
