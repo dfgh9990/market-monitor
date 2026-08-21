@@ -144,6 +144,11 @@
         <tbody><tr><td colspan="3" style="color:var(--sub)">加载中…</td></tr></tbody></table>
     </div>
     <div class="card">
+      <h3>板块涨幅 TOP（来自腾讯自选股）</h3>
+      <table id="secRankTable"><thead><tr><th>板块</th><th>涨跌幅</th><th>领涨股</th></tr></thead>
+        <tbody><tr><td colspan="3" style="color:var(--sub)">加载中…</td></tr></tbody></table>
+    </div>
+    <div class="card">
       <h3>板块主力净流入 TOP（来自腾讯自选股）</h3>
       <table id="secTable"><thead><tr><th>板块</th><th>涨跌幅</th><th>主力净流入</th></tr></thead>
         <tbody><tr><td colspan="3" style="color:var(--sub)">加载中…</td></tr></tbody></table>
@@ -233,6 +238,7 @@ function normalizeStatic(d){
     scores: scores,
     indices: (d.indices||[]).map(i=>({name:i.name, price:i.close, pct:i.chg_pct, amount:null})),
     sectors: (d.sectors_top||[]).map(s=>({name:s.name, pct:s.zdf, main:s.zljlr})),
+    sectorsRank: (d.sectors_rank||[]).map(s=>({name:s.name, pct:s.zdf, leader:s.leader, leaderPct:s.leader_zdf})),
     diagnostics: d.diagnostics || [],
     updated: d.updated_at,
     source: d.source,
@@ -332,12 +338,21 @@ function renderIndices(idx){
     idx.map(i=>`<tr><td class="nm">${i.name}</td><td>${Number(i.price||0).toFixed(2)}</td>
       <td class="${i.pct>=0?'up':'dn'}">${i.pct>=0?'+':''}${Number(i.pct||0).toFixed(2)}%</td></tr>`).join('')+`</tbody>`;
 }
-function renderSectors(secs){
+function renderSectors(secs, ranks){
+  // 板块涨幅 TOP（rank.plate：能源金属/贵金属等领涨板块）
+  const rk=(ranks||[]).slice(0,10);
+  $('secRankTable').innerHTML=`<thead><tr><th>板块</th><th>涨跌幅</th><th>领涨股</th></tr></thead><tbody>`+
+    (rk.length? rk.map(s=>`<tr><td class="nm">${s.name}</td>
+      <td class="${s.pct>=0?'up':'dn'}">${s.pct>=0?'+':''}${Number(s.pct||0).toFixed(2)}%</td>
+      <td>${s.leader?`${s.leader} <span class="${s.leaderPct>=0?'up':'dn'}" style="font-size:11px">${s.leaderPct>=0?'+':''}${Number(s.leaderPct||0).toFixed(2)}%</span>`:'—'}</td></tr>`).join('')
+      :'<tr><td colspan="3" style="color:var(--sub)">暂无板块涨幅数据</td></tr>')+`</tbody>`;
+  // 主力净流入 TOP（fundflow.plate.top/bottom）
   const top=[...secs].sort((a,b)=>Number(b.main||0)-Number(a.main||0)).slice(0,10);
   $('secTable').innerHTML=`<thead><tr><th>板块</th><th>涨跌幅</th><th>主力净流入</th></tr></thead><tbody>`+
-    top.map(s=>`<tr><td class="nm">${s.name}</td>
+    (top.length? top.map(s=>`<tr><td class="nm">${s.name}</td>
       <td class="${s.pct>=0?'up':'dn'}">${s.pct>=0?'+':''}${Number(s.pct||0).toFixed(2)}%</td>
-      <td class="${s.main>=0?'up':'dn'}">${fmtYi(s.main)}</td></tr>`).join('')+`</tbody>`;
+      <td class="${s.main>=0?'up':'dn'}">${fmtYi(s.main)}</td></tr>`).join('')
+      :'<tr><td colspan="3" style="color:var(--sub)">暂无资金流数据</td></tr>')+`</tbody>`;
 }
 
 /* ---- 当日温度曲线 ---- */
@@ -455,7 +470,7 @@ async function refresh(force=false){
     renderRadar(d.scores);
     renderDiag(d.scores);
     if(d.indices && d.indices.length) renderIndices(d.indices);
-    if(d.sectors && d.sectors.length) renderSectors(d.sectors);
+    renderSectors(d.sectors, d.sectorsRank);
     renderTempCurve(d.temperatureHistory||[]);
     renderLimitup(d.limitup);
     $('statusText').textContent = d.verdict || '';
