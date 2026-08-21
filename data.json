@@ -1,13 +1,13 @@
 {
-  "updated_at": "2026-08-21 14:51",
+  "updated_at": "2026-08-21 15:13",
   "trading": true,
-  "score": 62.2,
+  "score": 61.9,
   "position_pct": 80,
   "position_label": "偏强操作",
   "verdict": "顺势加码",
   "dimensions": {
     "breadth": {
-      "score": 87.2,
+      "score": 86.2,
       "label": "正常"
     },
     "volume": {
@@ -27,7 +27,7 @@
       "label": "偏弱"
     },
     "sentiment": {
-      "score": 56.0,
+      "score": 55.3,
       "label": "⚠️ 情绪偏热，注意分化"
     }
   },
@@ -72,18 +72,18 @@
     "量能仅为10日均值的88%，反弹持续性存疑",
     "指数低于中长期均线，中期趋势仍偏弱",
     "主线集中于通信设备（2.88%），注意板块轮动风险",
-    "普涨格局（涨股比46%），情绪高涨"
+    "普涨格局（涨股比45%），情绪高涨"
   ],
   "breadth_detail": {
-    "up": 2517,
-    "down": 2841,
-    "flat": 173,
-    "total": 5531,
-    "limit_up": 57,
+    "up": 2505,
+    "down": 2862,
+    "flat": 177,
+    "total": 5544,
+    "limit_up": 58,
     "limit_down": 15,
     "high20": 429,
     "low20": 200,
-    "上涨比例": "45.5%",
+    "上涨比例": "45.2%",
     "涨跌停比": 0.79,
     "市场状态": "正常",
     "计分模型": "反身性冷却(非对称)",
@@ -100,7 +100,7 @@
     "corrected_score": null,
     "message": "",
     "note": "",
-    "up_ratio": 45.5
+    "up_ratio": 45.2
   },
   "source": "腾讯自选股 MCP + 通达信实时广度",
   "limitup": {
@@ -114,7 +114,7 @@
       "board_type": "一字板(涨停)",
       "seal_amount_wan": 0.0,
       "themes": "创新药.电商概念.中药",
-      "reason": "莫德纳&默沙东宣布全球首个mRNA癌症疫苗三期成功"
+      "reason": "莫德纳&默沙东宣布全球首个mRNA癌症疫苗三期成功I公司主营消化系统和心脑血管中药生产企业"
     },
     "top5": [
       {
@@ -127,7 +127,7 @@
         "board_type": "一字板(涨停)",
         "seal_amount_wan": 0.0,
         "themes": "创新药.电商概念.中药",
-        "reason": "莫德纳&默沙东宣布全球首个mRNA癌症疫苗三期成功"
+        "reason": "莫德纳&默沙东宣布全球首个mRNA癌症疫苗三期成功I公司主营消化系统和心脑血管中药生产企业"
       },
       {
         "code": "002667",
@@ -138,32 +138,8 @@
         "days_boards": "3天3板",
         "board_type": "Ｔ字板(涨停)",
         "seal_amount_wan": 0.0,
-        "themes": "ST板块",
-        "reason": "兴业银锡要约收购拟拿下公司控制权"
-      },
-      {
-        "code": "603958",
-        "name": "哈森股份",
-        "price": "20.55",
-        "chg": 10.01,
-        "consecutive_days": 2,
-        "days_boards": "5天4板",
-        "board_type": "换手板(涨停)",
-        "seal_amount_wan": 0.0,
-        "themes": "机器人概念.电商概念",
-        "reason": "宇树科技上市后大涨"
-      },
-      {
-        "code": "002491",
-        "name": "通鼎互联",
-        "price": "21.20",
-        "chg": 10.02,
-        "consecutive_days": 2,
-        "days_boards": "2天2板",
-        "board_type": "",
-        "seal_amount_wan": 0.0,
-        "themes": "数据中心.通信设备",
-        "reason": "英伟达CPO交换机全面量产"
+        "themes": "ST板块.摩根中国A股基金持股",
+        "reason": "兴业银锡要约收购拟拿下公司控制权，要约收购价格18元/股"
       },
       {
         "code": "688356",
@@ -175,10 +151,34 @@
         "board_type": "一字板(涨停)",
         "seal_amount_wan": 0.0,
         "themes": "创新药.医疗器械概念",
-        "reason": "mRNA癌症疫苗三期成功"
+        "reason": "莫德纳&默沙东宣布全球首个mRNA癌症疫苗三期成功I公司为国内医用药用聚乙二醇（PEG）赛道唯一的上市公司"
+      },
+      {
+        "code": "603626",
+        "name": "科森科技",
+        "price": "18.65",
+        "chg": 10.03,
+        "consecutive_days": 2,
+        "days_boards": "2天2板",
+        "board_type": "换手板(涨停)",
+        "seal_amount_wan": 0.0,
+        "themes": "储能.消费电子.机器人概念.华为概念.元宇宙概念",
+        "reason": "宇树科技上市后大涨I公司为某品牌家用机器人提供相关结构件；与清陶能源合资布局固态电池"
+      },
+      {
+        "code": "002491",
+        "name": "通鼎互联",
+        "price": "21.20",
+        "chg": 10.02,
+        "consecutive_days": 2,
+        "days_boards": "2天2板",
+        "board_type": "换手板(涨停)",
+        "seal_amount_wan": 0.0,
+        "themes": "摩根中国A股基金持股.数据中心.通信设备.专精特新",
+        "reason": "公司所属行业为：通信设备"
       }
     ],
-    "total": 12
+    "total": 13
   },
   "temperature_history": [
     {
@@ -189,6 +189,11 @@
     {
       "time": "14:51",
       "score": 62.2,
+      "position": 80
+    },
+    {
+      "time": "15:13",
+      "score": 61.9,
       "position": 80
     }
   ]
