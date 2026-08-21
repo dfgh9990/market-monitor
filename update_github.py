@@ -16,7 +16,8 @@ BASE = f"https://api.github.com/repos/{OWNER}/{REPO}/contents"
 # index.html / score_lib.py / pipeline.py 等是站点与评分引擎本体，需随仓库部署到 Cloudflare Pages。
 FILES = [
     "data.json", "breadth_raw.json", "overview_raw.json", "sector_raw.json", "icepoint_state.json",
-    "index.html", "score_lib.py", "pipeline.py", "tdx_breadth.py", "update_github.py", "README.md",
+    "limitup_raw.json", "temperature_history.json",
+    "index.html", "score_lib.py", "pipeline.py", "tdx_breadth.py", "tdx_limitup.py", "update_github.py", "README.md",
 ]
 
 
