@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-24 08:10",
+  "updated_at": "2026-08-24 09:12",
   "trading": true,
   "score": 56.4,
   "position_pct": 60,
@@ -269,6 +269,11 @@
     },
     {
       "time": "08:10",
+      "score": 56.4,
+      "position": 60
+    },
+    {
+      "time": "09:12",
       "score": 56.4,
       "position": 60
     }
