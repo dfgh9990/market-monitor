@@ -1,33 +1,33 @@
 {
-  "updated_at": "2026-08-21 15:55",
+  "updated_at": "2026-08-24 23:48",
   "trading": true,
-  "score": 61.8,
-  "position_pct": 80,
-  "position_label": "偏强操作",
-  "verdict": "顺势加码",
+  "score": 56.4,
+  "position_pct": 60,
+  "position_label": "震荡灵活",
+  "verdict": "高抛低吸",
   "dimensions": {
     "breadth": {
-      "score": 86.2,
-      "label": "正常"
-    },
-    "volume": {
-      "score": 27.4,
+      "score": 32.3,
       "label": "偏弱"
     },
+    "volume": {
+      "score": 82.1,
+      "label": "强势"
+    },
     "sector": {
-      "score": 56.9,
+      "score": 53.3,
       "label": "中性"
     },
     "fund": {
-      "score": 82.0,
-      "label": "强势"
+      "score": 79.3,
+      "label": "偏强"
     },
     "trend": {
-      "score": 28.4,
-      "label": "偏弱"
+      "score": 14.2,
+      "label": "极弱"
     },
     "sentiment": {
-      "score": 55.3,
+      "score": 81.1,
       "label": "⚠️ 情绪偏热，注意分化"
     }
   },
@@ -35,107 +35,144 @@
     {
       "name": "上证指数",
       "code": "000001",
-      "close": 3905.20264,
-      "chg_pct": 0.04
+      "close": 3882.01,
+      "chg_pct": -0.59
     },
     {
       "name": "深证成指",
       "code": "399001",
-      "close": 14094.168,
-      "chg_pct": 0.87
+      "close": 13794.29,
+      "chg_pct": -2.13
     },
     {
       "name": "创业板指",
       "code": "399006",
-      "close": 3545.57739,
-      "chg_pct": 1.43
+      "close": 3431.89,
+      "chg_pct": -3.21
     }
   ],
   "sectors_top": [
     {
-      "name": "通信设备",
-      "zdf": 2.98,
-      "zljlr": 88.996224
+      "name": "煤炭行业",
+      "zdf": 2.074475540812,
+      "zljlr": null
     },
     {
-      "name": "元件",
-      "zdf": 2.8,
-      "zljlr": 46.850638000000004
+      "name": "公路桥梁",
+      "zdf": 1.9982623805387,
+      "zljlr": null
     },
     {
-      "name": "工业金属",
-      "zdf": 2.42,
-      "zljlr": 44.426965
+      "name": "开发区",
+      "zdf": 1.8690275435638,
+      "zljlr": null
+    },
+    {
+      "name": "酿酒行业",
+      "zdf": 1.6527724628344,
+      "zljlr": null
+    },
+    {
+      "name": "金融行业",
+      "zdf": 1.0813475760066,
+      "zljlr": null
     }
   ],
   "sectors_rank": [
     {
-      "name": "贵金属",
-      "zdf": 4.64,
-      "lb": 1.58,
-      "hsl": 5.9,
-      "leader": "湖南白银",
-      "leader_zdf": 10.03
+      "name": "煤炭行业",
+      "zdf": 2.074475540812,
+      "leader": "上海能源",
+      "leader_zdf": 10.022,
+      "stock_count": 41.0,
+      "amount": 2710350581.0
     },
     {
-      "name": "能源金属",
-      "zdf": 4.6,
-      "lb": 1.41,
-      "hsl": 5.32,
-      "leader": "融捷股份",
-      "leader_zdf": 10.0
+      "name": "公路桥梁",
+      "zdf": 1.9982623805387,
+      "leader": "皖通高速",
+      "leader_zdf": 4.839,
+      "stock_count": 20.0,
+      "amount": 224168756.0
     },
     {
-      "name": "非金属材料Ⅱ",
-      "zdf": 3.03,
-      "lb": 0.94,
-      "hsl": 3.02,
-      "leader": "金博股份",
-      "leader_zdf": 14.54
+      "name": "开发区",
+      "zdf": 1.8690275435638,
+      "leader": "市北高新",
+      "leader_zdf": 10.022,
+      "stock_count": 10.0,
+      "amount": 137168758.0
     },
     {
-      "name": "通信设备",
-      "zdf": 2.98,
-      "lb": 0.88,
-      "hsl": 4.71,
-      "leader": "星网锐捷",
-      "leader_zdf": 10.02
+      "name": "酿酒行业",
+      "zdf": 1.6527724628344,
+      "leader": "会稽山",
+      "leader_zdf": 8.307,
+      "stock_count": 33.0,
+      "amount": 271197751.0
     },
     {
-      "name": "元件",
-      "zdf": 2.8,
-      "lb": 0.83,
-      "hsl": 4.92,
-      "leader": "江海股份",
-      "leader_zdf": 7.27
+      "name": "金融行业",
+      "zdf": 1.0813475760066,
+      "leader": "锦龙股份",
+      "leader_zdf": 5.594,
+      "stock_count": 51.0,
+      "amount": 3980420244.0
     },
     {
-      "name": "饰品",
-      "zdf": 2.52,
-      "lb": 1.76,
-      "hsl": 4.49,
-      "leader": "深中华A",
-      "leader_zdf": 10.06
+      "name": "农林牧渔",
+      "zdf": 1.0712172026041,
+      "leader": "天山生物",
+      "leader_zdf": 20.0,
+      "stock_count": 64.0,
+      "amount": 2331620052.0
+    },
+    {
+      "name": "建筑建材",
+      "zdf": 0.035028996224653,
+      "leader": "北方国际",
+      "leader_zdf": 10.033,
+      "stock_count": 91.0,
+      "amount": 2496208471.0
+    },
+    {
+      "name": "摩托车",
+      "zdf": 0.028694404591105,
+      "leader": "隆鑫通用",
+      "leader_zdf": 5.123,
+      "stock_count": 6.0,
+      "amount": 115150469.0
+    },
+    {
+      "name": "电力行业",
+      "zdf": -0.06894873458793,
+      "leader": "福能股份",
+      "leader_zdf": 5.453,
+      "stock_count": 62.0,
+      "amount": 2662453604.0
+    },
+    {
+      "name": "船舶制造",
+      "zdf": -0.1276731567188,
+      "leader": "江苏国信",
+      "leader_zdf": 0.717,
+      "stock_count": 8.0,
+      "amount": 152303160.0
     }
   ],
   "diagnostics": [
-    "量能仅为10日均值的79%，反弹持续性存疑",
     "指数低于中长期均线，中期趋势仍偏弱",
-    "主线集中于通信设备（2.98%），注意板块轮动风险",
-    "普涨格局（涨股比45%），情绪高涨",
-    "指数/量能来自通达信实时行情（腾讯日线回退：上证昨收 3903.72）"
+    "主线集中于煤炭行业（2.07%），注意板块轮动风险"
   ],
   "breadth_detail": {
-    "up": 2505,
-    "down": 2862,
-    "flat": 177,
-    "total": 5544,
-    "limit_up": 58,
-    "limit_down": 15,
-    "high20": 429,
-    "low20": 200,
-    "上涨比例": "45.2%",
-    "涨跌停比": 0.79,
+    "up": 1460,
+    "down": 3964,
+    "flat": 124,
+    "total": 5548,
+    "limit_up": 50,
+    "limit_down": 27,
+    "上涨比例": "26.3%",
+    "涨跌停比": 0.65,
     "市场状态": "正常",
     "计分模型": "反身性冷却(非对称)",
     "情绪定性": "⚠️ 情绪偏热，注意分化",
@@ -151,111 +188,79 @@
     "corrected_score": null,
     "message": "",
     "note": "",
-    "up_ratio": 45.2
+    "up_ratio": 26.3
   },
-  "source": "腾讯自选股 MCP + 通达信实时广度",
+  "source": "新浪/腾讯公开接口 (GitHub Actions)",
   "limitup": {
     "highest": {
       "code": "002412",
       "name": "汉森制药",
-      "price": "10.19",
-      "chg": 10.04,
-      "consecutive_days": 3,
-      "days_boards": "3天3板",
-      "board_type": "一字板(涨停)",
-      "seal_amount_wan": 0.0,
-      "themes": "创新药.电商概念.中药",
-      "reason": "莫德纳&默沙东宣布全球首个mRNA癌症疫苗三期成功I公司主营消化系统和心脑血管中药生产企业"
+      "consecutive_days": 4,
+      "chg": 10.01,
+      "days_boards": "",
+      "board_type": "",
+      "themes": "",
+      "reason": "公开接口简化数据"
     },
     "top5": [
       {
         "code": "002412",
         "name": "汉森制药",
-        "price": "10.19",
-        "chg": 10.04,
-        "consecutive_days": 3,
-        "days_boards": "3天3板",
-        "board_type": "一字板(涨停)",
-        "seal_amount_wan": 0.0,
-        "themes": "创新药.电商概念.中药",
-        "reason": "莫德纳&默沙东宣布全球首个mRNA癌症疫苗三期成功I公司主营消化系统和心脑血管中药生产企业"
+        "chg": 10.01,
+        "consecutive_days": 4,
+        "days_boards": "",
+        "board_type": "",
+        "themes": "",
+        "reason": ""
       },
       {
-        "code": "002667",
-        "name": "*ST威领",
-        "price": "19.21",
+        "code": "603958",
+        "name": "哈森股份",
         "chg": 10.02,
         "consecutive_days": 3,
-        "days_boards": "3天3板",
-        "board_type": "Ｔ字板(涨停)",
-        "seal_amount_wan": 0.0,
-        "themes": "ST板块.摩根中国A股基金持股",
-        "reason": "兴业银锡要约收购拟拿下公司控制权，要约收购价格18元/股"
+        "days_boards": "",
+        "board_type": "",
+        "themes": "",
+        "reason": ""
       },
       {
-        "code": "688356",
-        "name": "键凯科技",
-        "price": "107.34",
-        "chg": 20.0,
-        "consecutive_days": 2,
-        "days_boards": "2天2板",
-        "board_type": "一字板(涨停)",
-        "seal_amount_wan": 0.0,
-        "themes": "创新药.医疗器械概念",
-        "reason": "莫德纳&默沙东宣布全球首个mRNA癌症疫苗三期成功I公司为国内医用药用聚乙二醇（PEG）赛道唯一的上市公司"
+        "code": "000931",
+        "name": "中 关 村",
+        "chg": 10.02,
+        "consecutive_days": 3,
+        "days_boards": "",
+        "board_type": "",
+        "themes": "",
+        "reason": ""
       },
       {
-        "code": "603626",
-        "name": "科森科技",
-        "price": "18.65",
+        "code": "603330",
+        "name": "天洋新材",
         "chg": 10.03,
         "consecutive_days": 2,
-        "days_boards": "2天2板",
-        "board_type": "换手板(涨停)",
-        "seal_amount_wan": 0.0,
-        "themes": "储能.消费电子.机器人概念.华为概念.元宇宙概念",
-        "reason": "宇树科技上市后大涨I公司为某品牌家用机器人提供相关结构件；与清陶能源合资布局固态电池"
+        "days_boards": "",
+        "board_type": "",
+        "themes": "",
+        "reason": ""
       },
       {
-        "code": "002491",
-        "name": "通鼎互联",
-        "price": "21.20",
+        "code": "002620",
+        "name": "*ST瑞和",
         "chg": 10.02,
         "consecutive_days": 2,
-        "days_boards": "2天2板",
-        "board_type": "换手板(涨停)",
-        "seal_amount_wan": 0.0,
-        "themes": "摩根中国A股基金持股.数据中心.通信设备.专精特新",
-        "reason": "公司所属行业为：通信设备"
+        "days_boards": "",
+        "board_type": "",
+        "themes": "",
+        "reason": ""
       }
     ],
-    "total": 13
+    "total": 5
   },
   "temperature_history": [
     {
-      "time": "14:46",
-      "score": 51.0,
+      "time": "23:48",
+      "score": 56.4,
       "position": 60
-    },
-    {
-      "time": "14:51",
-      "score": 62.2,
-      "position": 80
-    },
-    {
-      "time": "15:13",
-      "score": 61.9,
-      "position": 80
-    },
-    {
-      "time": "15:44",
-      "score": 60.1,
-      "position": 80
-    },
-    {
-      "time": "15:55",
-      "score": 61.8,
-      "position": 80
     }
   ]
 }
