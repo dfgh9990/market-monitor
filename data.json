@@ -1,7 +1,7 @@
 {
-  "updated_at": "2026-08-24 23:48",
+  "updated_at": "2026-08-25 00:52",
   "trading": true,
-  "score": 56.4,
+  "score": 41.1,
   "position_pct": 60,
   "position_label": "震荡灵活",
   "verdict": "高抛低吸",
@@ -11,24 +11,24 @@
       "label": "偏弱"
     },
     "volume": {
-      "score": 82.1,
-      "label": "强势"
+      "score": 36.9,
+      "label": "偏弱"
     },
     "sector": {
       "score": 53.3,
       "label": "中性"
     },
     "fund": {
-      "score": 79.3,
-      "label": "偏强"
+      "score": 55,
+      "label": "中性"
     },
     "trend": {
       "score": 14.2,
       "label": "极弱"
     },
     "sentiment": {
-      "score": 81.1,
-      "label": "⚠️ 情绪偏热，注意分化"
+      "score": 44.6,
+      "label": "⚠️ 结构性偏热，但市场普跌（涨股比26%）"
     }
   },
   "indices": [
@@ -161,6 +161,7 @@
     }
   ],
   "diagnostics": [
+    "量能仅为10日均值的0%，反弹持续性存疑",
     "指数低于中长期均线，中期趋势仍偏弱",
     "主线集中于煤炭行业（2.07%），注意板块轮动风险"
   ],
@@ -175,7 +176,7 @@
     "涨跌停比": 0.65,
     "市场状态": "正常",
     "计分模型": "反身性冷却(非对称)",
-    "情绪定性": "⚠️ 情绪偏热，注意分化",
+    "情绪定性": "⚠️ 结构性偏热，但市场普跌（涨股比26%）",
     "overheat": false
   },
   "breadth_realtime": true,
@@ -258,8 +259,8 @@
   },
   "temperature_history": [
     {
-      "time": "23:48",
-      "score": 56.4,
+      "time": "00:52",
+      "score": 41.1,
       "position": 60
     }
   ]
