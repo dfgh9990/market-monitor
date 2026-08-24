@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-25 00:52",
+  "updated_at": "2026-08-25 01:44",
   "trading": true,
   "score": 41.1,
   "position_pct": 60,
@@ -260,6 +260,11 @@
   "temperature_history": [
     {
       "time": "00:52",
+      "score": 41.1,
+      "position": 60
+    },
+    {
+      "time": "01:44",
       "score": 41.1,
       "position": 60
     }
