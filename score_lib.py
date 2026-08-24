@@ -186,14 +186,29 @@ def score_breadth(b):
     return clamp(score), detail, overheat, status
 
 
-def score_volume(v):
+def score_volume(v, up_ratio=None):
+    """量能健康度：成交额水平 × 量价配合修正。
+
+    绝对成交额映射（无 10 日均值时）：<1.2万亿 偏弱 / 1.5~1.8万亿 中性 / >2.2万亿 强。
+    关键修正——量价配合：放量下跌=恐慌出货（量大反而危险，打折），放量上涨=健康（加成）：
+      up_ratio<0.35 → ×0.45（普跌放量）
+      up_ratio<0.45 → ×0.75（弱市放量）
+      up_ratio>0.65 → ×1.15（普涨放量）
+    """
     amt = v.get("amount_yi")
     if v.get("source") in ("public_realtime", "tongdaxin_realtime") and amt:
-        # 无 10 日均值基准时用绝对成交额映射：<1.2万亿 偏弱 / 1.5~1.8万亿 中性 / >2.2万亿 强
-        return clamp((amt - 12000) / (22000 - 12000) * 100)
-    r = v.get("avg10_ratio", 100) or 100
-    s = (r - 60) / (130 - 60) * 100
-    return clamp(s)
+        base = (amt - 12000) / (22000 - 12000) * 100
+    else:
+        r = v.get("avg10_ratio", 100) or 100
+        base = (r - 60) / (130 - 60) * 100
+    if up_ratio is not None:
+        if up_ratio < 0.35:
+            base *= 0.45
+        elif up_ratio < 0.45:
+            base *= 0.75
+        elif up_ratio > 0.65:
+            base *= 1.15
+    return clamp(base)
 
 
 def score_sector(top, rising_ratio):
@@ -205,9 +220,12 @@ def score_sector(top, rising_ratio):
     return clamp(s)
 
 
-def score_fund(top, bottom):
-    """主力资金流向：有资金流数据（zljlr）用净流入；公开接口无资金流时改用板块涨幅动能替代
-    （领涨板块均涨幅 - 领跌板块均跌幅，再乘系数映射）。"""
+def score_fund(top, bottom, up_ratio=None):
+    """主力资金流向：有资金流数据（zljlr）用净流入；公开接口无资金流时改用板块涨幅动能替代。
+
+    涨幅替代经校准：系数 6 → 3.5（原系数在弱市会因板块涨幅差虚高）。
+    广度修正：市场普跌（up_ratio<0.4）时资金维度封顶 55 分，避免"指数弱、资金假强"的矛盾定性。
+    """
     has_flow = any(t.get("zljlr") is not None for t in (top or [])[:3]) or \
                any(t.get("zljlr") is not None for t in (bottom or [])[:3])
     if has_flow:
@@ -221,10 +239,16 @@ def score_fund(top, bottom):
             if z is not None:
                 net += z
         return clamp(50 + net * 0.3)
-    # 涨幅动能替代：top 领涨均涨幅 vs bottom 领跌均跌幅
+    # 涨幅动能替代
     tp = sum((t.get("zdf") or 0) for t in (top or [])[:3]) / max(len([1 for t in (top or [])[:3]]), 1)
     bt = sum((t.get("zdf") or 0) for t in (bottom or [])[:3]) / max(len([1 for t in (bottom or [])[:3]]), 1)
-    return clamp(50 + (tp - bt) * 6)
+    s = 50 + (tp - bt) * 3.5
+    if up_ratio is not None:
+        if up_ratio < 0.4:
+            s = min(s, 55)
+        elif up_ratio < 0.5:
+            s = min(s, 65)
+    return clamp(s)
 
 
 def score_trend(t):
@@ -243,7 +267,7 @@ def score_trend(t):
 
 
 def score_sentiment(b):
-    """市场情绪温度（涨跌停比）：同样抛物线倒扣分（反身性冷却）。
+    """市场情绪温度（涨跌停比 × 广度修正）：抛物线倒扣分（反身性冷却）。
 
     X = 涨停/(涨停+跌停)；无跌停时以市场总量约 0.8% 作常态跌停基准，
     避免"零跌停"被误判为永远=1 而误报高潮。
@@ -251,6 +275,9 @@ def score_sentiment(b):
       - X>0.6 偏热     → 抛物线得分后再扣 10
       - X<0.1 极度恐慌 → 10 分（近空仓）
       - 其余           → 抛物线 4·X·(1-X)·100
+    广度修正：涨跌停比是结构性指标，必须结合整体涨跌家数——
+      普跌环境（上涨占比<0.35）下涨停多只是局部热点，情绪分打 0.55 折（避免"普跌却情绪热"的矛盾）；
+      <0.45 打 0.8 折；普涨（>0.65）情绪加成 ×1.15。
     返回 (score, detail, overheat, label)。
     """
     lu = b.get("limit_up", 0) or 0
@@ -281,6 +308,19 @@ def score_sentiment(b):
         score = 4 * x * (1 - x) * 100
         status = "✅ 情绪正常"
         overheat = False
+    # ---- 广度修正：结合整体涨跌家数，避免"普跌却情绪热" ----
+    up = b.get("up", 0) or 0
+    up_ratio = up / total if total else 0.5
+    if overheat:
+        pass  # 真高潮（百股涨停）不修正
+    elif up_ratio < 0.35:
+        score = clamp(score * 0.55)
+        status = "⚠️ 结构性偏热，但市场普跌（涨股比{:.0f}%）".format(up_ratio * 100)
+    elif up_ratio < 0.45:
+        score = clamp(score * 0.8)
+        status = "⚠️ 涨跌停结构偏热，市场偏弱（涨股比{:.0f}%）".format(up_ratio * 100)
+    elif up_ratio > 0.65:
+        score = clamp(score * 1.15)
     detail = {"涨停": lu, "跌停": ld, "涨跌停比": round(x, 2), "情绪定性": status}
     return clamp(score), detail, overheat, status
 
@@ -341,11 +381,13 @@ def compute(raw, ts=None, icepoint=None):
         b_detail["冰点修正"] = ip.get("note")
         b_detail["计分模型"] = "冰点（首日·不抄底）"
     s_score, s_detail, s_overheat, s_label = score_sentiment(b)
+    # 广度（上涨家数占比）：供量能/资金维度做"普跌修正"，避免弱市下假高分
+    up_ratio = (b.get("up", 0) or 0) / ((b.get("total", 0) or 1) or 1)
     dims = {
         "breadth": round(b_score, 1),
-        "volume": round(score_volume(v), 1),
+        "volume": round(score_volume(v, up_ratio), 1),
         "sector": round(score_sector(top, rr), 1),
-        "fund": round(score_fund(top, bottom), 1),
+        "fund": round(score_fund(top, bottom, up_ratio), 1),
         "trend": round(score_trend(tech), 1),
         "sentiment": round(s_score, 1),
     }
