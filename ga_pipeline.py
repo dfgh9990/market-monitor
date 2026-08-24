@@ -331,13 +331,15 @@ def main():
 
     # ---- 冰点状态：从本地 state 续算 ----
     state = load_json("icepoint_state.json", {"last_date": None, "consecutive_days": 0})
-    from pipeline import _trading_date, update_icepoint, save_icepoint_state
-    date_str = datetime.date.today().isoformat()
+    from pipeline import update_icepoint, save_icepoint_state
+    # 统一使用北京时间（GitHub Actions 容器默认 UTC，必须显式 +8）
+    bj_now = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8)))
+    date_str = bj_now.strftime("%Y-%m-%d")
     ip = update_icepoint(raw["breadth"], state, date_str)
     save_icepoint_state("icepoint_state.json", state)
 
     # ---- 评分 ----
-    ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    ts = bj_now.strftime("%Y-%m-%d %H:%M")
     out = compute(raw, ts=ts, icepoint=ip)
     out["breadth_realtime"] = True
     out["source"] = "新浪/腾讯公开接口 (GitHub Actions)"
