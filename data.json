@@ -1,33 +1,33 @@
 {
-  "updated_at": "2026-08-24 05:26",
+  "updated_at": "2026-08-24 08:10",
   "trading": true,
-  "score": 45.7,
+  "score": 56.4,
   "position_pct": 60,
   "position_label": "震荡灵活",
   "verdict": "高抛低吸",
   "dimensions": {
     "breadth": {
-      "score": 17.7,
+      "score": 32.3,
       "label": "偏弱"
     },
     "volume": {
-      "score": 31.3,
-      "label": "偏弱"
+      "score": 82.1,
+      "label": "强势"
     },
     "sector": {
       "score": 53.3,
       "label": "中性"
     },
     "fund": {
-      "score": 82.2,
-      "label": "强势"
+      "score": 79.3,
+      "label": "偏强"
     },
     "trend": {
-      "score": 13.7,
+      "score": 14.2,
       "label": "极弱"
     },
     "sentiment": {
-      "score": 81.3,
+      "score": 81.1,
       "label": "⚠️ 情绪偏热，注意分化"
     }
   },
@@ -35,144 +35,143 @@
     {
       "name": "上证指数",
       "code": "000001",
-      "close": 3870.58,
-      "chg_pct": -0.89
+      "close": 3882.01,
+      "chg_pct": -0.59
     },
     {
       "name": "深证成指",
       "code": "399001",
-      "close": 13701.58,
-      "chg_pct": -2.79
+      "close": 13794.29,
+      "chg_pct": -2.13
     },
     {
       "name": "创业板指",
       "code": "399006",
-      "close": 3401.75,
-      "chg_pct": -4.06
+      "close": 3431.89,
+      "chg_pct": -3.21
     }
   ],
   "sectors_top": [
     {
-      "name": "酿酒行业",
-      "zdf": 2.0824351751832,
+      "name": "煤炭行业",
+      "zdf": 2.074475540812,
       "zljlr": null
     },
     {
       "name": "公路桥梁",
-      "zdf": 1.6159860990443,
-      "zljlr": null
-    },
-    {
-      "name": "煤炭行业",
-      "zdf": 1.4413867214876,
-      "zljlr": null
-    },
-    {
-      "name": "金融行业",
-      "zdf": 1.1339359079704,
+      "zdf": 1.9982623805387,
       "zljlr": null
     },
     {
       "name": "开发区",
-      "zdf": 0.91343451377178,
+      "zdf": 1.8690275435638,
+      "zljlr": null
+    },
+    {
+      "name": "酿酒行业",
+      "zdf": 1.6527724628344,
+      "zljlr": null
+    },
+    {
+      "name": "金融行业",
+      "zdf": 1.0813475760066,
       "zljlr": null
     }
   ],
   "sectors_rank": [
     {
-      "name": "酿酒行业",
-      "zdf": 2.0824351751832,
-      "leader": "会稽山",
-      "leader_zdf": 6.806,
-      "stock_count": 33.0,
-      "amount": 199783596.0
-    },
-    {
-      "name": "公路桥梁",
-      "zdf": 1.6159860990443,
-      "leader": "东莞控股",
-      "leader_zdf": 5.69,
-      "stock_count": 20.0,
-      "amount": 165274418.0
-    },
-    {
       "name": "煤炭行业",
-      "zdf": 1.4413867214876,
+      "zdf": 2.074475540812,
       "leader": "上海能源",
       "leader_zdf": 10.022,
       "stock_count": 41.0,
-      "amount": 2018263453.0
+      "amount": 2710350581.0
     },
     {
-      "name": "金融行业",
-      "zdf": 1.1339359079704,
-      "leader": "锦龙股份",
-      "leader_zdf": 6.643,
-      "stock_count": 51.0,
-      "amount": 2842824856.0
+      "name": "公路桥梁",
+      "zdf": 1.9982623805387,
+      "leader": "皖通高速",
+      "leader_zdf": 4.839,
+      "stock_count": 20.0,
+      "amount": 224168756.0
     },
     {
       "name": "开发区",
-      "zdf": 0.91343451377178,
+      "zdf": 1.8690275435638,
       "leader": "市北高新",
       "leader_zdf": 10.022,
       "stock_count": 10.0,
-      "amount": 102189136.0
+      "amount": 137168758.0
+    },
+    {
+      "name": "酿酒行业",
+      "zdf": 1.6527724628344,
+      "leader": "会稽山",
+      "leader_zdf": 8.307,
+      "stock_count": 33.0,
+      "amount": 271197751.0
+    },
+    {
+      "name": "金融行业",
+      "zdf": 1.0813475760066,
+      "leader": "锦龙股份",
+      "leader_zdf": 5.594,
+      "stock_count": 51.0,
+      "amount": 3980420244.0
     },
     {
       "name": "农林牧渔",
-      "zdf": 0.49319392385086,
+      "zdf": 1.0712172026041,
       "leader": "天山生物",
       "leader_zdf": 20.0,
       "stock_count": 64.0,
-      "amount": 1847223952.0
-    },
-    {
-      "name": "船舶制造",
-      "zdf": -0.23406745398447,
-      "leader": "中国船舶",
-      "leader_zdf": 0.416,
-      "stock_count": 8.0,
-      "amount": 110987422.0
+      "amount": 2331620052.0
     },
     {
       "name": "建筑建材",
-      "zdf": -0.33861363017164,
-      "leader": "*ST瑞和",
-      "leader_zdf": 10.019,
+      "zdf": 0.035028996224653,
+      "leader": "北方国际",
+      "leader_zdf": 10.033,
       "stock_count": 91.0,
-      "amount": 1818602726.0
+      "amount": 2496208471.0
     },
     {
       "name": "摩托车",
-      "zdf": -0.34433285509326,
+      "zdf": 0.028694404591105,
       "leader": "隆鑫通用",
-      "leader_zdf": 5.772,
+      "leader_zdf": 5.123,
       "stock_count": 6.0,
-      "amount": 82836327.0
+      "amount": 115150469.0
     },
     {
-      "name": "家电行业",
-      "zdf": -0.39974884889075,
-      "leader": "老板电器",
-      "leader_zdf": 2.781,
-      "stock_count": 37.0,
-      "amount": 695690024.0
+      "name": "电力行业",
+      "zdf": -0.06894873458793,
+      "leader": "福能股份",
+      "leader_zdf": 5.453,
+      "stock_count": 62.0,
+      "amount": 2662453604.0
+    },
+    {
+      "name": "船舶制造",
+      "zdf": -0.1276731567188,
+      "leader": "江苏国信",
+      "leader_zdf": 0.717,
+      "stock_count": 8.0,
+      "amount": 152303160.0
     }
   ],
   "diagnostics": [
-    "量能仅为10日均值的0%，反弹持续性存疑",
     "指数低于中长期均线，中期趋势仍偏弱",
-    "主线集中于酿酒行业（2.08%），注意板块轮动风险"
+    "主线集中于煤炭行业（2.07%），注意板块轮动风险"
   ],
   "breadth_detail": {
-    "up": 1175,
-    "down": 4258,
-    "flat": 115,
+    "up": 1460,
+    "down": 3964,
+    "flat": 124,
     "total": 5548,
-    "limit_up": 44,
-    "limit_down": 24,
-    "上涨比例": "21.2%",
+    "limit_up": 50,
+    "limit_down": 27,
+    "上涨比例": "26.3%",
     "涨跌停比": 0.65,
     "市场状态": "正常",
     "计分模型": "反身性冷却(非对称)",
@@ -189,7 +188,7 @@
     "corrected_score": null,
     "message": "",
     "note": "",
-    "up_ratio": 21.2
+    "up_ratio": 26.3
   },
   "source": "新浪/腾讯公开接口 (GitHub Actions)",
   "limitup": {
@@ -209,6 +208,16 @@
         "name": "汉森制药",
         "chg": 10.01,
         "consecutive_days": 4,
+        "days_boards": "",
+        "board_type": "",
+        "themes": "",
+        "reason": ""
+      },
+      {
+        "code": "603958",
+        "name": "哈森股份",
+        "chg": 10.02,
+        "consecutive_days": 3,
         "days_boards": "",
         "board_type": "",
         "themes": "",
@@ -243,16 +252,6 @@
         "board_type": "",
         "themes": "",
         "reason": ""
-      },
-      {
-        "code": "601212",
-        "name": "白银有色",
-        "chg": 10.02,
-        "consecutive_days": 2,
-        "days_boards": "",
-        "board_type": "",
-        "themes": "",
-        "reason": ""
       }
     ],
     "total": 5
@@ -266,6 +265,11 @@
     {
       "time": "05:26",
       "score": 45.7,
+      "position": 60
+    },
+    {
+      "time": "08:10",
+      "score": 56.4,
       "position": 60
     }
   ]
