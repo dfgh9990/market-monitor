@@ -235,7 +235,10 @@ def fetch_sectors():
             "stock_count": _f(v[2]), "amount": _f(v[6]),
         })
     rows.sort(key=lambda r: r["zdf"] or -999, reverse=True)
-    return rows[:10], rows[-5:]  # top10（涨幅最高）、bottom5（涨幅最低/领跌）
+    # 全行业实时上涨占比（盘中实时口径，替代原硬编码 0.7）：49 个行业中涨幅为正的占比
+    rising = [r for r in rows if (r["zdf"] or 0) > 0]
+    rising_ratio = round(len(rising) / len(rows), 3) if rows else 0.7
+    return rows[:10], rows[-5:], rising_ratio  # top10（涨幅最高）、bottom5（领跌）、全行业实时上涨占比
 
 
 # ---------------- 5. 连板天数（腾讯日K判断） ----------------
@@ -304,7 +307,7 @@ def main():
         tech.get("price"), tech.get("ma5"), tech.get("ma20")))
 
     print("== 4/5 抓取行业板块涨幅（新浪，替代资金流） ==")
-    top10, bottom5 = fetch_sectors()
+    top10, bottom5, sector_rising_ratio = fetch_sectors()
     print("  TOP1: {} {}{}% | 领涨 {}".format(
         top10[0]["name"], "+" if top10[0]["zdf"] >= 0 else "", top10[0]["zdf"], top10[0]["leader"]) if top10 else "  无板块数据")
 
@@ -325,7 +328,7 @@ def main():
         "sector_top": [{"name": r["name"], "zdf": r["zdf"], "zljlr": None, "leader": r["leader"], "leader_zdf": r["leader_zdf"]} for r in top10],
         "sector_bottom": [{"name": r["name"], "zdf": r["zdf"], "zljlr": None} for r in bottom5],
         "sector_rank": top10,
-        "sector_rising_ratio": 0.7,
+        "sector_rising_ratio": sector_rising_ratio,
         "breadth_source": "sina_public_realtime",
     }
 
