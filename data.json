@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-25 12:14",
+  "updated_at": "2026-08-25 13:32",
   "trading": true,
   "score": 47.8,
   "position_pct": 60,
@@ -7,27 +7,27 @@
   "verdict": "高抛低吸",
   "dimensions": {
     "breadth": {
-      "score": 89.3,
-      "label": "正常"
+      "score": 72.2,
+      "label": "偏热"
     },
     "volume": {
-      "score": 0,
-      "label": "极弱"
+      "score": 21.0,
+      "label": "偏弱"
     },
     "sector": {
-      "score": 56.6,
-      "label": "中性"
+      "score": 61.8,
+      "label": "偏强"
     },
     "fund": {
-      "score": 62.0,
+      "score": 60.8,
       "label": "偏强"
     },
     "trend": {
-      "score": 0,
+      "score": 12.4,
       "label": "极弱"
     },
     "sentiment": {
-      "score": 17.1,
+      "score": 8.5,
       "label": "⚠️ 情绪偏热，注意分化"
     }
   },
@@ -35,154 +35,153 @@
     {
       "name": "上证指数",
       "code": "000001",
-      "close": 3876.38,
-      "chg_pct": -0.15
+      "close": 3889.62,
+      "chg_pct": 0.2
     },
     {
       "name": "深证成指",
       "code": "399001",
-      "close": 13687.06,
-      "chg_pct": -0.78
+      "close": 13777.1,
+      "chg_pct": -0.12
     },
     {
       "name": "创业板指",
       "code": "399006",
-      "close": 3382.81,
-      "chg_pct": -1.43
+      "close": 3412.04,
+      "chg_pct": -0.58
     }
   ],
   "sectors_top": [
     {
       "name": "陶瓷行业",
-      "zdf": 2.8916782891678,
-      "zljlr": null
-    },
-    {
-      "name": "农林牧渔",
-      "zdf": 2.0279897722171,
+      "zdf": 4.1980474198047,
       "zljlr": null
     },
     {
       "name": "造纸行业",
-      "zdf": 1.70823590543,
+      "zdf": 2.2213561964147,
       "zljlr": null
     },
     {
       "name": "纺织行业",
-      "zdf": 1.6853209828895,
+      "zdf": 2.2170762039539,
       "zljlr": null
     },
     {
-      "name": "石油行业",
-      "zdf": 1.5606392980257,
+      "name": "仪器仪表",
+      "zdf": 2.1814035976691,
+      "zljlr": null
+    },
+    {
+      "name": "农林牧渔",
+      "zdf": 2.1490055237835,
       "zljlr": null
     }
   ],
   "sectors_rank": [
     {
       "name": "陶瓷行业",
-      "zdf": 2.8916782891678,
+      "zdf": 4.1980474198047,
       "leader": "松发股份",
-      "leader_zdf": 3.477,
+      "leader_zdf": 4.891,
       "stock_count": 8.0,
-      "amount": 36340107.0
-    },
-    {
-      "name": "农林牧渔",
-      "zdf": 2.0279897722171,
-      "leader": "金健米业",
-      "leader_zdf": 10.047,
-      "stock_count": 64.0,
-      "amount": 1992641242.0
+      "amount": 42912197.0
     },
     {
       "name": "造纸行业",
-      "zdf": 1.70823590543,
+      "zdf": 2.2213561964147,
       "leader": "青山纸业",
       "leader_zdf": 10.14,
       "stock_count": 24.0,
-      "amount": 480161092.0
+      "amount": 536895435.0
     },
     {
       "name": "纺织行业",
-      "zdf": 1.6853209828895,
+      "zdf": 2.2170762039539,
       "leader": "甘咨询",
       "leader_zdf": 10.0,
       "stock_count": 42.0,
-      "amount": 315067827.0
+      "amount": 363169454.0
     },
     {
-      "name": "石油行业",
-      "zdf": 1.5606392980257,
-      "leader": "新锦动力",
-      "leader_zdf": 4.188,
-      "stock_count": 24.0,
-      "amount": 769849207.0
+      "name": "仪器仪表",
+      "zdf": 2.1814035976691,
+      "leader": "智云股份",
+      "leader_zdf": 20.046,
+      "stock_count": 48.0,
+      "amount": 756139407.0
+    },
+    {
+      "name": "农林牧渔",
+      "zdf": 2.1490055237835,
+      "leader": "天山生物",
+      "leader_zdf": 11.979,
+      "stock_count": 64.0,
+      "amount": 2237227003.0
     },
     {
       "name": "纺织机械",
-      "zdf": 1.5258215962441,
+      "zdf": 1.9953051643192,
       "leader": "中毅达",
-      "leader_zdf": 4.85,
+      "leader_zdf": 3.349,
       "stock_count": 8.0,
-      "amount": 132782632.0
-    },
-    {
-      "name": "物资外贸",
-      "zdf": 1.4219186588016,
-      "leader": "汇通能源",
-      "leader_zdf": 5.546,
-      "stock_count": 21.0,
-      "amount": 221737816.0
-    },
-    {
-      "name": "酒店旅游",
-      "zdf": 1.3878350263126,
-      "leader": "华天酒店",
-      "leader_zdf": 9.924,
-      "stock_count": 35.0,
-      "amount": 399115258.0
+      "amount": 144307420.0
     },
     {
       "name": "传媒娱乐",
-      "zdf": 1.3498354771164,
-      "leader": "奥飞娱乐",
-      "leader_zdf": 4.522,
+      "zdf": 1.7387077475322,
+      "leader": "华智数媒",
+      "leader_zdf": 4.426,
       "stock_count": 40.0,
-      "amount": 429319867.0
+      "amount": 495490899.0
     },
     {
-      "name": "食品行业",
-      "zdf": 1.3474560371147,
-      "leader": "凯撒旅业",
-      "leader_zdf": 10.0,
-      "stock_count": 58.0,
-      "amount": 951146126.0
+      "name": "生物制药",
+      "zdf": 1.7055642818421,
+      "leader": "福瑞医科",
+      "leader_zdf": 11.331,
+      "stock_count": 155.0,
+      "amount": 3639601434.0
+    },
+    {
+      "name": "印刷包装",
+      "zdf": 1.7036261539926,
+      "leader": "珠海中富",
+      "leader_zdf": 5.405,
+      "stock_count": 20.0,
+      "amount": 350896539.0
+    },
+    {
+      "name": "石油行业",
+      "zdf": 1.6797242243811,
+      "leader": "新锦动力",
+      "leader_zdf": 4.188,
+      "stock_count": 24.0,
+      "amount": 884120177.0
     }
   ],
   "diagnostics": [
     "量能仅为10日均值的0%，反弹持续性存疑",
     "指数低于中长期均线，中期趋势仍偏弱",
-    "主线集中于陶瓷行业（2.89%），注意板块轮动风险",
-    "普涨格局（涨股比66%），情绪高涨"
+    "主线集中于陶瓷行业（4.20%），注意板块轮动风险"
   ],
   "breadth_detail": {
-    "up": 3683,
-    "down": 1777,
-    "flat": 89,
+    "up": 4237,
+    "down": 1234,
+    "flat": 78,
     "total": 5549,
-    "limit_up": 56,
-    "limit_down": 4,
-    "上涨比例": "66.4%",
-    "涨跌停比": 0.93,
-    "市场状态": "正常",
+    "limit_up": 63,
+    "limit_down": 3,
+    "上涨比例": "76.4%",
+    "涨跌停比": 0.95,
+    "市场状态": "偏热",
     "计分模型": "反身性冷却(抛物线)",
     "情绪定性": "⚠️ 情绪偏热，注意分化",
     "overheat": false
   },
   "breadth_realtime": true,
   "overheat": false,
-  "market_status": "正常",
+  "market_status": "偏热",
   "icepoint": {
     "active": false,
     "days": 0,
@@ -190,7 +189,7 @@
     "corrected_score": null,
     "message": "",
     "note": "",
-    "up_ratio": 66.4
+    "up_ratio": 76.4
   },
   "source": "新浪/腾讯公开接口 (GitHub Actions)",
   "limitup": {
@@ -281,6 +280,11 @@
     },
     {
       "time": "12:14",
+      "score": 47.8,
+      "position": 60
+    },
+    {
+      "time": "13:32",
       "score": 47.8,
       "position": 60
     }
