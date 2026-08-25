@@ -32,6 +32,59 @@ def _to_float(v):
         return None
 
 
+# ---------------- 量能健康度：盘中时点归一化基准 ----------------
+
+# 参考基准：近期两市常态日成交额（亿元）。
+# 用途：把「盘中累计成交额」换算成相对全天的「量能节奏(pace)」。
+# 该值应随市场量能中枢变化更新（建议取近 20 个交易日两市成交额均值）。
+REFERENCE_DAILY_AMOUNT_YI = 15000.0
+
+# 盘中累计成交额占比基准曲线：锚点 = (距 9:30 的连续交易分钟, 截至该时点应完成的全天成交额占比)。
+# 午休(11:30~13:00)不交易，故 13:00 之后扣除 90 分钟。曲线取自两市量能历史分布的经验估计
+#（上午约 54%、下午约 46%，开盘与尾盘相对密集）。
+_VOLUME_SHARE_ANCHORS = [
+    (0, 0.00), (30, 0.15), (60, 0.28), (90, 0.41), (120, 0.54),
+    (150, 0.63), (180, 0.73), (210, 0.85), (240, 1.00),
+]
+
+
+def _trading_minutes_since_open(hhmm):
+    """HH:MM → 距 9:30 的连续交易分钟（午休不计入）；非交易时段返回 None。"""
+    try:
+        h, m = (int(x) for x in hhmm.split(":"))
+    except Exception:
+        return None
+    mins = h * 60 + m
+    if mins < 9 * 60 + 30 or mins > 15 * 60:
+        return None
+    if mins > 11 * 60 + 30:
+        mins -= 90
+    return mins - (9 * 60 + 30)
+
+
+def _expected_share(hhmm):
+    """截至该时点、按历史常态应完成的全天成交额占比(0~1)。收盘后(非交易时段)按 1.0 计。"""
+    t = _trading_minutes_since_open(hhmm)
+    if t is None:
+        return 1.0
+    a = _VOLUME_SHARE_ANCHORS
+    if t <= a[0][0]:
+        return a[0][1]
+    if t >= a[-1][0]:
+        return a[-1][1]
+    for i in range(1, len(a)):
+        t0, s0 = a[i - 1]
+        t1, s1 = a[i]
+        if t <= t1:
+            return s0 + (s1 - s0) * (t - t0) / (t1 - t0)
+    return a[-1][1]
+
+
+def _now_hhmm():
+    bj = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8)))
+    return bj.strftime("%H:%M")
+
+
 # ---------- 从 MCP 原始 JSON 抽取 ----------
 
 def extract_overview(overview_json):
@@ -186,29 +239,50 @@ def score_breadth(b):
     return clamp(score), detail, overheat, status
 
 
-def score_volume(v, up_ratio=None):
-    """量能健康度：成交额水平 × 量价配合修正。
+def score_volume(v, up_ratio=None, hhmm=None):
+    """量能健康度（盘中实时口径）：量能节奏(pace) = 当前时点累计成交额 ÷ 该时点预期累计额。
 
-    绝对成交额映射（无 10 日均值时）：<1.2万亿 偏弱 / 1.5~1.8万亿 中性 / >2.2万亿 强。
-    关键修正——量价配合：放量下跌=恐慌出货（量大反而危险，打折），放量上涨=健康（加成）：
-      up_ratio<0.35 → ×0.45（普跌放量）
-      up_ratio<0.45 → ×0.75（弱市放量）
-      up_ratio>0.65 → ×1.15（普涨放量）
+    修正说明（重点）：旧逻辑用全天阈值(1.2~2.2万亿)直接映射「盘中累计额」，但上午累计额
+    通常只有全天的 15%~40%，于是 base 直接变负、分数被压到 0 附近 —— 这就是「盘中量能异常偏低」。
+    现改为按「当前时点匹配的累计占比」归一化：
+        预期累计额 = REFERENCE_DAILY_AMOUNT_YI × 该时点预期占比(_expected_share)
+        pace       = 实际累计额 / 预期累计额
+        pace≈1 正常；>1.3 放量健康；<0.6 缩量偏弱
+    再叠加量价配合修正：普跌放量(出货)打折、普涨放量(健康)加成。
+    返回 (score, detail)，detail 含各分量便于核对。
     """
     amt = v.get("amount_yi")
-    if v.get("source") in ("public_realtime", "tongdaxin_realtime") and amt:
-        base = (amt - 12000) / (22000 - 12000) * 100
-    else:
-        r = v.get("avg10_ratio", 100) or 100
-        base = (r - 60) / (130 - 60) * 100
-    if up_ratio is not None:
-        if up_ratio < 0.35:
-            base *= 0.45
-        elif up_ratio < 0.45:
-            base *= 0.75
-        elif up_ratio > 0.65:
-            base *= 1.15
-    return clamp(base)
+    hhmm = hhmm or _now_hhmm()
+    use_pace = (v.get("source") in ("public_realtime", "tongdaxin_realtime")) or (amt and not v.get("avg10_ratio"))
+    if use_pace and amt:
+        share = _expected_share(hhmm)
+        expected = REFERENCE_DAILY_AMOUNT_YI * share
+        pace = amt / expected if expected > 0 else 1.0
+        base = clamp(50 + (pace - 1.0) * 70)
+        detail = {
+            "累计成交额_亿": round(amt, 1),
+            "当前时点": hhmm,
+            "预期累计占比": "{:.1f}%".format(share * 100),
+            "预期累计额_亿": round(expected, 1),
+            "量能节奏_pace": round(pace, 2),
+            "量价配合": "—",
+            "基准日成交额_亿": REFERENCE_DAILY_AMOUNT_YI,
+        }
+        if up_ratio is not None:
+            if up_ratio < 0.35:
+                base *= 0.45
+                detail["量价配合"] = "普跌放量 ×0.45"
+            elif up_ratio < 0.45:
+                base *= 0.75
+                detail["量价配合"] = "弱市放量 ×0.75"
+            elif up_ratio > 0.65:
+                base *= 1.15
+                detail["量价配合"] = "普涨放量 ×1.15"
+        return clamp(base), detail
+    # 旧口径（MCP 路径，数据为相对 10 日均值的比值，日频）：直接映射比值
+    r = v.get("avg10_ratio", 100) or 100
+    base = (r - 60) / (130 - 60) * 100
+    return clamp(base), {"量能基准": "10日均值的{:.0f}%".format(r)}
 
 
 def score_sector(top, rising_ratio):
@@ -383,9 +457,12 @@ def compute(raw, ts=None, icepoint=None):
     s_score, s_detail, s_overheat, s_label = score_sentiment(b)
     # 广度（上涨家数占比）：供量能/资金维度做"普跌修正"，避免弱市下假高分
     up_ratio = (b.get("up", 0) or 0) / ((b.get("total", 0) or 1) or 1)
+    # 当前盘中时点（从 ts 解析；ts 为空则用北京时间）
+    hhmm = (ts[11:16] if (ts and len(ts) >= 16) else _now_hhmm())
+    v_score, v_detail = score_volume(v, up_ratio, hhmm=hhmm)
     dims = {
         "breadth": round(b_score, 1),
-        "volume": round(score_volume(v, up_ratio), 1),
+        "volume": round(v_score, 1),
         "sector": round(score_sector(top, rr), 1),
         "fund": round(score_fund(top, bottom, up_ratio), 1),
         "trend": round(score_trend(tech), 1),
@@ -414,7 +491,11 @@ def compute(raw, ts=None, icepoint=None):
 
     diags = []
     if dims["volume"] < 50:
-        diags.append("量能仅为10日均值的{:.0f}%，反弹持续性存疑".format(v.get("avg10_ratio", 0) or 0))
+        pace = v_detail.get("量能节奏_pace")
+        if pace is not None:
+            diags.append("量能节奏为预期的{:.0f}%，盘中缩量，反弹持续性存疑".format(pace * 100))
+        else:
+            diags.append("量能偏弱，反弹持续性存疑")
     if dims["trend"] < 45:
         diags.append("指数低于中长期均线，中期趋势仍偏弱")
     if top:
@@ -462,9 +543,45 @@ def compute(raw, ts=None, icepoint=None):
         "overheat": overheat,
     })
 
+    # 时段切分规则说明（每个维度实际使用的盘中/日频口径），便于核对正确性
+    methodology = {
+        "breadth": {
+            "数据源": "新浪全市场分页(实时)",
+            "时段口径": "当前时点涨跌家数快照（截至当前时刻实时状态，非全天累计）",
+            "说明": "每次刷新即为当时真实涨跌分布，已是盘中实时值",
+        },
+        "volume": {
+            "数据源": "新浪两市累计成交额(实时累加)",
+            "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（{} 时点预期占比 {:.1f}%）".format(
+                hhmm, _expected_share(hhmm) * 100),
+            "说明": "用盘中时点匹配的累计占比归一化，解决上午被全天阈值压低的问题",
+        },
+        "sector": {
+            "数据源": "新浪行业板块(实时)",
+            "时段口径": "当前时点行业板块涨幅 + 全行业实时上涨占比",
+            "说明": "板块强弱与上涨面均为盘中实时",
+        },
+        "fund": {
+            "数据源": "板块涨幅动能代理（公开接口无资金流）",
+            "时段口径": "当前时点领涨/领跌板块涨幅差",
+            "说明": "盘中实时；若接入资金流接口则改用主力净流入",
+        },
+        "trend": {
+            "数据源": "上证日K(腾讯)",
+            "时段口径": "日频（收盘价含今日进行中K线，现价实时）",
+            "说明": "趋势为慢变量，盘中随现价微调，不做日内累计换算",
+        },
+        "sentiment": {
+            "数据源": "涨跌停家数(实时)",
+            "时段口径": "当前时点涨停/跌停家数快照 + 广度修正",
+            "说明": "盘中实时",
+        },
+    }
+
     return {
         "updated_at": ts,
         "trading": True,
+        "caliber": "intraday_realtime",
         "score": total,
         "position_pct": position,
         "position_label": label,
@@ -480,6 +597,8 @@ def compute(raw, ts=None, icepoint=None):
         "market_status": market_status,
         "icepoint": ip if ip else {"active": False},
         "source": source,
+        "volume_detail": v_detail,
+        "methodology": methodology,
     }
 
 
