@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-08-25 14:57",
+  "updated_at": "2026-08-25 16:26",
   "trading": true,
   "score": 57.4,
   "position_pct": 60,
@@ -7,19 +7,19 @@
   "verdict": "高抛低吸",
   "dimensions": {
     "breadth": {
-      "score": 73.5,
+      "score": 72.4,
       "label": "偏热"
     },
     "volume": {
-      "score": 71.0,
+      "score": 74.0,
       "label": "偏强"
     },
     "sector": {
-      "score": 65.2,
+      "score": 64.3,
       "label": "偏强"
     },
     "fund": {
-      "score": 63.3,
+      "score": 63.1,
       "label": "偏强"
     },
     "trend": {
@@ -27,7 +27,7 @@
       "label": "极弱"
     },
     "sentiment": {
-      "score": 14.8,
+      "score": 14.3,
       "label": "⚠️ 情绪偏热，注意分化"
     }
   },
@@ -35,143 +35,143 @@
     {
       "name": "上证指数",
       "code": "000001",
-      "close": 3888.81,
-      "chg_pct": 0.18
+      "close": 3889.44,
+      "chg_pct": 0.19
     },
     {
       "name": "深证成指",
       "code": "399001",
-      "close": 13747.57,
-      "chg_pct": -0.34
+      "close": 13745.87,
+      "chg_pct": -0.35
     },
     {
       "name": "创业板指",
       "code": "399006",
-      "close": 3398.84,
-      "chg_pct": -0.96
+      "close": 3397.52,
+      "chg_pct": -1.0
     }
   ],
   "sectors_top": [
     {
       "name": "陶瓷行业",
-      "zdf": 5.0441655044166,
+      "zdf": 4.8256624825662,
       "zljlr": null
     },
     {
       "name": "物资外贸",
-      "zdf": 2.4278174479975,
-      "zljlr": null
-    },
-    {
-      "name": "农林牧渔",
-      "zdf": 2.4222668982882,
-      "zljlr": null
-    },
-    {
-      "name": "生物制药",
-      "zdf": 2.380191175176,
+      "zdf": 2.4402359515678,
       "zljlr": null
     },
     {
       "name": "纺织行业",
-      "zdf": 2.3757451005618,
+      "zdf": 2.4357819803594,
+      "zljlr": null
+    },
+    {
+      "name": "农林牧渔",
+      "zdf": 2.416411297406,
+      "zljlr": null
+    },
+    {
+      "name": "造纸行业",
+      "zdf": 2.4162120031177,
       "zljlr": null
     }
   ],
   "sectors_rank": [
     {
       "name": "陶瓷行业",
-      "zdf": 5.0441655044166,
+      "zdf": 4.8256624825662,
       "leader": "松发股份",
-      "leader_zdf": 5.936,
+      "leader_zdf": 5.676,
       "stock_count": 8.0,
-      "amount": 60429445.0
+      "amount": 61402265.0
     },
     {
       "name": "物资外贸",
-      "zdf": 2.4278174479975,
+      "zdf": 2.4402359515678,
       "leader": "汇通能源",
       "leader_zdf": 10.017,
       "stock_count": 21.0,
-      "amount": 345896431.0
-    },
-    {
-      "name": "农林牧渔",
-      "zdf": 2.4222668982882,
-      "leader": "金健米业",
-      "leader_zdf": 10.047,
-      "stock_count": 64.0,
-      "amount": 2802979427.0
-    },
-    {
-      "name": "生物制药",
-      "zdf": 2.380191175176,
-      "leader": "福瑞医科",
-      "leader_zdf": 15.758,
-      "stock_count": 155.0,
-      "amount": 4780801074.0
+      "amount": 352829831.0
     },
     {
       "name": "纺织行业",
-      "zdf": 2.3757451005618,
+      "zdf": 2.4357819803594,
       "leader": "甘咨询",
       "leader_zdf": 10.0,
       "stock_count": 42.0,
-      "amount": 491628416.0
+      "amount": 499101549.0
+    },
+    {
+      "name": "农林牧渔",
+      "zdf": 2.416411297406,
+      "leader": "金健米业",
+      "leader_zdf": 10.047,
+      "stock_count": 64.0,
+      "amount": 2849325275.0
     },
     {
       "name": "造纸行业",
-      "zdf": 2.3707456482203,
+      "zdf": 2.4162120031177,
       "leader": "青山纸业",
       "leader_zdf": 10.14,
       "stock_count": 24.0,
-      "amount": 678991187.0
+      "amount": 691445453.0
     },
     {
-      "name": "仪器仪表",
-      "zdf": 2.1598682543704,
-      "leader": "智云股份",
-      "leader_zdf": 20.046,
-      "stock_count": 48.0,
-      "amount": 1020442855.0
+      "name": "生物制药",
+      "zdf": 2.348220532566,
+      "leader": "福瑞医科",
+      "leader_zdf": 15.784,
+      "stock_count": 155.0,
+      "amount": 4884450783.0
     },
     {
       "name": "印刷包装",
-      "zdf": 2.1319120586276,
+      "zdf": 2.1794993813648,
       "leader": "珠海中富",
       "leader_zdf": 10.039,
       "stock_count": 20.0,
-      "amount": 505854917.0
+      "amount": 515472963.0
     },
     {
-      "name": "纺织机械",
-      "zdf": 1.9450033534541,
-      "leader": "上工申贝",
-      "leader_zdf": 3.65,
-      "stock_count": 8.0,
-      "amount": 177953922.0
+      "name": "仪器仪表",
+      "zdf": 2.1611350392703,
+      "leader": "智云股份",
+      "leader_zdf": 20.046,
+      "stock_count": 48.0,
+      "amount": 1036373216.0
     },
     {
       "name": "商业百货",
-      "zdf": 1.9059506612625,
+      "zdf": 1.9283901098131,
       "leader": "我爱我家",
       "leader_zdf": 10.138,
       "stock_count": 93.0,
-      "amount": 2493791300.0
+      "amount": 2547636084.0
+    },
+    {
+      "name": "传媒娱乐",
+      "zdf": 1.847143284475,
+      "leader": "奥飞娱乐",
+      "leader_zdf": 4.393,
+      "stock_count": 40.0,
+      "amount": 705619420.0
     }
   ],
   "diagnostics": [
     "指数低于中长期均线，中期趋势仍偏弱",
-    "主线集中于陶瓷行业（5.04%），注意板块轮动风险"
+    "主线集中于陶瓷行业（4.83%），注意板块轮动风险"
   ],
   "breadth_detail": {
-    "up": 4202,
-    "down": 1269,
-    "flat": 78,
+    "up": 4233,
+    "down": 1246,
+    "flat": 70,
     "total": 5549,
-    "limit_up": 77,
+    "limit_up": 79,
     "limit_down": 5,
-    "上涨比例": "75.7%",
+    "上涨比例": "76.3%",
     "涨跌停比": 0.94,
     "市场状态": "偏热",
     "计分模型": "反身性冷却(抛物线)",
@@ -188,7 +188,7 @@
     "corrected_score": null,
     "message": "",
     "note": "",
-    "up_ratio": 75.7
+    "up_ratio": 76.3
   },
   "source": "新浪/腾讯公开接口 (GitHub Actions)",
   "limitup": {
@@ -294,6 +294,11 @@
     },
     {
       "time": "14:57",
+      "score": 57.4,
+      "position": 60
+    },
+    {
+      "time": "16:26",
       "score": 57.4,
       "position": 60
     }
