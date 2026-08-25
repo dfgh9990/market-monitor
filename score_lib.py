@@ -341,17 +341,20 @@ def score_trend(t):
 
 
 def score_sentiment(b):
-    """市场情绪温度（涨跌停比 × 广度修正）：抛物线倒扣分（反身性冷却）。
+    """市场情绪温度（涨停相对跌停的「热度」 gauge）：单调升温 + 独立过热 flag。
 
-    X = 涨停/(涨停+跌停)；无跌停时以市场总量约 0.8% 作常态跌停基准，
-    避免"零跌停"被误判为永远=1 而误报高潮。
-      - X>0.8 极度亢奋 → 20 分并预警（盛极而衰）
-      - X>0.6 偏热     → 抛物线得分后再扣 10
-      - X<0.1 极度恐慌 → 10 分（近空仓）
-      - 其余           → 抛物线 4·X·(1-X)·100
-    广度修正：涨跌停比是结构性指标，必须结合整体涨跌家数——
-      普跌环境（上涨占比<0.35）下涨停多只是局部热点，情绪分打 0.55 折（避免"普跌却情绪热"的矛盾）；
-      <0.45 打 0.8 折；普涨（>0.65）情绪加成 ×1.15。
+    设计修正（重点 / 修复 14 分异常偏低）：
+      旧逻辑对「涨停/(涨停+跌停) 比 X」套用与广度相同的抛物线 4·X·(1-X)·100，
+      该曲线在 X→1（涨停绝对占优）时塌陷到 0，于是「79 涨停 / 5 跌停」这种强多头日
+      被算成 ~12 分（与广度 76% 上涨、市场明显转暖的实况严重矛盾）；且 lu>=80 的硬阈值
+      造成 79→12、80→20 的断崖。
+      现改为：情绪温度随涨停相对优势单调升温——
+        X = 涨停 /(涨停 + 跌停 + 背景跌停基线)；背景基线≈总量0.8%，避免「5 个真实跌停」
+        把比值推到 0.94 的极端（真实跌停偏少时不该比「0 跌停(基线44)」更极端）。
+        温度 = 10 + X^0.7 × 85   （X=0 冰点10 / X=0.5 中性55 / X→1 高温95）
+      过热（盛极而衰）作为**独立 flag** 处理（百股涨停 lu≥100），不再把分数压到 20，
+      避免「温度高」与「预警」自相矛盾；预警改由 overheat + 诊断体现。
+      广度修正：普跌环境涨停多为局部热点，温度打折（避免「普跌却情绪热」）。
     返回 (score, detail, overheat, label)。
     """
     lu = b.get("limit_up", 0) or 0
@@ -359,44 +362,43 @@ def score_sentiment(b):
     total = b.get("total", 0) or 5000
     if lu == 0 and ld == 0:
         return 50.0, {"涨停": 0, "跌停": 0, "涨跌停比": 0.0, "情绪定性": "无明显涨跌停"}, False, "中性"
-    if ld > 0:
-        x = lu / (lu + ld)
-    else:
-        baseline = max(1, round(total * 0.008))
-        x = lu / (lu + baseline)
-    if x > 0.8 and lu >= 80:
-        # 真正的"高潮"需同时满足：涨跌停比极端高 且 涨停绝对数够多（百股涨停级别）。
-        # 仅有少数涨停 + 跌停稀少（涨跌停比虚高）属于结构性偏热，不判为全局亢奋。
-        score = 20.0
-        status = "🔥 情绪极度亢奋，危险！"
-        overheat = True
-    elif x > 0.6:
-        score = clamp(4 * x * (1 - x) * 100 - 10)
-        status = "⚠️ 情绪偏热，注意分化"
-        overheat = False
-    elif x < 0.1:
-        score = 10.0
+    # 背景跌停基线：≈总量0.8%，作为分母垫底，避免极少/零跌停把比值推到极端
+    baseline = max(1, round(total * 0.008))
+    denom = lu + ld + baseline
+    x = lu / denom if denom > 0 else 0.5
+    # 情绪温度：随涨停相对优势单调升温（不再用峰值在 0.5 的抛物线）
+    temp = 10 + (x ** 0.7) * 85
+    # 过热（盛极而衰）独立 flag：百股涨停级视为全局亢奋
+    overheat = lu >= 100
+    if overheat:
+        status = "🔥 情绪极度亢奋（百股涨停），危险！"
+    elif lu >= 60:
+        status = "🚀 涨停潮，情绪高涨"
+    elif x < 0.12:
         status = "💀 情绪极度恐慌，冰点"
-        overheat = False
+    elif x < 0.3:
+        status = "偏弱·偏冷"
     else:
-        score = 4 * x * (1 - x) * 100
-        status = "✅ 情绪正常"
-        overheat = False
-    # ---- 广度修正：结合整体涨跌家数，避免"普跌却情绪热" ----
+        status = "✅ 情绪正常偏暖"
+    # ---- 广度修正：结合整体涨跌家数，避免「普跌却情绪热」 ----
     up = b.get("up", 0) or 0
     up_ratio = up / total if total else 0.5
-    if overheat:
-        pass  # 真高潮（百股涨停）不修正
-    elif up_ratio < 0.35:
-        score = clamp(score * 0.55)
+    if up_ratio < 0.35:
+        temp = clamp(temp * 0.7)
         status = "⚠️ 结构性偏热，但市场普跌（涨股比{:.0f}%）".format(up_ratio * 100)
     elif up_ratio < 0.45:
-        score = clamp(score * 0.8)
+        temp = clamp(temp * 0.85)
         status = "⚠️ 涨跌停结构偏热，市场偏弱（涨股比{:.0f}%）".format(up_ratio * 100)
     elif up_ratio > 0.65:
-        score = clamp(score * 1.15)
-    detail = {"涨停": lu, "跌停": ld, "涨跌停比": round(x, 2), "情绪定性": status}
-    return clamp(score), detail, overheat, status
+        temp = clamp(min(temp * 1.05, 95))
+    detail = {
+        "涨停": lu,
+        "跌停": ld,
+        "涨跌停比(原始)": round(lu / (lu + ld) if ld > 0 else x, 2),
+        "情绪热度X": round(x, 2),
+        "情绪定性": status,
+    }
+    return clamp(temp), detail, overheat, status
 
 
 def band_label(score):
@@ -573,8 +575,8 @@ def compute(raw, ts=None, icepoint=None):
         },
         "sentiment": {
             "数据源": "涨跌停家数(实时)",
-            "时段口径": "当前时点涨停/跌停家数快照 + 广度修正",
-            "说明": "盘中实时",
+            "时段口径": "当前时点涨停/跌停家数快照 + 背景跌停基线归一 + 广度修正",
+            "说明": "情绪温度随涨停相对优势单调升温（非峰值在0.5的抛物线）；过热(百股涨停)独立标记，不压分；盘中实时",
         },
     }
 
