@@ -1,13 +1,13 @@
 {
-  "updated_at": "2026-08-25 10:02",
+  "updated_at": "2026-08-25 11:02",
   "trading": true,
-  "score": 50.7,
+  "score": 49.1,
   "position_pct": 60,
   "position_label": "震荡灵活",
   "verdict": "高抛低吸",
   "dimensions": {
     "breadth": {
-      "score": 96.0,
+      "score": 98.9,
       "label": "正常"
     },
     "volume": {
@@ -15,11 +15,11 @@
       "label": "极弱"
     },
     "sector": {
-      "score": 59.3,
+      "score": 52.2,
       "label": "中性"
     },
     "fund": {
-      "score": 64.0,
+      "score": 61.8,
       "label": "偏强"
     },
     "trend": {
@@ -27,7 +27,7 @@
       "label": "极弱"
     },
     "sentiment": {
-      "score": 20.0,
+      "score": 16.1,
       "label": "⚠️ 情绪偏热，注意分化"
     }
   },
@@ -35,146 +35,146 @@
     {
       "name": "上证指数",
       "code": "000001",
-      "close": 3866.54,
-      "chg_pct": -0.4
+      "close": 3867.41,
+      "chg_pct": -0.38
     },
     {
       "name": "深证成指",
       "code": "399001",
-      "close": 13668.11,
-      "chg_pct": -0.91
+      "close": 13631.94,
+      "chg_pct": -1.18
     },
     {
       "name": "创业板指",
       "code": "399006",
-      "close": 3388.09,
-      "chg_pct": -1.28
+      "close": 3368.74,
+      "chg_pct": -1.84
     }
   ],
   "sectors_top": [
     {
-      "name": "陶瓷行业",
-      "zdf": 3.579730357973,
-      "zljlr": null
-    },
-    {
       "name": "农林牧渔",
-      "zdf": 2.0845939140788,
+      "zdf": 1.8113325395741,
       "zljlr": null
     },
     {
-      "name": "酒店旅游",
-      "zdf": 1.6864520866479,
+      "name": "陶瓷行业",
+      "zdf": 1.4830311483031,
       "zljlr": null
     },
     {
       "name": "石油行业",
-      "zdf": 1.6295832027578,
+      "zdf": 1.4540896270762,
       "zljlr": null
     },
     {
-      "name": "造纸行业",
-      "zdf": 1.260067550013,
+      "name": "酒店旅游",
+      "zdf": 1.3976257496023,
+      "zljlr": null
+    },
+    {
+      "name": "纺织机械",
+      "zdf": 1.3413816230718,
       "zljlr": null
     }
   ],
   "sectors_rank": [
     {
-      "name": "陶瓷行业",
-      "zdf": 3.579730357973,
-      "leader": "松发股份",
-      "leader_zdf": 4.322,
-      "stock_count": 8.0,
-      "amount": 18440007.0
-    },
-    {
       "name": "农林牧渔",
-      "zdf": 2.0845939140788,
-      "leader": "金健米业",
-      "leader_zdf": 10.047,
+      "zdf": 1.8113325395741,
+      "leader": "天山生物",
+      "leader_zdf": 11.784,
       "stock_count": 64.0,
-      "amount": 1275732039.0
+      "amount": 1912491894.0
     },
     {
-      "name": "酒店旅游",
-      "zdf": 1.6864520866479,
-      "leader": "华天酒店",
-      "leader_zdf": 9.924,
-      "stock_count": 35.0,
-      "amount": 246410650.0
+      "name": "陶瓷行业",
+      "zdf": 1.4830311483031,
+      "leader": "悦心健康",
+      "leader_zdf": 2.296,
+      "stock_count": 8.0,
+      "amount": 32377507.0
     },
     {
       "name": "石油行业",
-      "zdf": 1.6295832027578,
-      "leader": "新锦动力",
-      "leader_zdf": 4.188,
+      "zdf": 1.4540896270762,
+      "leader": "通源石油",
+      "leader_zdf": 4.004,
       "stock_count": 24.0,
-      "amount": 416637699.0
+      "amount": 718632998.0
     },
     {
-      "name": "造纸行业",
-      "zdf": 1.260067550013,
-      "leader": "青山纸业",
-      "leader_zdf": 10.14,
-      "stock_count": 24.0,
-      "amount": 291514560.0
-    },
-    {
-      "name": "纺织行业",
-      "zdf": 1.1921608988379,
-      "leader": "甘咨询",
-      "leader_zdf": 10.0,
-      "stock_count": 42.0,
-      "amount": 185576765.0
-    },
-    {
-      "name": "供水供气",
-      "zdf": 1.1695594125501,
-      "leader": "滨海能源",
-      "leader_zdf": 10.036,
-      "stock_count": 25.0,
-      "amount": 162979804.0
+      "name": "酒店旅游",
+      "zdf": 1.3976257496023,
+      "leader": "华天酒店",
+      "leader_zdf": 9.924,
+      "stock_count": 35.0,
+      "amount": 375119915.0
     },
     {
       "name": "纺织机械",
-      "zdf": 1.1569416498994,
+      "zdf": 1.3413816230718,
       "leader": "中毅达",
-      "leader_zdf": 3.464,
+      "leader_zdf": 6.005,
       "stock_count": 8.0,
-      "amount": 84764948.0
+      "amount": 125002266.0
     },
     {
-      "name": "食品行业",
-      "zdf": 1.1035494379914,
-      "leader": "凯撒旅业",
+      "name": "纺织行业",
+      "zdf": 1.3250997041039,
+      "leader": "甘咨询",
       "leader_zdf": 10.0,
-      "stock_count": 58.0,
-      "amount": 563164717.0
+      "stock_count": 42.0,
+      "amount": 290165824.0
+    },
+    {
+      "name": "供水供气",
+      "zdf": 1.2817089452603,
+      "leader": "滨海能源",
+      "leader_zdf": 10.036,
+      "stock_count": 25.0,
+      "amount": 243425120.0
+    },
+    {
+      "name": "造纸行业",
+      "zdf": 1.2795531306833,
+      "leader": "青山纸业",
+      "leader_zdf": 10.14,
+      "stock_count": 24.0,
+      "amount": 437075744.0
+    },
+    {
+      "name": "物资外贸",
+      "zdf": 1.2232226016765,
+      "leader": "汇通能源",
+      "leader_zdf": 5.505,
+      "stock_count": 21.0,
+      "amount": 204697545.0
     },
     {
       "name": "商业百货",
-      "zdf": 1.0294097022566,
+      "zdf": 1.0602639440136,
       "leader": "上海九百",
       "leader_zdf": 10.014,
       "stock_count": 93.0,
-      "amount": 915546218.0
+      "amount": 1609518780.0
     }
   ],
   "diagnostics": [
     "量能仅为10日均值的0%，反弹持续性存疑",
     "指数低于中长期均线，中期趋势仍偏弱",
-    "主线集中于陶瓷行业（3.58%），注意板块轮动风险",
-    "普涨格局（涨股比60%），情绪高涨"
+    "主线集中于农林牧渔（1.81%），注意板块轮动风险",
+    "普涨格局（涨股比55%），情绪高涨"
   ],
   "breadth_detail": {
-    "up": 3327,
-    "down": 2079,
-    "flat": 143,
+    "up": 3066,
+    "down": 2326,
+    "flat": 157,
     "total": 5549,
-    "limit_up": 45,
+    "limit_up": 53,
     "limit_down": 4,
-    "上涨比例": "60.0%",
-    "涨跌停比": 0.92,
+    "上涨比例": "55.3%",
+    "涨跌停比": 0.93,
     "市场状态": "正常",
     "计分模型": "反身性冷却(抛物线)",
     "情绪定性": "⚠️ 情绪偏热，注意分化",
@@ -190,31 +190,21 @@
     "corrected_score": null,
     "message": "",
     "note": "",
-    "up_ratio": 60.0
+    "up_ratio": 55.3
   },
   "source": "新浪/腾讯公开接口 (GitHub Actions)",
   "limitup": {
     "highest": {
-      "code": "002412",
-      "name": "汉森制药",
-      "consecutive_days": 5,
-      "chg": 9.99,
+      "code": "003040",
+      "name": "楚天龙",
+      "consecutive_days": 3,
+      "chg": 10.02,
       "days_boards": "",
       "board_type": "",
       "themes": "",
       "reason": "公开接口简化数据"
     },
     "top5": [
-      {
-        "code": "002412",
-        "name": "汉森制药",
-        "chg": 9.99,
-        "consecutive_days": 5,
-        "days_boards": "",
-        "board_type": "",
-        "themes": "",
-        "reason": ""
-      },
       {
         "code": "003040",
         "name": "楚天龙",
@@ -254,6 +244,16 @@
         "board_type": "",
         "themes": "",
         "reason": ""
+      },
+      {
+        "code": "600508",
+        "name": "上海能源",
+        "chg": 10.02,
+        "consecutive_days": 2,
+        "days_boards": "",
+        "board_type": "",
+        "themes": "",
+        "reason": ""
       }
     ],
     "total": 5
@@ -272,6 +272,11 @@
     {
       "time": "10:02",
       "score": 50.7,
+      "position": 60
+    },
+    {
+      "time": "11:02",
+      "score": 49.1,
       "position": 60
     }
   ]
