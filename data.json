@@ -1,182 +1,183 @@
 {
-  "updated_at": "2026-08-25 01:44",
+  "updated_at": "2026-08-25 10:02",
   "trading": true,
-  "score": 41.1,
+  "score": 50.7,
   "position_pct": 60,
   "position_label": "震荡灵活",
   "verdict": "高抛低吸",
   "dimensions": {
     "breadth": {
-      "score": 32.3,
-      "label": "偏弱"
+      "score": 96.0,
+      "label": "正常"
     },
     "volume": {
-      "score": 36.9,
-      "label": "偏弱"
+      "score": 0,
+      "label": "极弱"
     },
     "sector": {
-      "score": 53.3,
+      "score": 59.3,
       "label": "中性"
     },
     "fund": {
-      "score": 55,
-      "label": "中性"
+      "score": 64.0,
+      "label": "偏强"
     },
     "trend": {
-      "score": 14.2,
+      "score": 0,
       "label": "极弱"
     },
     "sentiment": {
-      "score": 44.6,
-      "label": "⚠️ 结构性偏热，但市场普跌（涨股比26%）"
+      "score": 20.0,
+      "label": "⚠️ 情绪偏热，注意分化"
     }
   },
   "indices": [
     {
       "name": "上证指数",
       "code": "000001",
-      "close": 3882.01,
-      "chg_pct": -0.59
+      "close": 3866.54,
+      "chg_pct": -0.4
     },
     {
       "name": "深证成指",
       "code": "399001",
-      "close": 13794.29,
-      "chg_pct": -2.13
+      "close": 13668.11,
+      "chg_pct": -0.91
     },
     {
       "name": "创业板指",
       "code": "399006",
-      "close": 3431.89,
-      "chg_pct": -3.21
+      "close": 3388.09,
+      "chg_pct": -1.28
     }
   ],
   "sectors_top": [
     {
-      "name": "煤炭行业",
-      "zdf": 2.074475540812,
+      "name": "陶瓷行业",
+      "zdf": 3.579730357973,
       "zljlr": null
     },
     {
-      "name": "公路桥梁",
-      "zdf": 1.9982623805387,
+      "name": "农林牧渔",
+      "zdf": 2.0845939140788,
       "zljlr": null
     },
     {
-      "name": "开发区",
-      "zdf": 1.8690275435638,
+      "name": "酒店旅游",
+      "zdf": 1.6864520866479,
       "zljlr": null
     },
     {
-      "name": "酿酒行业",
-      "zdf": 1.6527724628344,
+      "name": "石油行业",
+      "zdf": 1.6295832027578,
       "zljlr": null
     },
     {
-      "name": "金融行业",
-      "zdf": 1.0813475760066,
+      "name": "造纸行业",
+      "zdf": 1.260067550013,
       "zljlr": null
     }
   ],
   "sectors_rank": [
     {
-      "name": "煤炭行业",
-      "zdf": 2.074475540812,
-      "leader": "上海能源",
-      "leader_zdf": 10.022,
-      "stock_count": 41.0,
-      "amount": 2710350581.0
-    },
-    {
-      "name": "公路桥梁",
-      "zdf": 1.9982623805387,
-      "leader": "皖通高速",
-      "leader_zdf": 4.839,
-      "stock_count": 20.0,
-      "amount": 224168756.0
-    },
-    {
-      "name": "开发区",
-      "zdf": 1.8690275435638,
-      "leader": "市北高新",
-      "leader_zdf": 10.022,
-      "stock_count": 10.0,
-      "amount": 137168758.0
-    },
-    {
-      "name": "酿酒行业",
-      "zdf": 1.6527724628344,
-      "leader": "会稽山",
-      "leader_zdf": 8.307,
-      "stock_count": 33.0,
-      "amount": 271197751.0
-    },
-    {
-      "name": "金融行业",
-      "zdf": 1.0813475760066,
-      "leader": "锦龙股份",
-      "leader_zdf": 5.594,
-      "stock_count": 51.0,
-      "amount": 3980420244.0
+      "name": "陶瓷行业",
+      "zdf": 3.579730357973,
+      "leader": "松发股份",
+      "leader_zdf": 4.322,
+      "stock_count": 8.0,
+      "amount": 18440007.0
     },
     {
       "name": "农林牧渔",
-      "zdf": 1.0712172026041,
-      "leader": "天山生物",
-      "leader_zdf": 20.0,
+      "zdf": 2.0845939140788,
+      "leader": "金健米业",
+      "leader_zdf": 10.047,
       "stock_count": 64.0,
-      "amount": 2331620052.0
+      "amount": 1275732039.0
     },
     {
-      "name": "建筑建材",
-      "zdf": 0.035028996224653,
-      "leader": "北方国际",
-      "leader_zdf": 10.033,
-      "stock_count": 91.0,
-      "amount": 2496208471.0
+      "name": "酒店旅游",
+      "zdf": 1.6864520866479,
+      "leader": "华天酒店",
+      "leader_zdf": 9.924,
+      "stock_count": 35.0,
+      "amount": 246410650.0
     },
     {
-      "name": "摩托车",
-      "zdf": 0.028694404591105,
-      "leader": "隆鑫通用",
-      "leader_zdf": 5.123,
-      "stock_count": 6.0,
-      "amount": 115150469.0
+      "name": "石油行业",
+      "zdf": 1.6295832027578,
+      "leader": "新锦动力",
+      "leader_zdf": 4.188,
+      "stock_count": 24.0,
+      "amount": 416637699.0
     },
     {
-      "name": "电力行业",
-      "zdf": -0.06894873458793,
-      "leader": "福能股份",
-      "leader_zdf": 5.453,
-      "stock_count": 62.0,
-      "amount": 2662453604.0
+      "name": "造纸行业",
+      "zdf": 1.260067550013,
+      "leader": "青山纸业",
+      "leader_zdf": 10.14,
+      "stock_count": 24.0,
+      "amount": 291514560.0
     },
     {
-      "name": "船舶制造",
-      "zdf": -0.1276731567188,
-      "leader": "江苏国信",
-      "leader_zdf": 0.717,
+      "name": "纺织行业",
+      "zdf": 1.1921608988379,
+      "leader": "甘咨询",
+      "leader_zdf": 10.0,
+      "stock_count": 42.0,
+      "amount": 185576765.0
+    },
+    {
+      "name": "供水供气",
+      "zdf": 1.1695594125501,
+      "leader": "滨海能源",
+      "leader_zdf": 10.036,
+      "stock_count": 25.0,
+      "amount": 162979804.0
+    },
+    {
+      "name": "纺织机械",
+      "zdf": 1.1569416498994,
+      "leader": "中毅达",
+      "leader_zdf": 3.464,
       "stock_count": 8.0,
-      "amount": 152303160.0
+      "amount": 84764948.0
+    },
+    {
+      "name": "食品行业",
+      "zdf": 1.1035494379914,
+      "leader": "凯撒旅业",
+      "leader_zdf": 10.0,
+      "stock_count": 58.0,
+      "amount": 563164717.0
+    },
+    {
+      "name": "商业百货",
+      "zdf": 1.0294097022566,
+      "leader": "上海九百",
+      "leader_zdf": 10.014,
+      "stock_count": 93.0,
+      "amount": 915546218.0
     }
   ],
   "diagnostics": [
     "量能仅为10日均值的0%，反弹持续性存疑",
     "指数低于中长期均线，中期趋势仍偏弱",
-    "主线集中于煤炭行业（2.07%），注意板块轮动风险"
+    "主线集中于陶瓷行业（3.58%），注意板块轮动风险",
+    "普涨格局（涨股比60%），情绪高涨"
   ],
   "breadth_detail": {
-    "up": 1460,
-    "down": 3964,
-    "flat": 124,
-    "total": 5548,
-    "limit_up": 50,
-    "limit_down": 27,
-    "上涨比例": "26.3%",
-    "涨跌停比": 0.65,
+    "up": 3327,
+    "down": 2079,
+    "flat": 143,
+    "total": 5549,
+    "limit_up": 45,
+    "limit_down": 4,
+    "上涨比例": "60.0%",
+    "涨跌停比": 0.92,
     "市场状态": "正常",
-    "计分模型": "反身性冷却(非对称)",
-    "情绪定性": "⚠️ 结构性偏热，但市场普跌（涨股比26%）",
+    "计分模型": "反身性冷却(抛物线)",
+    "情绪定性": "⚠️ 情绪偏热，注意分化",
     "overheat": false
   },
   "breadth_realtime": true,
@@ -189,15 +190,15 @@
     "corrected_score": null,
     "message": "",
     "note": "",
-    "up_ratio": 26.3
+    "up_ratio": 60.0
   },
   "source": "新浪/腾讯公开接口 (GitHub Actions)",
   "limitup": {
     "highest": {
       "code": "002412",
       "name": "汉森制药",
-      "consecutive_days": 4,
-      "chg": 10.01,
+      "consecutive_days": 5,
+      "chg": 9.99,
       "days_boards": "",
       "board_type": "",
       "themes": "",
@@ -207,16 +208,16 @@
       {
         "code": "002412",
         "name": "汉森制药",
-        "chg": 10.01,
-        "consecutive_days": 4,
+        "chg": 9.99,
+        "consecutive_days": 5,
         "days_boards": "",
         "board_type": "",
         "themes": "",
         "reason": ""
       },
       {
-        "code": "603958",
-        "name": "哈森股份",
+        "code": "003040",
+        "name": "楚天龙",
         "chg": 10.02,
         "consecutive_days": 3,
         "days_boards": "",
@@ -225,19 +226,9 @@
         "reason": ""
       },
       {
-        "code": "000931",
-        "name": "中 关 村",
-        "chg": 10.02,
-        "consecutive_days": 3,
-        "days_boards": "",
-        "board_type": "",
-        "themes": "",
-        "reason": ""
-      },
-      {
-        "code": "603330",
-        "name": "天洋新材",
-        "chg": 10.03,
+        "code": "002084",
+        "name": "海鸥住工",
+        "chg": 10.13,
         "consecutive_days": 2,
         "days_boards": "",
         "board_type": "",
@@ -245,8 +236,18 @@
         "reason": ""
       },
       {
-        "code": "002620",
-        "name": "*ST瑞和",
+        "code": "002445",
+        "name": "中南文化",
+        "chg": 10.09,
+        "consecutive_days": 2,
+        "days_boards": "",
+        "board_type": "",
+        "themes": "",
+        "reason": ""
+      },
+      {
+        "code": "600984",
+        "name": "建设机械",
         "chg": 10.02,
         "consecutive_days": 2,
         "days_boards": "",
@@ -266,6 +267,11 @@
     {
       "time": "01:44",
       "score": 41.1,
+      "position": 60
+    },
+    {
+      "time": "10:02",
+      "score": 50.7,
       "position": 60
     }
   ]
