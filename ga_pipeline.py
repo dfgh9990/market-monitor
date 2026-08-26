@@ -21,7 +21,7 @@ import datetime
 import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from score_lib import compute
+from score_lib import compute, compute_range_warning
 
 UA = {
     "User-Agent": "Mozilla/5.0",
@@ -158,6 +158,28 @@ def fetch_kline(symbol, n=260):
     node = data.get("data", {}).get(symbol, {})
     k = node.get("qfqday") or node.get("day") or []
     return [(float(x[0].replace("-", "")), float(x[2])) for x in k]  # (date_int, close)
+
+
+def fetch_kline_full(symbol, n=200):
+    """腾讯日K（前复权）全量字段。返回 [dict(date,open,close,high,low,volume)...]，最新在最后。
+    用于区间上下沿界定与当日触及判定（区别于仅返回收盘的 fetch_kline）。"""
+    url = TENCENT_KLINE + "{},day,,,{},qfq".format(symbol, n)
+    data = fetch_json(url)
+    node = data.get("data", {}).get(symbol, {})
+    k = node.get("qfqday") or node.get("day") or []
+    out = []
+    for x in k:
+        if len(x) < 6:
+            continue
+        out.append({
+            "date": str(x[0]).replace("-", ""),
+            "open": _f(x[1]),
+            "close": _f(x[2]),
+            "high": _f(x[3]),
+            "low": _f(x[4]),
+            "volume": _f(x[5], 0.0),
+        })
+    return out
 
 
 def ema(values, period):
@@ -352,10 +374,18 @@ def main():
     for i in indices:
         print("  {} {:.2f} {}{}%".format(i["name"], i["close"], "+" if i["chg_pct"] >= 0 else "", i["chg_pct"]))
 
-    print("== 3/5 抓取上证K线算技术指标 ==")
-    tech = fetch_technical()
+    print("== 3/5 抓取上证K线算技术指标 + 区间位置预警 ==")
+    kl_full = fetch_kline_full("sh000001", 200)
+    closes = [b["close"] for b in kl_full]
+    tech = calc_indicators(closes)
+    tech["price"] = closes[-1]
+    tech["price_source"] = "public_realtime"
     print("  price={} MA5={:.2f} MA20={:.2f}".format(
         tech.get("price"), tech.get("ma5"), tech.get("ma20")))
+    range_w = compute_range_warning(kl_full, window=160)
+    print("  区间预警: {} (位置{}% 下沿{}~上沿{})".format(
+        range_w.get("signal"), range_w.get("position_pct"),
+        range_w.get("support"), range_w.get("resistance")))
 
     print("== 4/5 抓取行业板块涨幅（新浪） + 板块主力净流入 TOP（东方财富） ==")
     top10, bottom5, sector_rising_ratio = fetch_sectors()
@@ -408,6 +438,9 @@ def main():
     out = compute(raw, ts=ts, icepoint=ip)
     out["breadth_realtime"] = True
     out["source"] = "新浪/腾讯公开接口 (GitHub Actions)"
+    # ---- 上证指数区间位置操作预警 ----
+    range_w["index_name"] = "上证指数"
+    out["range_warning"] = range_w
 
     # ---- 连板最高标（全扫描 + 腾讯日K连续涨停计数） ----
     if limitup:
