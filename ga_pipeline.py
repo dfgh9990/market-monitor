@@ -382,10 +382,15 @@ def main():
     tech["price_source"] = "public_realtime"
     print("  price={} MA5={:.2f} MA20={:.2f}".format(
         tech.get("price"), tech.get("ma5"), tech.get("ma20")))
-    range_w = compute_range_warning(kl_full, window=160)
-    print("  区间预警: {} (位置{}% 下沿{}~上沿{})".format(
-        range_w.get("signal"), range_w.get("position_pct"),
-        range_w.get("support"), range_w.get("resistance")))
+    range_w = compute_range_warning(kl_full)
+    sw = range_w.get("short") or {}
+    mw = range_w.get("medium") or {}
+    print("  区间预警(短线33日): {} 位置{}% 下沿{}~上沿{}".format(
+        sw.get("signal"), sw.get("position_pct"), sw.get("support"), sw.get("resistance")))
+    print("  区间预警(中线99日): {} 位置{}% 下沿{}~上沿{}".format(
+        mw.get("signal"), mw.get("position_pct"), mw.get("support"), mw.get("resistance")))
+    if range_w.get("summary_signal") and range_w["summary_signal"] != "none":
+        print("  综合研判: {} - {}".format(range_w.get("summary_chip"), range_w.get("summary_text")))
 
     print("== 4/5 抓取行业板块涨幅（新浪） + 板块主力净流入 TOP（东方财富） ==")
     top10, bottom5, sector_rising_ratio = fetch_sectors()
