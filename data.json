@@ -1,187 +1,188 @@
 {
-  "updated_at": "2026-08-25 23:52",
+  "updated_at": "2026-08-26 10:02",
   "trading": true,
   "caliber": "intraday_realtime",
-  "score": 65.4,
+  "score": 66.9,
   "position_pct": 80,
   "position_label": "偏强操作",
   "verdict": "顺势加码",
   "dimensions": {
     "breadth": {
-      "score": 72.4,
-      "label": "偏热"
+      "score": 97.3,
+      "label": "正常"
     },
     "volume": {
-      "score": 75.9,
-      "label": "偏强"
+      "score": 100,
+      "label": "强势"
     },
     "sector": {
-      "score": 73.2,
-      "label": "偏强"
+      "score": 49.2,
+      "label": "中性"
     },
     "fund": {
-      "score": 63.1,
-      "label": "偏强"
+      "score": 57.7,
+      "label": "中性"
     },
     "trend": {
-      "score": 12.4,
+      "score": 0,
       "label": "极弱"
     },
     "sentiment": {
-      "score": 74.2,
-      "label": "🚀 涨停潮，情绪高涨"
+      "score": 61.5,
+      "label": "✅ 情绪正常偏暖"
     }
   },
   "indices": [
     {
       "name": "上证指数",
       "code": "000001",
-      "close": 3889.44,
-      "chg_pct": 0.19
+      "close": 3894.3,
+      "chg_pct": 0.12
     },
     {
       "name": "深证成指",
       "code": "399001",
-      "close": 13745.87,
-      "chg_pct": -0.35
+      "close": 13739.94,
+      "chg_pct": -0.04
     },
     {
       "name": "创业板指",
       "code": "399006",
-      "close": 3397.52,
-      "chg_pct": -1.0
+      "close": 3388.36,
+      "chg_pct": -0.27
     }
   ],
   "sectors_top": [
     {
-      "name": "陶瓷行业",
-      "zdf": 4.8256624825662,
-      "zljlr": null
-    },
-    {
-      "name": "物资外贸",
-      "zdf": 2.4402359515678,
-      "zljlr": null
-    },
-    {
-      "name": "纺织行业",
-      "zdf": 2.4357819803594,
-      "zljlr": null
-    },
-    {
-      "name": "农林牧渔",
-      "zdf": 2.416411297406,
-      "zljlr": null
-    },
-    {
       "name": "造纸行业",
-      "zdf": 2.4162120031177,
+      "zdf": 1.6489091831558,
+      "zljlr": null
+    },
+    {
+      "name": "生物制药",
+      "zdf": 1.372622696262,
+      "zljlr": null
+    },
+    {
+      "name": "金融行业",
+      "zdf": 1.3243740136342,
+      "zljlr": null
+    },
+    {
+      "name": "有色金属",
+      "zdf": 1.3114568359334,
+      "zljlr": null
+    },
+    {
+      "name": "公路桥梁",
+      "zdf": 0.99552855817093,
       "zljlr": null
     }
   ],
   "sectors_rank": [
     {
-      "name": "陶瓷行业",
-      "zdf": 4.8256624825662,
-      "leader": "松发股份",
-      "leader_zdf": 5.676,
-      "stock_count": 8.0,
-      "amount": 61402265.0
-    },
-    {
-      "name": "物资外贸",
-      "zdf": 2.4402359515678,
-      "leader": "汇通能源",
-      "leader_zdf": 10.017,
-      "stock_count": 21.0,
-      "amount": 352829831.0
-    },
-    {
-      "name": "纺织行业",
-      "zdf": 2.4357819803594,
-      "leader": "甘咨询",
-      "leader_zdf": 10.0,
-      "stock_count": 42.0,
-      "amount": 499101549.0
-    },
-    {
-      "name": "农林牧渔",
-      "zdf": 2.416411297406,
-      "leader": "金健米业",
-      "leader_zdf": 10.047,
-      "stock_count": 64.0,
-      "amount": 2849325275.0
-    },
-    {
       "name": "造纸行业",
-      "zdf": 2.4162120031177,
+      "zdf": 1.6489091831558,
       "leader": "青山纸业",
-      "leader_zdf": 10.14,
+      "leader_zdf": 10.159,
       "stock_count": 24.0,
-      "amount": 691445453.0
+      "amount": 471208653.0
     },
     {
       "name": "生物制药",
-      "zdf": 2.348220532566,
-      "leader": "福瑞医科",
-      "leader_zdf": 15.784,
+      "zdf": 1.372622696262,
+      "leader": "智飞生物",
+      "leader_zdf": 13.65,
       "stock_count": 155.0,
-      "amount": 4884450783.0
+      "amount": 2297422150.0
     },
     {
-      "name": "印刷包装",
-      "zdf": 2.1794993813648,
-      "leader": "珠海中富",
-      "leader_zdf": 10.039,
+      "name": "金融行业",
+      "zdf": 1.3243740136342,
+      "leader": "锦龙股份",
+      "leader_zdf": 10.045,
+      "stock_count": 51.0,
+      "amount": 1039152771.0
+    },
+    {
+      "name": "有色金属",
+      "zdf": 1.3114568359334,
+      "leader": "精艺股份",
+      "leader_zdf": 10.033,
+      "stock_count": 72.0,
+      "amount": 1393065004.0
+    },
+    {
+      "name": "公路桥梁",
+      "zdf": 0.99552855817093,
+      "leader": "四川成渝",
+      "leader_zdf": 2.595,
       "stock_count": 20.0,
-      "amount": 515472963.0
+      "amount": 94693054.0
     },
     {
-      "name": "仪器仪表",
-      "zdf": 2.1611350392703,
-      "leader": "智云股份",
-      "leader_zdf": 20.046,
-      "stock_count": 48.0,
-      "amount": 1036373216.0
+      "name": "综合行业",
+      "zdf": 0.9465355320565,
+      "leader": "ST三木",
+      "leader_zdf": 9.89,
+      "stock_count": 33.0,
+      "amount": 161505410.0
     },
     {
-      "name": "商业百货",
-      "zdf": 1.9283901098131,
-      "leader": "我爱我家",
-      "leader_zdf": 10.138,
-      "stock_count": 93.0,
-      "amount": 2547636084.0
+      "name": "钢铁行业",
+      "zdf": 0.93100147916123,
+      "leader": "法尔胜",
+      "leader_zdf": 10.069,
+      "stock_count": 60.0,
+      "amount": 773756828.0
     },
     {
-      "name": "传媒娱乐",
-      "zdf": 1.847143284475,
-      "leader": "奥飞娱乐",
-      "leader_zdf": 4.393,
-      "stock_count": 40.0,
-      "amount": 705619420.0
+      "name": "水泥行业",
+      "zdf": 0.924491998686,
+      "leader": "塔牌集团",
+      "leader_zdf": 2.766,
+      "stock_count": 26.0,
+      "amount": 164133867.0
+    },
+    {
+      "name": "环保行业",
+      "zdf": 0.92260719500863,
+      "leader": "高能环境",
+      "leader_zdf": 4.891,
+      "stock_count": 27.0,
+      "amount": 190365610.0
+    },
+    {
+      "name": "酒店旅游",
+      "zdf": 0.88260827626121,
+      "leader": "华天酒店",
+      "leader_zdf": 9.954,
+      "stock_count": 35.0,
+      "amount": 220368510.0
     }
   ],
   "diagnostics": [
     "指数低于中长期均线，中期趋势仍偏弱",
-    "主线集中于陶瓷行业（4.83%），注意板块轮动风险"
+    "主线集中于造纸行业（1.65%），注意板块轮动风险",
+    "普涨格局（涨股比49%），情绪高涨"
   ],
   "breadth_detail": {
-    "up": 4233,
-    "down": 1246,
-    "flat": 70,
+    "up": 2723,
+    "down": 2665,
+    "flat": 161,
     "total": 5549,
-    "limit_up": 79,
-    "limit_down": 5,
-    "上涨比例": "76.3%",
+    "limit_up": 45,
+    "limit_down": 3,
+    "上涨比例": "49.1%",
     "涨跌停比": null,
-    "市场状态": "偏热",
-    "计分模型": "反身性冷却(抛物线)",
-    "情绪定性": "🚀 涨停潮，情绪高涨",
+    "市场状态": "正常",
+    "计分模型": "反身性冷却(非对称)",
+    "情绪定性": "✅ 情绪正常偏暖",
     "overheat": false
   },
   "breadth_realtime": true,
   "overheat": false,
-  "market_status": "偏热",
+  "market_status": "正常",
   "icepoint": {
     "active": false,
     "days": 0,
@@ -189,16 +190,16 @@
     "corrected_score": null,
     "message": "",
     "note": "",
-    "up_ratio": 76.3
+    "up_ratio": 49.1
   },
   "source": "新浪/腾讯公开接口 (GitHub Actions)",
   "volume_detail": {
-    "累计成交额_亿": 18436.9,
-    "当前时点": "23:52",
-    "预期累计占比": "100.0%",
-    "预期累计额_亿": 15000.0,
-    "量能节奏_pace": 1.23,
-    "量价配合": "普涨放量 ×1.15",
+    "累计成交额_亿": 6224.3,
+    "当前时点": "10:02",
+    "预期累计占比": "15.9%",
+    "预期累计额_亿": 2380.0,
+    "量能节奏_pace": 2.62,
+    "量价配合": "—",
     "基准日成交额_亿": 15000.0
   },
   "methodology": {
@@ -209,7 +210,7 @@
     },
     "volume": {
       "数据源": "新浪两市累计成交额(实时累加)",
-      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（23:52 时点预期占比 100.0%）",
+      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（10:02 时点预期占比 15.9%）",
       "说明": "用盘中时点匹配的累计占比归一化，解决上午被全天阈值压低的问题"
     },
     "sector": {
@@ -235,10 +236,10 @@
   },
   "limitup": {
     "highest": {
-      "code": "003040",
-      "name": "楚天龙",
-      "consecutive_days": 3,
-      "chg": 10.02,
+      "code": "000017",
+      "name": "深中华A",
+      "consecutive_days": 5,
+      "chg": 10.0,
       "days_boards": "",
       "board_type": "",
       "themes": "",
@@ -246,10 +247,10 @@
     },
     "top5": [
       {
-        "code": "003040",
-        "name": "楚天龙",
-        "chg": 10.02,
-        "consecutive_days": 3,
+        "code": "000017",
+        "name": "深中华A",
+        "chg": 10.0,
+        "consecutive_days": 5,
         "days_boards": "",
         "board_type": "",
         "themes": "",
@@ -258,7 +259,17 @@
       {
         "code": "002084",
         "name": "海鸥住工",
-        "chg": 10.13,
+        "chg": 10.12,
+        "consecutive_days": 3,
+        "days_boards": "",
+        "board_type": "",
+        "themes": "",
+        "reason": ""
+      },
+      {
+        "code": "600103",
+        "name": "青山纸业",
+        "chg": 10.16,
         "consecutive_days": 2,
         "days_boards": "",
         "board_type": "",
@@ -266,9 +277,9 @@
         "reason": ""
       },
       {
-        "code": "002445",
-        "name": "中南文化",
-        "chg": 10.09,
+        "code": "002418",
+        "name": "康盛股份",
+        "chg": 10.12,
         "consecutive_days": 2,
         "days_boards": "",
         "board_type": "",
@@ -276,19 +287,9 @@
         "reason": ""
       },
       {
-        "code": "600984",
-        "name": "建设机械",
-        "chg": 10.02,
-        "consecutive_days": 2,
-        "days_boards": "",
-        "board_type": "",
-        "themes": "",
-        "reason": ""
-      },
-      {
-        "code": "600508",
-        "name": "上海能源",
-        "chg": 10.02,
+        "code": "002742",
+        "name": "冀衡医药",
+        "chg": 10.04,
         "consecutive_days": 2,
         "days_boards": "",
         "board_type": "",
@@ -300,63 +301,8 @@
   },
   "temperature_history": [
     {
-      "time": "00:52",
-      "score": 41.1,
-      "position": 60
-    },
-    {
-      "time": "01:44",
-      "score": 41.1,
-      "position": 60
-    },
-    {
       "time": "10:02",
-      "score": 50.7,
-      "position": 60
-    },
-    {
-      "time": "11:02",
-      "score": 49.1,
-      "position": 60
-    },
-    {
-      "time": "12:14",
-      "score": 47.8,
-      "position": 60
-    },
-    {
-      "time": "13:32",
-      "score": 47.8,
-      "position": 60
-    },
-    {
-      "time": "14:32",
-      "score": 53.0,
-      "position": 60
-    },
-    {
-      "time": "14:57",
-      "score": 57.4,
-      "position": 60
-    },
-    {
-      "time": "16:26",
-      "score": 57.4,
-      "position": 60
-    },
-    {
-      "time": "17:11",
-      "score": 57.4,
-      "position": 60
-    },
-    {
-      "time": "23:39",
-      "score": 59.4,
-      "position": 60
-    },
-    {
-      "time": "23:52",
-      "score": 65.4,
+      "score": 66.9,
       "position": 80
     }
   ]
