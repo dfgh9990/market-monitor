@@ -149,7 +149,7 @@
         <tbody><tr><td colspan="3" style="color:var(--sub)">加载中…</td></tr></tbody></table>
     </div>
     <div class="card">
-      <h3>板块主力净流入 TOP（来自腾讯自选股）</h3>
+      <h3>板块主力净流入 TOP（来自东方财富）</h3>
       <table id="secTable"><thead><tr><th>板块</th><th>涨跌幅</th><th>主力净流入</th></tr></thead>
         <tbody><tr><td colspan="3" style="color:var(--sub)">加载中…</td></tr></tbody></table>
     </div>
@@ -176,14 +176,14 @@
         </div>
         <div id="luHReason" style="margin-top:8px;font-size:12.5px;color:var(--sub);line-height:1.6"></div>
       </div>
-      <table id="luTable"><thead><tr><th>#</th><th>名称</th><th>代码</th><th>连板</th><th>几天几板</th><th>涨幅</th><th>板型</th><th>题材</th></tr></thead>
-        <tbody><tr><td colspan="8" style="color:var(--sub)">加载中…</td></tr></tbody></table>
+      <table id="luTable"><thead><tr><th>#</th><th>名称</th><th>代码</th><th>连板</th><th>涨幅</th><th>现价</th></tr></thead>
+        <tbody><tr><td colspan="6" style="color:var(--sub)">加载中…</td></tr></tbody></table>
     </div>
   </div>
 
   <div class="foot">
     <div style="margin-bottom:6px">
-      <span class="src">数据源 · 腾讯自选股 MCP (westock-mcp)</span>
+      <span class="src">数据源 · 新浪 / 腾讯 / 东方财富 公开接口（纯云端）</span>
       <span class="src">评分 · 六维加权（涨跌比/量能/板块/资金/趋势/情绪）</span>
       <span class="src">托管 · 静态站点（Cloudflare Pages / GitHub Pages）</span>
     </div>
@@ -238,6 +238,7 @@ function normalizeStatic(d){
     scores: scores,
     indices: (d.indices||[]).map(i=>({name:i.name, price:i.close, pct:i.chg_pct, amount:null})),
     sectors: (d.sectors_top||[]).map(s=>({name:s.name, pct:s.zdf, main:s.zljlr})),
+    sectorFundTop: (d.sector_fund_top||[]).map(s=>({name:s.name, pct:s.zdf, main:s.net_inflow_yi})),
     sectorsRank: (d.sectors_rank||[]).map(s=>({name:s.name, pct:s.zdf, leader:s.leader, leaderPct:s.leader_zdf})),
     diagnostics: d.diagnostics || [],
     updated: d.updated_at,
@@ -338,7 +339,7 @@ function renderIndices(idx){
     idx.map(i=>`<tr><td class="nm">${i.name}</td><td>${Number(i.price||0).toFixed(2)}</td>
       <td class="${i.pct>=0?'up':'dn'}">${i.pct>=0?'+':''}${Number(i.pct||0).toFixed(2)}%</td></tr>`).join('')+`</tbody>`;
 }
-function renderSectors(secs, ranks){
+function renderSectors(secs, ranks, fundTop){
   // 板块涨幅 TOP（rank.plate：能源金属/贵金属等领涨板块）
   const rk=(ranks||[]).slice(0,10);
   $('secRankTable').innerHTML=`<thead><tr><th>板块</th><th>涨跌幅</th><th>领涨股</th></tr></thead><tbody>`+
@@ -346,12 +347,12 @@ function renderSectors(secs, ranks){
       <td class="${s.pct>=0?'up':'dn'}">${s.pct>=0?'+':''}${Number(s.pct||0).toFixed(2)}%</td>
       <td>${s.leader?`${s.leader} <span class="${s.leaderPct>=0?'up':'dn'}" style="font-size:11px">${s.leaderPct>=0?'+':''}${Number(s.leaderPct||0).toFixed(2)}%</span>`:'—'}</td></tr>`).join('')
       :'<tr><td colspan="3" style="color:var(--sub)">暂无板块涨幅数据</td></tr>')+`</tbody>`;
-  // 主力净流入 TOP（fundflow.plate.top/bottom；公开接口无资金流时显示"—"）
-  const top=[...secs].sort((a,b)=>Number(b.main||-9999)-Number(a.main||-9999)).slice(0,10);
+  // 主力净流入 TOP（优先用东方财富 sector_fund_top 真实主力净流入；缺失时回退板块涨幅动能代理）
+  const top=(fundTop&&fundTop.length)? fundTop.slice(0,10) : [...secs].sort((a,b)=>Number(b.main||-9999)-Number(a.main||-9999)).slice(0,10);
   $('secTable').innerHTML=`<thead><tr><th>板块</th><th>涨跌幅</th><th>主力净流入</th></tr></thead><tbody>`+
     (top.length? top.map(s=>`<tr><td class="nm">${s.name}</td>
       <td class="${s.pct>=0?'up':'dn'}">${s.pct>=0?'+':''}${Number(s.pct||0).toFixed(2)}%</td>
-      <td class="${s.main==null?'':(s.main>=0?'up':'dn')}">${s.main==null?'—':fmtYi(s.main)}</td></tr>`).join('')
+      <td class="${Number(s.main||0)>=0?'up':'dn'}">${fmtYi(s.main)}</td></tr>`).join('')
       :'<tr><td colspan="3" style="color:var(--sub)">暂无资金流数据</td></tr>')+`</tbody>`;
 }
 
@@ -414,9 +415,8 @@ function renderTempCurve(history){
 
 /* ---- 连板最高标 ---- */
 function renderLimitup(lu){
-  const wrap=$('limitupWrap');
   if(!lu || !lu.top5 || lu.top5.length===0){
-    $('luTable').innerHTML='<tbody><tr><td colspan="8" style="color:var(--sub)">暂无连板数据</td></tr></tbody>';
+    $('luTable').innerHTML='<tbody><tr><td colspan="6" style="color:var(--sub)">暂无连板数据</td></tr></tbody>';
     $('limitupHighest').style.display='none';
     return;
   }
@@ -425,27 +425,32 @@ function renderLimitup(lu){
   if(h){
     $('luHName').textContent=h.name+'('+h.code+')';
     $('luHBoards').textContent=h.consecutive_days+'连板';
-    $('luHChg').textContent='+'+h.chg.toFixed(2)+'%';
-    $('luHChg').className=h.chg>=0?'up':'dn';
-    $('luHChg').style.cssText='font-weight:700;font-size:15px;color:'+(h.chg>=0?'var(--red)':'var(--green)');
-    $('luHType').textContent=h.board_type||'';
+    $('luHChg').textContent=(Number(h.chg)>=0?'+':'')+Number(h.chg).toFixed(2)+'%';
+    $('luHChg').style.cssText='font-weight:700;font-size:15px;color:'+(Number(h.chg)>=0?'var(--red)':'var(--green)');
+    // board_type 当前源未提供；无则回退显示全市场涨停总数
+    const showType = h.board_type || (lu.total!=null);
+    $('luHType').style.display = showType ? 'inline' : 'none';
+    $('luHType').textContent = h.board_type ? h.board_type : (lu.total!=null ? ('全市场涨停 '+lu.total+' 只') : '');
+    $('luHReason').style.display = (h.reason||h.themes) ? 'block' : 'none';
     const reason=h.reason?'原因：'+h.reason:'';
     const themes=h.themes?'｜题材：'+h.themes:'';
     $('luHReason').textContent=reason+themes;
     $('limitupHighest').style.display='block';
   }
-  // Top5 表
-  $('luTable').innerHTML='<thead><tr><th>#</th><th>名称</th><th>代码</th><th>连板</th><th>几天几板</th><th>涨幅</th><th>板型</th><th>题材</th></tr></thead><tbody>'+
+  // Top5 表（新结构字段：code/name/chg/consecutive_days/price）
+  let html='<thead><tr><th>#</th><th>名称</th><th>代码</th><th>连板</th><th>涨幅</th><th>现价</th></tr></thead><tbody>'+
     lu.top5.map((s,i)=>`<tr>
       <td>${i+1}</td>
       <td class="nm">${s.name}</td>
       <td style="color:var(--sub)">${s.code}</td>
       <td><b style="color:var(--red)">${s.consecutive_days}</b></td>
-      <td>${s.days_boards||'—'}</td>
-      <td class="up">+${s.chg.toFixed(2)}%</td>
-      <td style="font-size:11.5px;color:var(--sub)">${s.board_type||'—'}</td>
-      <td style="font-size:11px;color:var(--sub);max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${(s.themes||'').replace(/"/g,'&quot;')}">${s.themes||'—'}</td>
+      <td class="${Number(s.chg)>=0?'up':'dn'}">${(Number(s.chg)>=0?'+':'')}${Number(s.chg).toFixed(2)}%</td>
+      <td>${Number(s.price||0).toFixed(2)}</td>
     </tr>`).join('')+`</tbody>`;
+  if(lu.calc_note){
+    html+=`<caption style="caption-side:bottom;color:var(--sub);font-size:11.5px;text-align:left;padding-top:8px">${lu.calc_note}</caption>`;
+  }
+  $('luTable').innerHTML=html;
 }
 
 /* ============== 主流程 ============== */
@@ -470,7 +475,7 @@ async function refresh(force=false){
     renderRadar(d.scores);
     renderDiag(d.scores);
     if(d.indices && d.indices.length) renderIndices(d.indices);
-    renderSectors(d.sectors, d.sectorsRank);
+    renderSectors(d.sectors, d.sectorsRank, d.sectorFundTop);
     renderTempCurve(d.temperatureHistory||[]);
     renderLimitup(d.limitup);
     $('statusText').textContent = d.verdict || '';
