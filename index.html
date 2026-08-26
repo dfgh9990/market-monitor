@@ -140,7 +140,7 @@
   </div>
 
   <div class="card" style="margin-top:14px">
-    <h3>上证指数 · 区间位置与操作预警</h3>
+    <h3>上证指数 · 区间位置与操作预警（短线33日 / 中线99日）</h3>
     <div id="rangeWarn"><span style="color:var(--sub)">加载中…</span></div>
   </div>
 
@@ -461,34 +461,48 @@ function renderLimitup(lu){
   $('luTable').innerHTML=html;
 }
 
-/* ---- 上证指数区间位置预警 ---- */
+/* ---- 上证指数区间位置预警（短线33日 / 中线99日 双周期） ---- */
 function renderRangeWarning(rw){
   const el = $('rangeWarn');
   if(!rw || !rw.available){
     el.innerHTML = '<div style="color:var(--sub);font-size:13px">'+((rw&&rw.note)||'暂无区间位置数据')+'</div>';
     return;
   }
-  const zoneColor = rw.zone==='high' ? 'var(--red)' : (rw.zone==='low' ? 'var(--green)' : 'var(--blue)');
-  const sigColor = rw.signal==='sell' ? 'var(--red)' : (rw.signal==='buy' ? 'var(--green)' : (rw.signal==='breakout' ? 'var(--amber)' : 'var(--sub)'));
-  const pos = rw.position_pct;
-  el.innerHTML = `
-    <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px;margin-bottom:6px">
-      <div><span style="font-size:12px;color:var(--sub)">当前点位</span> <b style="font-size:24px;color:${zoneColor}">${rw.current}</b></div>
-      <div><span style="font-size:12px;color:var(--sub)">区间位置</span> <b style="font-size:18px">${pos}%</b>
-        <span style="font-size:12px;color:var(--sub)">（下沿 ${rw.support} ~ 上沿 ${rw.resistance}）</span></div>
-      <div style="margin-left:auto"><span style="display:inline-block;padding:5px 14px;border-radius:10px;font-weight:800;font-size:14px;color:#fff;background:${sigColor}">${rw.chip}</span></div>
-    </div>
-    <div style="position:relative;height:24px;background:linear-gradient(90deg,#15a85a,#f5a623,#e23b3b);border-radius:6px;margin:18px 0 4px">
-      <div style="position:absolute;top:-3px;bottom:-3px;left:${pos}%;width:3px;background:#1f2733;transform:translateX(-50%)"></div>
-    </div>
-    <div style="position:relative;height:16px;font-size:11px;color:var(--sub)">
-      <span style="position:absolute;left:0">区间下沿 ${rw.support}</span>
-      <span style="position:absolute;left:${pos}%;transform:translateX(-50%);font-weight:700;color:${zoneColor}">▲ ${rw.current}</span>
-      <span style="position:absolute;right:0">区间上沿 ${rw.resistance}</span>
-    </div>
-    <div style="font-size:13px;line-height:1.6;color:var(--ink);background:#fbfcfe;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:8px">${rw.signal_text}</div>
-    <div style="font-size:11.5px;color:var(--sub);margin-top:8px">${rw.note}${rw.vol_ratio!=null?' ｜ 量能比 '+rw.vol_ratio:''}</div>
-  `;
+  const short = rw.short||{}; const medium = rw.medium||{};
+  const sigBg = s => s==='sell'?'var(--red)':(s==='buy'?'var(--green)':(s==='breakout'||s==='mixed'?'var(--amber)':'var(--sub)'));
+  let html = '';
+  // 综合研判横幅
+  if(rw.summary_signal && rw.summary_signal!=='none'){
+    const bg = rw.summary_signal==='sell'?'#fff5f5':(rw.summary_signal==='buy'?'#f3fbf6':'#fff8ee');
+    const bd = rw.summary_signal==='sell'?'#ffd6d6':(rw.summary_signal==='buy'?'#cdeede':'#ffe2bd');
+    html += '<div style="display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;margin-bottom:12px;background:'+bg+';border:1px solid '+bd+'">'+
+      '<span style="flex:0 0 auto;display:inline-block;padding:5px 12px;border-radius:9px;font-weight:800;font-size:13px;color:#fff;background:'+sigBg(rw.summary_signal)+'">'+rw.summary_chip+'</span>'+
+      '<span style="font-size:13px;line-height:1.5;color:var(--ink)">'+rw.summary_text+'</span></div>';
+  }
+  // 两个周期子卡
+  const periods = [["短线","short",short],["中线","medium",medium]];
+  html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">';
+  for(const p of periods){
+    const label=p[0], w=p[2];
+    if(!w || !w.available) continue;
+    const zoneColor = w.zone==='high'?'var(--red)':(w.zone==='low'?'var(--green)':'var(--blue)');
+    const pos = w.position_pct;
+    html += '<div style="border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff">'+
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">'+
+        '<span style="font-size:13px;font-weight:700;color:var(--ink)">'+label+'（'+w.window_days+'日）</span>'+
+        '<span style="display:inline-block;padding:3px 10px;border-radius:8px;font-weight:700;font-size:12px;color:#fff;background:'+sigBg(w.signal)+'">'+w.chip+'</span>'+
+      '</div>'+
+      '<div style="font-size:12px;color:var(--sub);margin-bottom:6px">当前 <b style="font-size:16px;color:'+zoneColor+'">'+rw.current+'</b> ｜ 位置 <b>'+pos+'%</b></div>'+
+      '<div style="position:relative;height:16px;background:linear-gradient(90deg,#15a85a,#f5a623,#e23b3b);border-radius:5px;margin:6px 0 2px">'+
+        '<div style="position:absolute;top:-2px;bottom:-2px;left:'+pos+'%;width:3px;background:#1f2733;transform:translateX(-50%)"></div></div>'+
+      '<div style="position:relative;height:14px;font-size:10.5px;color:var(--sub)">'+
+        '<span style="position:absolute;left:0">下沿 '+w.support+'</span>'+
+        '<span style="position:absolute;right:0">上沿 '+w.resistance+'</span></div>'+
+      '<div style="font-size:11.5px;color:var(--sub);margin-top:7px">'+w.note+(w.vol_ratio!=null?' ｜ 量能比 '+w.vol_ratio:'')+'</div>'+
+    '</div>';
+  }
+  html += '</div>';
+  el.innerHTML = html;
 }
 
 
@@ -517,15 +531,15 @@ async function refresh(force=false){
     renderTempCurve(d.temperatureHistory||[]);
     renderLimitup(d.limitup);
     renderRangeWarning(d.rangeWarning);
-    // 上证指数区间位置预警横幅：卖点(红)/买点(绿)/突破(琥珀) 高亮提示
+    // 上证指数区间位置预警横幅：综合双周期研判（卖点红/买点绿/突破·背离 琥珀）
     const ra = $('rangeAlert');
-    if(d.rangeWarning && d.rangeWarning.available && d.rangeWarning.signal!=='none'){
-      const sig = d.rangeWarning.signal;
+    if(d.rangeWarning && d.rangeWarning.available && d.rangeWarning.summary_signal && d.rangeWarning.summary_signal!=='none'){
+      const sig = d.rangeWarning.summary_signal;
       ra.style.display='block';
       if(sig==='sell'){ ra.style.background='#ffeaea'; ra.style.border='1px solid #ffccc7'; ra.style.color='#e23b3b'; }
       else if(sig==='buy'){ ra.style.background='#e8f8ef'; ra.style.border='1px solid #b7ebc9'; ra.style.color='#15a85a'; }
       else { ra.style.background='#fff4e5'; ra.style.border='1px solid #ffd591'; ra.style.color='#a35a00'; }
-      ra.textContent = (sig==='sell'?'⚠️ ':'') + d.rangeWarning.chip + '：' + d.rangeWarning.signal_text;
+      ra.textContent = (sig==='sell'?'⚠️ ':'') + d.rangeWarning.summary_chip + '：' + d.rangeWarning.summary_text;
     } else {
       ra.style.display='none';
     }
