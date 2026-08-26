@@ -442,6 +442,12 @@ def compute(raw, ts=None, icepoint=None):
     top = raw.get("sector_top", [])
     bottom = raw.get("sector_bottom", [])
     rr = raw.get("sector_rising_ratio")
+    # 主力资金维度优先使用东方财富「板块主力净流入 TOP」真实净额；否则回退到涨幅榜动能代理
+    fund_raw = raw.get("sector_fundflow")
+    if fund_raw:
+        ftop, fbottom = fund_raw[:3], fund_raw[-3:]
+    else:
+        ftop, fbottom = top, bottom
 
     b_score, b_detail, b_overheat, b_label = score_breadth(b)
     # ---- 冰点逆修正（Contrarian Reversal）----
@@ -466,7 +472,7 @@ def compute(raw, ts=None, icepoint=None):
         "breadth": round(b_score, 1),
         "volume": round(v_score, 1),
         "sector": round(score_sector(top, rr), 1),
-        "fund": round(score_fund(top, bottom, up_ratio), 1),
+        "fund": round(score_fund(ftop, fbottom, up_ratio), 1),
         "trend": round(score_trend(tech), 1),
         "sentiment": round(s_score, 1),
     }
@@ -564,9 +570,9 @@ def compute(raw, ts=None, icepoint=None):
             "说明": "板块强弱与上涨面均为盘中实时",
         },
         "fund": {
-            "数据源": "板块涨幅动能代理（公开接口无资金流）",
-            "时段口径": "当前时点领涨/领跌板块涨幅差",
-            "说明": "盘中实时；若接入资金流接口则改用主力净流入",
+            "数据源": "东方财富板块资金流(主力净流入 f62) 优先；不可用时回退板块涨幅动能代理",
+            "时段口径": "当前时点行业板块主力净流入 TOP 净额(亿元)降序",
+            "说明": "盘中实时；净流入为正→资金加分，为负→扣分",
         },
         "trend": {
             "数据源": "上证日K(腾讯)",
