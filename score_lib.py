@@ -435,6 +435,101 @@ def position_from_score(score):
     return 0, "极端风险", "强制休息"
 
 
+def compute_range_warning(hist, window=160, high_tol=0.05, low_tol=0.05, breakout_pct=0.01):
+    """基于上证指数近期日K，实时判断指数在「震荡区间」中的高低位置，输出操作预警。
+
+    hist: 日K列表，元素为 dict（fetch_kline_full 产出）含 open/close/high/low/volume；
+          最后一项视为「当前/当日」实时K线（盘中其 high/low/close 随行情更新）。
+    window: 用于界定区间上沿/下沿的回看交易日数（不含当日，避免未来函数）。
+    返回 dict:
+      available           是否有足够数据
+      index_name          指数名称（调用方填充）
+      current             当前点位（收盘）
+      current_high        当日最高
+      support/resistance  区间下沿/上沿
+      position_pct        当前在区间内的位置百分比(0=下沿,100=上沿)
+      zone                high/low/mid
+      signal              sell / buy / breakout / none
+      chip                信号短标签（卖点·减仓 / 买点·低吸 / 突破·谨慎 / 观望）
+      signal_text         操作提示文案
+      breakout            是否收盘站稳有效突破上沿
+      failed_breakout     是否冲高回落的假突破
+      vol_ratio           当日量 / 区间均量
+      note                计算口径说明
+    """
+    if not hist or len(hist) < 30:
+        return {"available": False, "note": "日K数据不足，无法界定区间"}
+    # 隔离当日（最后一根）与历史窗口，避免用当日自身定义区间（未来函数）
+    cur = hist[-1]
+    win = hist[-(window + 1):-1] if len(hist) >= window + 1 else hist[:-1]
+    if not win:
+        win = hist[:-1] or hist
+    try:
+        cur_close = _to_float(cur["close"]); cur_high = _to_float(cur["high"])
+        cur_vol = _to_float(cur.get("volume")) or 0.0
+    except (TypeError, ValueError, KeyError):
+        return {"available": False, "note": "当日K线字段缺失"}
+    if cur_close is None or cur_high is None:
+        return {"available": False, "note": "当日K线字段缺失"}
+    lows = [_to_float(b["low"]) for b in win if _to_float(b.get("low")) is not None]
+    highs = [_to_float(b["high"]) for b in win if _to_float(b.get("high")) is not None]
+    vols = [_to_float(b.get("volume")) or 0.0 for b in win]
+    if not lows or not highs:
+        return {"available": False, "note": "历史高低数据缺失"}
+    S = min(lows); R = max(highs)
+    if R - S < 1e-6:
+        return {"available": False, "note": "区间过窄，无法判断高低"}
+    pos = (cur_close - S) / (R - S)
+    pos_pct = round(max(0.0, min(1.0, pos)) * 100, 1)
+    avg_vol = (sum(vols) / len(vols)) if vols else 0.0
+    vol_ratio = round(cur_vol / avg_vol, 2) if avg_vol > 0 else None
+    # 突破判定：收盘站稳阻力上方一定幅度 = 有效突破；当日曾触及/上破阻力但收盘回落 = 假突破
+    eff_break = cur_close > R * (1 + breakout_pct)
+    touched = cur_high >= R
+    failed = (not eff_break) and touched
+    if pos >= 1 - high_tol:                       # 接近/触及/微破上沿
+        zone = "high"
+        if eff_break:
+            signal, chip = "breakout", "突破·谨慎"
+            text = ("上证指数已有效突破区间上沿（收盘站稳阻力上方，量能比 {}），趋势转强；"
+                    "但高位不宜一次性追涨，建议分批介入并设好止损，防范假突破回踩。").format(
+                ("{:.2f}".format(vol_ratio) if vol_ratio is not None else "—"))
+        elif failed:
+            signal, chip = "sell", "卖点·减仓"
+            text = ("上证指数冲高触及区间上沿（{}）后回落、收在上沿下方，属假突破/未能有效突破，"
+                    "处于区间高位；建议减仓止盈，避免追高买在顶部。").format(round(R, 2))
+        else:
+            signal, chip = "sell", "卖点·减仓"
+            text = ("上证指数接近区间上沿（{}）、尚未有效突破，处于区间高位；"
+                    "建议减仓/谨慎，避免追高买在顶部。").format(round(R, 2))
+    elif pos <= low_tol:                           # 接近下沿
+        zone = "low"; signal, chip = "buy", "买点·低吸"
+        text = ("上证指数回落至区间下沿（{}）附近，处于区间低位；可逢低分批低吸，"
+                "避免恐慌抛在底部。").format(round(S, 2))
+    else:
+        zone = "mid"; signal, chip = "none", "观望"
+        text = "上证指数处于区间中部，方向不明；建议持仓观望，等待向上突破或向下回踩确认。"
+    return {
+        "available": True,
+        "current": round(cur_close, 2),
+        "current_high": round(cur_high, 2),
+        "support": round(S, 2),
+        "resistance": round(R, 2),
+        "position_pct": pos_pct,
+        "window_days": len(win),
+        "zone": zone,
+        "signal": signal,
+        "chip": chip,
+        "signal_text": text,
+        "breakout": bool(eff_break),
+        "failed_breakout": bool(failed),
+        "vol_ratio": vol_ratio,
+        "note": ("区间基于近{}个交易日的高低(下沿{}~上沿{})；接近上/下沿±{}%触发预警；"
+                 "有效突破需收盘站稳上沿上方{}%").format(
+            len(win), round(S, 2), round(R, 2), int(high_tol * 100), int(breakout_pct * 100)),
+    }
+
+
 def compute(raw, ts=None, icepoint=None):
     b = raw.get("breadth", {})
     v = raw.get("volume", {})
