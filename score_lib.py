@@ -435,31 +435,10 @@ def position_from_score(score):
     return 0, "极端风险", "强制休息"
 
 
-def compute_range_warning(hist, window=160, high_tol=0.05, low_tol=0.05, breakout_pct=0.01):
-    """基于上证指数近期日K，实时判断指数在「震荡区间」中的高低位置，输出操作预警。
-
-    hist: 日K列表，元素为 dict（fetch_kline_full 产出）含 open/close/high/low/volume；
-          最后一项视为「当前/当日」实时K线（盘中其 high/low/close 随行情更新）。
-    window: 用于界定区间上沿/下沿的回看交易日数（不含当日，避免未来函数）。
-    返回 dict:
-      available           是否有足够数据
-      index_name          指数名称（调用方填充）
-      current             当前点位（收盘）
-      current_high        当日最高
-      support/resistance  区间下沿/上沿
-      position_pct        当前在区间内的位置百分比(0=下沿,100=上沿)
-      zone                high/low/mid
-      signal              sell / buy / breakout / none
-      chip                信号短标签（卖点·减仓 / 买点·低吸 / 突破·谨慎 / 观望）
-      signal_text         操作提示文案
-      breakout            是否收盘站稳有效突破上沿
-      failed_breakout     是否冲高回落的假突破
-      vol_ratio           当日量 / 区间均量
-      note                计算口径说明
-    """
+def _compute_one_window(hist, window, high_tol=0.05, low_tol=0.05, breakout_pct=0.01):
+    """单一窗口的区间位置预警计算。返回 dict（不含 index_name / 汇总字段）。"""
     if not hist or len(hist) < 30:
         return {"available": False, "note": "日K数据不足，无法界定区间"}
-    # 隔离当日（最后一根）与历史窗口，避免用当日自身定义区间（未来函数）
     cur = hist[-1]
     win = hist[-(window + 1):-1] if len(hist) >= window + 1 else hist[:-1]
     if not win:
@@ -491,32 +470,30 @@ def compute_range_warning(hist, window=160, high_tol=0.05, low_tol=0.05, breakou
         zone = "high"
         if eff_break:
             signal, chip = "breakout", "突破·谨慎"
-            text = ("上证指数已有效突破区间上沿（收盘站稳阻力上方，量能比 {}），趋势转强；"
+            text = ("指数已有效突破区间上沿（收盘站稳阻力上方，量能比 {}），趋势转强；"
                     "但高位不宜一次性追涨，建议分批介入并设好止损，防范假突破回踩。").format(
                 ("{:.2f}".format(vol_ratio) if vol_ratio is not None else "—"))
         elif failed:
             signal, chip = "sell", "卖点·减仓"
-            text = ("上证指数冲高触及区间上沿（{}）后回落、收在上沿下方，属假突破/未能有效突破，"
+            text = ("指数冲高触及区间上沿（{}）后回落、收在上沿下方，属假突破/未能有效突破，"
                     "处于区间高位；建议减仓止盈，避免追高买在顶部。").format(round(R, 2))
         else:
             signal, chip = "sell", "卖点·减仓"
-            text = ("上证指数接近区间上沿（{}）、尚未有效突破，处于区间高位；"
+            text = ("指数接近区间上沿（{}）、尚未有效突破，处于区间高位；"
                     "建议减仓/谨慎，避免追高买在顶部。").format(round(R, 2))
     elif pos <= low_tol:                           # 接近下沿
         zone = "low"; signal, chip = "buy", "买点·低吸"
-        text = ("上证指数回落至区间下沿（{}）附近，处于区间低位；可逢低分批低吸，"
+        text = ("指数回落至区间下沿（{}）附近，处于区间低位；可逢低分批低吸，"
                 "避免恐慌抛在底部。").format(round(S, 2))
     else:
         zone = "mid"; signal, chip = "none", "观望"
-        text = "上证指数处于区间中部，方向不明；建议持仓观望，等待向上突破或向下回踩确认。"
+        text = "指数处于区间中部，方向不明；建议持仓观望，等待向上突破或向下回踩确认。"
     return {
         "available": True,
-        "current": round(cur_close, 2),
-        "current_high": round(cur_high, 2),
+        "window_days": len(win),
         "support": round(S, 2),
         "resistance": round(R, 2),
         "position_pct": pos_pct,
-        "window_days": len(win),
         "zone": zone,
         "signal": signal,
         "chip": chip,
@@ -528,6 +505,122 @@ def compute_range_warning(hist, window=160, high_tol=0.05, low_tol=0.05, breakou
                  "有效突破需收盘站稳上沿上方{}%").format(
             len(win), round(S, 2), round(R, 2), int(high_tol * 100), int(breakout_pct * 100)),
     }
+
+
+def compute_range_warning(hist, windows=None, high_tol=0.05, low_tol=0.05, breakout_pct=0.01):
+    """基于上证指数近期日K，同时按多个时间窗口（默认短线33日、中线99日）实时判断指数在
+    「震荡区间」中的高低位置，输出各周期操作预警与综合研判。
+
+    hist: 日K列表（fetch_kline_full 产出），最后一项为当前/当日实时K线。
+    windows: dict，键为周期名、值为回看交易日数（不含当日）。默认 {"short":33, "medium":99}。
+    返回 dict:
+      available         是否有任一周期可用
+      index_name        指数名称（调用方填充）
+      current           当前点位（收盘）
+      current_high      当日最高
+      short/medium      各周期单窗口结果（键同 windows）
+      summary_signal    综合信号 sell/buy/breakout/mixed/none
+      summary_chip      综合短标签
+      summary_text      综合操作提示
+    """
+    if windows is None:
+        windows = {"short": 33, "medium": 99}
+    if not hist or len(hist) < 30:
+        return {"available": False, "note": "日K数据不足，无法界定区间",
+                "short": None, "medium": None}
+    cur = hist[-1]
+    try:
+        cur_close = _to_float(cur["close"]); cur_high = _to_float(cur["high"])
+    except (TypeError, ValueError, KeyError):
+        return {"available": False, "note": "当日K线字段缺失"}
+    if cur_close is None or cur_high is None:
+        return {"available": False, "note": "当日K线字段缺失"}
+
+    results = {}
+    for name, w in windows.items():
+        results[name] = _compute_one_window(hist, w, high_tol, low_tol, breakout_pct)
+
+    available = any(r.get("available") for r in results.values())
+    short = results.get("short") or {}
+    medium = results.get("medium") or {}
+
+    if not available:
+        return {
+            "available": False,
+            "note": "各周期K线数据均不足，无法界定区间",
+            "current": round(cur_close, 2), "current_high": round(cur_high, 2),
+            "short": short, "medium": medium,
+        }
+
+    summary = _summarize_range(short, medium)
+    return {
+        "available": True,
+        "index_name": "上证指数",
+        "current": round(cur_close, 2),
+        "current_high": round(cur_high, 2),
+        "short": short,
+        "medium": medium,
+        "summary_signal": summary["signal"],
+        "summary_chip": summary["chip"],
+        "summary_text": summary["text"],
+    }
+
+
+def _summarize_range(short, medium):
+    """综合短线(33日)与中线(99日)双周期信号，给出更稳健的操作研判。
+
+    注意：中线窗口(99日)在时间上包含短线窗口(33日)，故中线区间必覆盖短线区间极值，
+    两周期通常同向或一方更弱；真正方向相反(背离)的情况极少，但也保留处理。
+    """
+    s_avail = bool(short and short.get("available"))
+    m_avail = bool(medium and medium.get("available"))
+    s_s = short.get("signal", "none") if s_avail else "none"
+    m_s = medium.get("signal", "none") if m_avail else "none"
+    s_pos = short.get("position_pct") if s_avail else None
+    m_pos = medium.get("position_pct") if m_avail else None
+    pos_txt = "短线位于区间{}%、中线位于区间{}%".format(
+        ("%.0f" % s_pos) if s_pos is not None else "—",
+        ("%.0f" % m_pos) if m_pos is not None else "—")
+
+    # 双周期同向（强信号）
+    if s_s == "sell" and m_s == "sell":
+        return {"signal": "sell", "chip": "卖点·减仓",
+                "text": "短线(33日)与中线(99日)双双处于区间高位，减仓信号强；避免追高买在顶部，宜分批止盈。"}
+    if s_s == "buy" and m_s == "buy":
+        return {"signal": "buy", "chip": "买点·低吸",
+                "text": "短线(33日)与中线(99日)双双处于区间低位，低吸信号强；可逢低分批布局，避免恐慌抛在底部。"}
+    # 任一周期有效突破
+    if "breakout" in (s_s, m_s):
+        parts = []
+        if s_s == "breakout":
+            parts.append("短线已有效突破上沿")
+        if m_s == "breakout":
+            parts.append("中线已有效突破上沿")
+        return {"signal": "breakout", "chip": "突破·谨慎",
+                "text": "、".join(parts) + "，趋势转强；但高位不宜一次性追涨，建议分批介入并设好止损，防范假突破回踩。"}
+    # 长短周期背离（最有价值的提示，市场少见但需提示）
+    if s_s == "sell" and m_s == "buy":
+        return {"signal": "mixed", "chip": "短线减仓·中线低吸",
+                "text": "背离信号：短线(33日)已触及区间高位宜减仓，但中线(99日)仍在低位区间；属短线超买、中线低估，反弹减仓、回踩中位可逢低吸纳。"}
+    if s_s == "buy" and m_s == "sell":
+        return {"signal": "mixed", "chip": "短线低吸·中线减仓",
+                "text": "背离信号：短线(33日)回落至区间低位可低吸博反弹，但中线(99日)处于高位区间；反弹即为减仓机会，不宜恋战。"}
+    # 一方预警、另一方观望 → 跟随预警方但弱化
+    if s_s == "sell":
+        return {"signal": "sell", "chip": "卖点·减仓",
+                "text": "短线(33日)已接近区间上沿、中线(99日)尚未触顶；以短线减仓为主，避免追高。（{}）".format(pos_txt)}
+    if s_s == "buy":
+        return {"signal": "buy", "chip": "买点·低吸",
+                "text": "短线(33日)已接近区间下沿、中线(99日)尚未触底；以短线低吸为主，控制仓位。（{}）".format(pos_txt)}
+    if m_s == "sell":
+        return {"signal": "sell", "chip": "卖点·减仓",
+                "text": "中线(99日)已接近区间上沿，长线资金宜减仓；短线未触顶，可保留底仓。（{}）".format(pos_txt)}
+    if m_s == "buy":
+        return {"signal": "buy", "chip": "买点·低吸",
+                "text": "中线(99日)已接近区间下沿，长线资金可逢低布局；短线未触底，分批介入。（{}）".format(pos_txt)}
+    # 全观望：提示两周期各自位置，给出震荡格局判断
+    return {"signal": "none", "chip": "观望",
+            "text": "{}，均未触发预警；市场处震荡格局、方向不明，建议持仓观望，等待向上突破或向下回踩确认。".format(pos_txt)}
 
 
 def compute(raw, ts=None, icepoint=None):
