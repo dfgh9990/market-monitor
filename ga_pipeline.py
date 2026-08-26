@@ -4,8 +4,9 @@
   1. 新浪 Market_Center.getHQNodeData 分页 → 全市场 5548 只：涨跌家数/涨停跌停/两市成交额/涨停列表
   2. 腾讯 qt.gtimg.cn                          → 三大指数实时行情
   3. 腾讯 web.ifzq.gtimg.cn 日K                 → 指数均线/MACD/RSI（趋势维度）；连板天数判断
-  4. 新浪 newSinaHy（GBK）                      → 行业板块涨幅 TOP（替代板块资金流：
-                                               板块资金集中度/主力资金流向两维改用涨幅与领涨股动能）
+  4. 新浪 newSinaHy（GBK）                      → 行业板块涨幅 TOP（板块资金集中度维度）
+  5. 东方财富 push2delay.eastmoney.com          → 行业板块主力净流入 TOP（f62 主力净流入，按金额降序；
+                                               板块资金流向维度的真实数据来源，失败则优雅降级为涨幅动能代理）
 
 用法（在仓库根目录，GitHub Actions 中由 workflow 调用）：
   python ga_pipeline.py
@@ -29,6 +30,8 @@ UA = {
 SINA_HQ = "https://vip.stock.finance.sina.com.cn/quotes_service/api/json_v2.php/"
 TENCENT_QT = "https://qt.gtimg.cn/q="
 TENCENT_KLINE = "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param="
+# 东方财富板块资金流（行业板块主力净流入）。push2delay 镜像实测可用；push2 作兜底。
+EM_HOSTS = ["push2delay.eastmoney.com", "push2.eastmoney.com"]
 
 # ---------------- HTTP 工具 ----------------
 
@@ -241,15 +244,63 @@ def fetch_sectors():
     return rows[:10], rows[-5:], rising_ratio  # top10（涨幅最高）、bottom5（领跌）、全行业实时上涨占比
 
 
+# ---------------- 4b. 东方财富行业板块主力净流入 TOP ----------------
+
+def fetch_sector_fundflow(topn=20):
+    """东方财富行业板块资金流：按主力净流入(f62)降序返回 TOP。
+
+    返回 [{code,name,zdf,net_inflow_yi,net_inflow_pct}]（net_inflow_yi 单位：亿元；净流入为正/流出为负）。
+    多镜像兜底：push2delay 实测可用，push2 兜底；全部失败返回 []（调用方据此降级）。
+    字段：f12=代码 f14=名称 f3=涨跌幅 f62=主力净流入(元) f184=主力净流入占比(%)。
+    """
+    q = ("pn=1&pz={}&po=1&np=1&fltt=2&invt=2&fid=f62"
+         "&fs=m:90+t:2+f:!50&fields=f12,f14,f3,f62,f184").format(topn)
+    last_err = None
+    for host in EM_HOSTS:
+        url = "https://{}/api/qt/clist/get?{}".format(host, q)
+        try:
+            data = fetch_json(url, timeout=15)
+        except Exception as e:
+            last_err = e
+            continue
+        arr = (data.get("data") or {}).get("diff") or []
+        if not arr:
+            last_err = "empty diff"
+            continue
+        out = []
+        for a in arr:
+            net = _f(a.get("f62"))  # 元
+            out.append({
+                "code": a.get("f12"),
+                "name": a.get("f14"),
+                "zdf": _f(a.get("f3")),
+                "zljlr": round(net / 1e8, 2) if net is not None else None,  # 元 → 亿
+                "net_inflow_pct": _f(a.get("f184")),
+            })
+        out.sort(key=lambda r: (r["zljlr"] if r["zljlr"] is not None else -1e9), reverse=True)
+        return out
+    print("  ⚠️ 板块主力净流入获取失败（{}），主力资金维度将沿用涨幅动能代理".format(repr(last_err)[:80]))
+    return []
+
+
 # ---------------- 5. 连板天数（腾讯日K判断） ----------------
 
-def compute_limitup(limit_stocks, max_check=30):
-    """对涨停列表逐只查日K，从最新往回数连续涨停天数，返回 top5。"""
+def build_limitup(limit_stocks, max_check=None):
+    """连板高度计算：对【全部】涨停股查日K，从最新往回数连续涨停天数，按连板天数降序返回。
+
+    修复旧逻辑的两处缺陷：
+      1) 旧版只扫描前 30 只涨停股 → 主板高连板股（当日涨幅仅≈10%）会排在北交所(≈30%)/
+         创业板科创板(≈20%)之后而被遗漏，导致「最高标」识别错误。
+      2) 旧版只取 12 天日K，长连板（>11 板）会数不全。
+    现改为扫描全部涨停股、取 40 天日K，阈值沿用 limit_threshold
+    （北交所30/创业板科创板20/ST 5/主板10），确保连板高度最高的个股不被漏判。
+    """
     results = []
-    for s in limit_stocks[:max_check]:
+    stocks = limit_stocks if max_check is None else limit_stocks[:max_check]
+    for s in stocks:
         code = s["code"]  # 如 sz002412 / sh600519 / bj920093
         try:
-            kl = fetch_kline(code, 12)
+            kl = fetch_kline(code, 40)
         except Exception:
             continue
         if len(kl) < 2:
@@ -268,9 +319,9 @@ def compute_limitup(limit_stocks, max_check=30):
         if days > 0:
             results.append({"code": code[2:], "name": s["name"], "chg": s.get("chg"),
                             "consecutive_days": days, "price": s.get("price")})
-        time.sleep(0.05)
+        time.sleep(0.04)
     results.sort(key=lambda r: r["consecutive_days"], reverse=True)
-    return results[:5]
+    return results
 
 
 # ---------------- 主流程 ----------------
@@ -306,16 +357,24 @@ def main():
     print("  price={} MA5={:.2f} MA20={:.2f}".format(
         tech.get("price"), tech.get("ma5"), tech.get("ma20")))
 
-    print("== 4/5 抓取行业板块涨幅（新浪，替代资金流） ==")
+    print("== 4/5 抓取行业板块涨幅（新浪） + 板块主力净流入 TOP（东方财富） ==")
     top10, bottom5, sector_rising_ratio = fetch_sectors()
     print("  TOP1: {} {}{}% | 领涨 {}".format(
         top10[0]["name"], "+" if top10[0]["zdf"] >= 0 else "", top10[0]["zdf"], top10[0]["leader"]) if top10 else "  无板块数据")
+    sector_fund = fetch_sector_fundflow()
+    if sector_fund:
+        print("  主力净流入TOP1: {} 净流入{}亿 (占比{}%)".format(
+            sector_fund[0]["name"], sector_fund[0]["zljlr"], sector_fund[0]["net_inflow_pct"]))
+    else:
+        print("  ⚠️ 板块资金流获取失败，主力资金维度将沿用涨幅动能代理")
 
-    print("== 5/5 连板判断 + 评分 ==")
-    limitup = compute_limitup(breadth["limit_stocks"])
+    print("== 5/5 连板高度判断(全扫描) + 评分 ==")
+    limitup = build_limitup(breadth["limit_stocks"])
     print("  连板Top: " + "、".join("{} {}连板".format(s["name"], s["consecutive_days"]) for s in limitup) if limitup else "  无连板")
 
     # ---- 组装 raw（六维数据） ----
+    # 板块主力净流入按名称并入涨幅榜，供主力资金维度在资金流可用时直接使用真实净额
+    fund_by_name = {r["name"]: r for r in sector_fund}
     raw = {
         "breadth": {
             "up": breadth["up"], "down": breadth["down"], "flat": breadth["flat"],
@@ -325,10 +384,13 @@ def main():
         "volume": {"amount_yi": breadth["amount_yi"], "source": "public_realtime"},
         "technical": tech,
         "indices": [{"name": i["name"], "code": i["code"], "close": i["close"], "chg_pct": i["chg_pct"]} for i in indices],
-        "sector_top": [{"name": r["name"], "zdf": r["zdf"], "zljlr": None, "leader": r["leader"], "leader_zdf": r["leader_zdf"]} for r in top10],
+        "sector_top": [{"name": r["name"], "zdf": r["zdf"],
+                        "zljlr": fund_by_name.get(r["name"], {}).get("zljlr"),
+                        "leader": r["leader"], "leader_zdf": r["leader_zdf"]} for r in top10],
         "sector_bottom": [{"name": r["name"], "zdf": r["zdf"], "zljlr": None} for r in bottom5],
         "sector_rank": top10,
         "sector_rising_ratio": sector_rising_ratio,
+        "sector_fundflow": sector_fund,  # 东方财富真实主力净流入榜（供主力资金维度评分）
         "breadth_source": "sina_public_realtime",
     }
 
@@ -347,17 +409,31 @@ def main():
     out["breadth_realtime"] = True
     out["source"] = "新浪/腾讯公开接口 (GitHub Actions)"
 
-    # ---- 连板最高标 ----
+    # ---- 连板最高标（全扫描 + 腾讯日K连续涨停计数） ----
     if limitup:
         out["limitup"] = {
-            "highest": {"code": limitup[0]["code"], "name": limitup[0]["name"],
-                        "consecutive_days": limitup[0]["consecutive_days"], "chg": limitup[0]["chg"],
-                        "days_boards": "", "board_type": "", "themes": "", "reason": "公开接口简化数据"},
-            "top5": [{"code": s["code"], "name": s["name"], "chg": s["chg"],
-                      "consecutive_days": s["consecutive_days"], "days_boards": "",
-                      "board_type": "", "themes": "", "reason": ""} for s in limitup],
+            "highest": {
+                "code": limitup[0]["code"], "name": limitup[0]["name"],
+                "consecutive_days": limitup[0]["consecutive_days"],
+                "chg": limitup[0]["chg"], "price": limitup[0]["price"],
+            },
+            "top5": [
+                {"code": s["code"], "name": s["name"], "chg": s["chg"],
+                 "consecutive_days": s["consecutive_days"], "price": s.get("price")}
+                for s in limitup[:5]
+            ],
             "total": len(limitup),
+            "calc_note": "连板天数由腾讯日K从最新往回连续涨停计数(阈值:北交所30/双创20/ST5/主板10)；"
+                         "题材与行业需东方财富涨停池(当前限流)暂未补充，故仅输出可验证的连板高度与天数",
         }
+
+    # ---- 板块主力净流入 TOP（按净流入金额降序） ----
+    if sector_fund:
+        out["sector_fund_top"] = [
+            {"name": r["name"], "zdf": r["zdf"],
+             "net_inflow_yi": r["zljlr"], "net_inflow_pct": r.get("net_inflow_pct")}
+            for r in sector_fund[:10]
+        ]
 
     # ---- 温度历史（追加） ----
     history = load_json("temperature_history.json", {})
