@@ -1,14 +1,14 @@
 {
-  "updated_at": "2026-08-26 11:02",
+  "updated_at": "2026-08-26 12:07",
   "trading": true,
   "caliber": "intraday_realtime",
-  "score": 73.5,
-  "position_pct": 80,
-  "position_label": "偏强操作",
-  "verdict": "顺势加码",
+  "score": 81.7,
+  "position_pct": 100,
+  "position_label": "强势主升",
+  "verdict": "贪婪持股",
   "dimensions": {
     "breadth": {
-      "score": 93.7,
+      "score": 91.7,
       "label": "正常"
     },
     "volume": {
@@ -16,168 +16,168 @@
       "label": "强势"
     },
     "sector": {
-      "score": 65.2,
+      "score": 65.3,
       "label": "偏强"
     },
     "fund": {
-      "score": 57.7,
-      "label": "中性"
+      "score": 100,
+      "label": "强势"
     },
     "trend": {
       "score": 40.5,
       "label": "中性"
     },
     "sentiment": {
-      "score": 64.4,
-      "label": "✅ 情绪正常偏暖"
+      "score": 66.3,
+      "label": "🚀 涨停潮，情绪高涨"
     }
   },
   "indices": [
     {
       "name": "上证指数",
       "code": "000001",
-      "close": 3917.01,
-      "chg_pct": 0.71
+      "close": 3916.83,
+      "chg_pct": 0.7
     },
     {
       "name": "深证成指",
       "code": "399001",
-      "close": 13879.4,
-      "chg_pct": 0.97
+      "close": 13911.29,
+      "chg_pct": 1.2
     },
     {
       "name": "创业板指",
       "code": "399006",
-      "close": 3430.06,
-      "chg_pct": 0.96
+      "close": 3444.05,
+      "chg_pct": 1.37
     }
   ],
   "sectors_top": [
     {
+      "name": "次新股",
+      "zdf": 2.3447365462517,
+      "zljlr": null
+    },
+    {
       "name": "有色金属",
-      "zdf": 2.3262071846874,
-      "zljlr": null
-    },
-    {
-      "name": "金融行业",
-      "zdf": 1.9458861428827,
-      "zljlr": null
-    },
-    {
-      "name": "水泥行业",
-      "zdf": 1.8208268806608,
-      "zljlr": null
+      "zdf": 2.0479120785741,
+      "zljlr": 71.52
     },
     {
       "name": "环保行业",
-      "zdf": 1.7058276914908,
+      "zdf": 1.8717642373556,
       "zljlr": null
     },
     {
-      "name": "造纸行业",
-      "zdf": 1.5347539320142,
+      "name": "玻璃行业",
+      "zdf": 1.8223968059759,
+      "zljlr": null
+    },
+    {
+      "name": "化纤行业",
+      "zdf": 1.6788034709807,
       "zljlr": null
     }
   ],
   "sectors_rank": [
     {
+      "name": "次新股",
+      "zdf": 2.3447365462517,
+      "leader": "C高凯",
+      "leader_zdf": 21.915,
+      "stock_count": 151.0,
+      "amount": 432196587.0
+    },
+    {
       "name": "有色金属",
-      "zdf": 2.3262071846874,
+      "zdf": 2.0479120785741,
       "leader": "精艺股份",
       "leader_zdf": 10.033,
       "stock_count": 72.0,
-      "amount": 2750315010.0
-    },
-    {
-      "name": "金融行业",
-      "zdf": 1.9458861428827,
-      "leader": "锦龙股份",
-      "leader_zdf": 10.045,
-      "stock_count": 51.0,
-      "amount": 2598198178.0
-    },
-    {
-      "name": "水泥行业",
-      "zdf": 1.8208268806608,
-      "leader": "ST金顶",
-      "leader_zdf": 5.37,
-      "stock_count": 26.0,
-      "amount": 276592285.0
+      "amount": 3050714628.0
     },
     {
       "name": "环保行业",
-      "zdf": 1.7058276914908,
+      "zdf": 1.8717642373556,
       "leader": "高能环境",
-      "leader_zdf": 7.445,
+      "leader_zdf": 7.737,
       "stock_count": 27.0,
-      "amount": 312078679.0
+      "amount": 357728118.0
     },
     {
-      "name": "造纸行业",
-      "zdf": 1.5347539320142,
-      "leader": "青山纸业",
-      "leader_zdf": 10.159,
-      "stock_count": 24.0,
-      "amount": 611909504.0
-    },
-    {
-      "name": "钢铁行业",
-      "zdf": 1.4182545897503,
-      "leader": "法尔胜",
-      "leader_zdf": 10.069,
-      "stock_count": 60.0,
-      "amount": 1412865613.0
-    },
-    {
-      "name": "综合行业",
-      "zdf": 1.3680396361754,
-      "leader": "ST三木",
-      "leader_zdf": 9.89,
-      "stock_count": 33.0,
-      "amount": 273752605.0
+      "name": "玻璃行业",
+      "zdf": 1.8223968059759,
+      "leader": "菲利华",
+      "leader_zdf": 6.088,
+      "stock_count": 19.0,
+      "amount": 270150628.0
     },
     {
       "name": "化纤行业",
-      "zdf": 1.3517638337767,
+      "zdf": 1.6788034709807,
       "leader": "ST海龙",
       "leader_zdf": 9.884,
       "stock_count": 26.0,
-      "amount": 846318741.0
+      "amount": 924622752.0
     },
     {
-      "name": "建筑建材",
-      "zdf": 1.3422172581794,
-      "leader": "冀衡医药",
-      "leader_zdf": 10.043,
-      "stock_count": 91.0,
-      "amount": 1786965960.0
+      "name": "金融行业",
+      "zdf": 1.6692969754161,
+      "leader": "锦龙股份",
+      "leader_zdf": 10.045,
+      "stock_count": 51.0,
+      "amount": 2973172137.0
     },
     {
-      "name": "农药化肥",
-      "zdf": 1.2349329088015,
-      "leader": "赤天化",
-      "leader_zdf": 9.974,
-      "stock_count": 46.0,
-      "amount": 901783927.0
+      "name": "造纸行业",
+      "zdf": 1.617199391172,
+      "leader": "青山纸业",
+      "leader_zdf": 10.159,
+      "stock_count": 24.0,
+      "amount": 671517037.0
+    },
+    {
+      "name": "水泥行业",
+      "zdf": 1.5814913886151,
+      "leader": "ST金顶",
+      "leader_zdf": 5.37,
+      "stock_count": 26.0,
+      "amount": 300422501.0
+    },
+    {
+      "name": "综合行业",
+      "zdf": 1.5529098572802,
+      "leader": "ST三木",
+      "leader_zdf": 9.89,
+      "stock_count": 33.0,
+      "amount": 312535561.0
+    },
+    {
+      "name": "发电设备",
+      "zdf": 1.4142207755766,
+      "leader": "杭电股份",
+      "leader_zdf": 9.993,
+      "stock_count": 65.0,
+      "amount": 1193511649.0
     }
   ],
   "diagnostics": [
     "指数低于中长期均线，中期趋势仍偏弱",
-    "主线集中于有色金属（2.33%），注意板块轮动风险",
-    "普涨格局（涨股比63%），情绪高涨"
+    "主线集中于次新股（2.34%），注意板块轮动风险",
+    "普涨格局（涨股比64%），情绪高涨"
   ],
   "breadth_detail": {
-    "up": 3471,
-    "down": 1931,
-    "flat": 147,
+    "up": 3574,
+    "down": 1808,
+    "flat": 167,
     "total": 5549,
-    "limit_up": 55,
+    "limit_up": 61,
     "limit_down": 5,
-    "上涨比例": "62.6%",
+    "上涨比例": "64.4%",
     "涨跌停比": null,
     "市场状态": "正常",
     "计分模型": "反身性冷却(抛物线)",
-    "情绪定性": "✅ 情绪正常偏暖",
+    "情绪定性": "🚀 涨停潮，情绪高涨",
     "overheat": false
   },
   "breadth_realtime": true,
@@ -190,15 +190,15 @@
     "corrected_score": null,
     "message": "",
     "note": "",
-    "up_ratio": 62.6
+    "up_ratio": 64.4
   },
   "source": "新浪/腾讯公开接口 (GitHub Actions)",
   "volume_detail": {
-    "累计成交额_亿": 11200.0,
-    "当前时点": "11:02",
-    "预期累计占比": "41.9%",
-    "预期累计额_亿": 6280.0,
-    "量能节奏_pace": 1.78,
+    "累计成交额_亿": 12397.2,
+    "当前时点": "12:07",
+    "预期累计占比": "31.0%",
+    "预期累计额_亿": 4655.0,
+    "量能节奏_pace": 2.66,
     "量价配合": "—",
     "基准日成交额_亿": 15000.0
   },
@@ -210,7 +210,7 @@
     },
     "volume": {
       "数据源": "新浪两市累计成交额(实时累加)",
-      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（11:02 时点预期占比 41.9%）",
+      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（12:07 时点预期占比 31.0%）",
       "说明": "用盘中时点匹配的累计占比归一化，解决上午被全天阈值压低的问题"
     },
     "sector": {
@@ -219,9 +219,9 @@
       "说明": "板块强弱与上涨面均为盘中实时"
     },
     "fund": {
-      "数据源": "板块涨幅动能代理（公开接口无资金流）",
-      "时段口径": "当前时点领涨/领跌板块涨幅差",
-      "说明": "盘中实时；若接入资金流接口则改用主力净流入"
+      "数据源": "东方财富板块资金流(主力净流入 f62) 优先；不可用时回退板块涨幅动能代理",
+      "时段口径": "当前时点行业板块主力净流入 TOP 净额(亿元)降序",
+      "说明": "盘中实时；净流入为正→资金加分，为负→扣分"
     },
     "trend": {
       "数据源": "上证日K(腾讯)",
@@ -236,69 +236,114 @@
   },
   "limitup": {
     "highest": {
-      "code": "002084",
-      "name": "海鸥住工",
-      "consecutive_days": 3,
-      "chg": 10.12,
-      "days_boards": "",
-      "board_type": "",
-      "themes": "",
-      "reason": "公开接口简化数据"
+      "code": "000017",
+      "name": "深中华A",
+      "consecutive_days": 5,
+      "chg": 10.0,
+      "price": 9.46
     },
     "top5": [
+      {
+        "code": "000017",
+        "name": "深中华A",
+        "chg": 10.0,
+        "consecutive_days": 5,
+        "price": 9.46
+      },
+      {
+        "code": "003040",
+        "name": "楚天龙",
+        "chg": 10.01,
+        "consecutive_days": 4,
+        "price": 17.03
+      },
       {
         "code": "002084",
         "name": "海鸥住工",
         "chg": 10.12,
         "consecutive_days": 3,
-        "days_boards": "",
-        "board_type": "",
-        "themes": "",
-        "reason": ""
+        "price": 4.79
       },
       {
         "code": "600103",
         "name": "青山纸业",
         "chg": 10.16,
         "consecutive_days": 2,
-        "days_boards": "",
-        "board_type": "",
-        "themes": "",
-        "reason": ""
+        "price": 3.47
       },
       {
         "code": "002418",
         "name": "康盛股份",
         "chg": 10.12,
         "consecutive_days": 2,
-        "days_boards": "",
-        "board_type": "",
-        "themes": "",
-        "reason": ""
-      },
-      {
-        "code": "002742",
-        "name": "冀衡医药",
-        "chg": 10.04,
-        "consecutive_days": 2,
-        "days_boards": "",
-        "board_type": "",
-        "themes": "",
-        "reason": ""
-      },
-      {
-        "code": "600371",
-        "name": "万向德农",
-        "chg": 10.04,
-        "consecutive_days": 2,
-        "days_boards": "",
-        "board_type": "",
-        "themes": "",
-        "reason": ""
+        "price": 4.46
       }
     ],
-    "total": 5
+    "total": 61,
+    "calc_note": "连板天数由腾讯日K从最新往回连续涨停计数(阈值:北交所30/双创20/ST5/主板10)；题材与行业需东方财富涨停池(当前限流)暂未补充，故仅输出可验证的连板高度与天数"
   },
+  "sector_fund_top": [
+    {
+      "name": "有色金属",
+      "zdf": 1.93,
+      "net_inflow_yi": 71.52,
+      "net_inflow_pct": 6.75
+    },
+    {
+      "name": "工业金属",
+      "zdf": 3.3,
+      "net_inflow_yi": 69.02,
+      "net_inflow_pct": 13.95
+    },
+    {
+      "name": "铜",
+      "zdf": 5.89,
+      "net_inflow_yi": 57.37,
+      "net_inflow_pct": 16.96
+    },
+    {
+      "name": "非银金融",
+      "zdf": 2.57,
+      "net_inflow_yi": 48.08,
+      "net_inflow_pct": 11.53
+    },
+    {
+      "name": "证券Ⅲ",
+      "zdf": 2.92,
+      "net_inflow_yi": 42.71,
+      "net_inflow_pct": 14.56
+    },
+    {
+      "name": "证券Ⅱ",
+      "zdf": 2.92,
+      "net_inflow_yi": 42.71,
+      "net_inflow_pct": 14.56
+    },
+    {
+      "name": "电力设备",
+      "zdf": 1.13,
+      "net_inflow_yi": 32.81,
+      "net_inflow_pct": 3.71
+    },
+    {
+      "name": "印制电路板",
+      "zdf": 0.25,
+      "net_inflow_yi": 15.18,
+      "net_inflow_pct": 3.15
+    },
+    {
+      "name": "计算机",
+      "zdf": 0.39,
+      "net_inflow_yi": 14.08,
+      "net_inflow_pct": 2.4
+    },
+    {
+      "name": "电网设备",
+      "zdf": 0.88,
+      "net_inflow_yi": 13.88,
+      "net_inflow_pct": 5.96
+    }
+  ],
   "temperature_history": [
     {
       "time": "10:02",
@@ -309,6 +354,11 @@
       "time": "11:02",
       "score": 73.5,
       "position": 80
+    },
+    {
+      "time": "12:07",
+      "score": 81.7,
+      "position": 100
     }
   ]
 }
