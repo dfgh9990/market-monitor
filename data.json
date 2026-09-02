@@ -1,182 +1,182 @@
 {
-  "updated_at": "2026-09-02 13:38",
+  "updated_at": "2026-09-02 14:46",
   "trading": true,
   "caliber": "intraday_realtime",
-  "score": 44.7,
+  "score": 43.4,
   "position_pct": 60,
   "position_label": "震荡灵活",
   "verdict": "高抛低吸",
   "dimensions": {
     "breadth": {
-      "score": 40.3,
+      "score": 41.5,
       "label": "偏弱"
     },
     "volume": {
-      "score": 35.3,
+      "score": 29.0,
       "label": "偏弱"
     },
     "sector": {
-      "score": 27.2,
+      "score": 24.3,
       "label": "偏弱"
     },
     "fund": {
-      "score": 72.9,
+      "score": 72.7,
       "label": "偏强"
     },
     "trend": {
-      "score": 48.2,
+      "score": 48.0,
       "label": "中性"
     },
     "sentiment": {
-      "score": 44.6,
-      "label": "⚠️ 结构性偏热，但市场普跌（涨股比29%）"
+      "score": 44.8,
+      "label": "⚠️ 结构性偏热，但市场普跌（涨股比30%）"
     }
   },
   "indices": [
     {
       "name": "上证指数",
       "code": "000001",
-      "close": 3949.03,
-      "chg_pct": -0.78
+      "close": 3944.34,
+      "chg_pct": -0.89
     },
     {
       "name": "深证成指",
       "code": "399001",
-      "close": 13668.08,
-      "chg_pct": -1.47
+      "close": 13631.8,
+      "chg_pct": -1.73
     },
     {
       "name": "创业板指",
       "code": "399006",
-      "close": 3332.63,
-      "chg_pct": -1.79
+      "close": 3320.03,
+      "chg_pct": -2.16
     }
   ],
   "sectors_top": [
     {
       "name": "开发区",
-      "zdf": 2.7819041188386,
+      "zdf": 2.8089128966914,
       "zljlr": null
     },
     {
       "name": "飞机制造",
-      "zdf": 0.63314482419474,
+      "zdf": 0.34116056060979,
       "zljlr": null
     },
     {
-      "name": "船舶制造",
-      "zdf": 0.33081774010131,
+      "name": "玻璃行业",
+      "zdf": 0.33582894290908,
       "zljlr": null
     },
     {
-      "name": "次新股",
-      "zdf": 0.32655439893895,
+      "name": "摩托车",
+      "zdf": -0.027793218454697,
       "zljlr": null
     },
     {
-      "name": "发电设备",
-      "zdf": 0.20485162723948,
+      "name": "汽车制造",
+      "zdf": -0.04006763960856,
       "zljlr": null
     }
   ],
   "sectors_rank": [
     {
       "name": "开发区",
-      "zdf": 2.7819041188386,
+      "zdf": 2.8089128966914,
       "leader": "高新发展",
       "leader_zdf": 9.998,
       "stock_count": 10.0,
-      "amount": 99672580.0
+      "amount": 120007523.0
     },
     {
       "name": "飞机制造",
-      "zdf": 0.63314482419474,
-      "leader": "中航西飞",
-      "leader_zdf": 2.564,
+      "zdf": 0.34116056060979,
+      "leader": "航发科技",
+      "leader_zdf": 1.831,
       "stock_count": 14.0,
-      "amount": 256772553.0
-    },
-    {
-      "name": "船舶制造",
-      "zdf": 0.33081774010131,
-      "leader": "ST亚光",
-      "leader_zdf": 4.427,
-      "stock_count": 8.0,
-      "amount": 207326304.0
-    },
-    {
-      "name": "次新股",
-      "zdf": 0.32655439893895,
-      "leader": "维琪科技",
-      "leader_zdf": 29.985,
-      "stock_count": 153.0,
-      "amount": 671272985.0
-    },
-    {
-      "name": "发电设备",
-      "zdf": 0.20485162723948,
-      "leader": "杭电股份",
-      "leader_zdf": 9.988,
-      "stock_count": 65.0,
-      "amount": 1288881590.0
-    },
-    {
-      "name": "塑料制品",
-      "zdf": 0.16799022602321,
-      "leader": "青龙管业",
-      "leader_zdf": 6.346,
-      "stock_count": 33.0,
-      "amount": 485054989.0
-    },
-    {
-      "name": "汽车制造",
-      "zdf": -0.057045453002017,
-      "leader": "光洋股份",
-      "leader_zdf": 10.023,
-      "stock_count": 103.0,
-      "amount": 1714156671.0
+      "amount": 306619477.0
     },
     {
       "name": "玻璃行业",
-      "zdf": -0.14172597590658,
-      "leader": "中国巨石",
-      "leader_zdf": 2.952,
+      "zdf": 0.33582894290908,
+      "leader": "旗滨集团",
+      "leader_zdf": 3.175,
       "stock_count": 19.0,
-      "amount": 493548893.0
+      "amount": 612691071.0
+    },
+    {
+      "name": "摩托车",
+      "zdf": -0.027793218454697,
+      "leader": "宗申动力",
+      "leader_zdf": 5.519,
+      "stock_count": 6.0,
+      "amount": 114901184.0
+    },
+    {
+      "name": "汽车制造",
+      "zdf": -0.04006763960856,
+      "leader": "光洋股份",
+      "leader_zdf": 10.023,
+      "stock_count": 103.0,
+      "amount": 2048082815.0
+    },
+    {
+      "name": "塑料制品",
+      "zdf": -0.041997556505803,
+      "leader": "大位科技",
+      "leader_zdf": 10.013,
+      "stock_count": 33.0,
+      "amount": 624109648.0
     },
     {
       "name": "综合行业",
-      "zdf": -0.16059209607597,
+      "zdf": -0.090769445608155,
       "leader": "大晟文化",
       "leader_zdf": 10.082,
       "stock_count": 33.0,
-      "amount": 477525728.0
+      "amount": 575115161.0
     },
     {
-      "name": "电力行业",
-      "zdf": -0.23238723260572,
-      "leader": "远东股份",
-      "leader_zdf": 9.983,
-      "stock_count": 62.0,
-      "amount": 1822281225.0
+      "name": "陶瓷行业",
+      "zdf": -0.10087116001834,
+      "leader": "ST能特",
+      "leader_zdf": 2.101,
+      "stock_count": 8.0,
+      "amount": 45798171.0
+    },
+    {
+      "name": "发电设备",
+      "zdf": -0.11342067496875,
+      "leader": "杭电股份",
+      "leader_zdf": 9.988,
+      "stock_count": 65.0,
+      "amount": 1522078649.0
+    },
+    {
+      "name": "船舶制造",
+      "zdf": -0.16540887005066,
+      "leader": "ST亚光",
+      "leader_zdf": 2.616,
+      "stock_count": 8.0,
+      "amount": 248000224.0
     }
   ],
   "diagnostics": [
-    "量能节奏为预期的141%，盘中缩量，反弹持续性存疑",
-    "主线集中于开发区（2.78%），注意板块轮动风险"
+    "量能节奏为预期的121%，盘中缩量，反弹持续性存疑",
+    "主线集中于开发区（2.81%），注意板块轮动风险"
   ],
   "breadth_detail": {
-    "up": 1617,
-    "down": 3832,
-    "flat": 104,
+    "up": 1639,
+    "down": 3783,
+    "flat": 131,
     "total": 5553,
-    "limit_up": 53,
-    "limit_down": 5,
-    "上涨比例": "29.1%",
+    "limit_up": 58,
+    "limit_down": 9,
+    "上涨比例": "29.5%",
     "涨跌停比": null,
     "市场状态": "正常",
     "计分模型": "反身性冷却(非对称)",
-    "情绪定性": "⚠️ 结构性偏热，但市场普跌（涨股比29%）",
+    "情绪定性": "⚠️ 结构性偏热，但市场普跌（涨股比30%）",
     "overheat": false
   },
   "breadth_realtime": true,
@@ -189,15 +189,15 @@
     "corrected_score": null,
     "message": "",
     "note": "",
-    "up_ratio": 29.1
+    "up_ratio": 29.5
   },
   "source": "新浪/腾讯公开接口 (GitHub Actions)",
   "volume_detail": {
-    "累计成交额_亿": 13859.5,
-    "当前时点": "13:38",
-    "预期累计占比": "65.7%",
-    "预期累计额_亿": 9850.0,
-    "量能节奏_pace": 1.41,
+    "累计成交额_亿": 16821.9,
+    "当前时点": "14:46",
+    "预期累计占比": "93.0%",
+    "预期累计额_亿": 13950.0,
+    "量能节奏_pace": 1.21,
     "量价配合": "普跌放量 ×0.45",
     "基准日成交额_亿": 15000.0
   },
@@ -209,7 +209,7 @@
     },
     "volume": {
       "数据源": "新浪两市累计成交额(实时累加)",
-      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（13:38 时点预期占比 65.7%）",
+      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（14:46 时点预期占比 93.0%）",
       "说明": "用盘中时点匹配的累计占比归一化，解决上午被全天阈值压低的问题"
     },
     "sector": {
@@ -236,21 +236,21 @@
   "range_warning": {
     "available": true,
     "index_name": "上证指数",
-    "current": 3949.07,
+    "current": 3944.42,
     "current_high": 3965.81,
     "short": {
       "available": true,
       "window_days": 33,
       "support": 3741.11,
       "resistance": 3995.18,
-      "position_pct": 81.9,
+      "position_pct": 80.0,
       "zone": "mid",
       "signal": "none",
       "chip": "观望",
       "signal_text": "指数处于区间中部，方向不明；建议持仓观望，等待向上突破或向下回踩确认。",
       "breakout": false,
       "failed_breakout": false,
-      "vol_ratio": 0.73,
+      "vol_ratio": 0.87,
       "note": "区间基于近33个交易日的高低(下沿3741.11~上沿3995.18)；接近上/下沿±5%触发预警；有效突破需收盘站稳上沿上方1%"
     },
     "medium": {
@@ -258,19 +258,19 @@
       "window_days": 99,
       "support": 3741.11,
       "resistance": 4258.86,
-      "position_pct": 40.2,
+      "position_pct": 39.3,
       "zone": "mid",
       "signal": "none",
       "chip": "观望",
       "signal_text": "指数处于区间中部，方向不明；建议持仓观望，等待向上突破或向下回踩确认。",
       "breakout": false,
       "failed_breakout": false,
-      "vol_ratio": 0.66,
+      "vol_ratio": 0.79,
       "note": "区间基于近99个交易日的高低(下沿3741.11~上沿4258.86)；接近上/下沿±5%触发预警；有效突破需收盘站稳上沿上方1%"
     },
     "summary_signal": "none",
     "summary_chip": "观望",
-    "summary_text": "短线位于区间82%、中线位于区间40%，均未触发预警；市场处震荡格局、方向不明，建议持仓观望，等待向上突破或向下回踩确认。"
+    "summary_text": "短线位于区间80%、中线位于区间39%，均未触发预警；市场处震荡格局、方向不明，建议持仓观望，等待向上突破或向下回踩确认。"
   },
   "limitup": {
     "highest": {
@@ -317,69 +317,69 @@
         "price": 12.85
       }
     ],
-    "total": 49,
+    "total": 54,
     "calc_note": "连板天数由腾讯日K从最新往回连续涨停计数(阈值:北交所30/双创20/ST5/主板10)；题材与行业需东方财富涨停池(当前限流)暂未补充，故仅输出可验证的连板高度与天数"
   },
   "sector_fund_top": [
     {
       "name": "国防军工",
-      "zdf": 1.59,
-      "net_inflow_yi": 28.2,
-      "net_inflow_pct": 6.28
+      "zdf": 1.41,
+      "net_inflow_yi": 27.36,
+      "net_inflow_pct": 5.19
     },
     {
       "name": "线缆部件及其他",
-      "zdf": 1.72,
-      "net_inflow_yi": 18.88,
-      "net_inflow_pct": 12.82
+      "zdf": 1.56,
+      "net_inflow_yi": 19.46,
+      "net_inflow_pct": 12.06
     },
     {
       "name": "电网设备",
-      "zdf": 0.62,
-      "net_inflow_yi": 16.09,
-      "net_inflow_pct": 5.7
+      "zdf": 0.51,
+      "net_inflow_yi": 15.19,
+      "net_inflow_pct": 4.6
     },
     {
       "name": "航空装备Ⅲ",
-      "zdf": 1.83,
-      "net_inflow_yi": 13.21,
-      "net_inflow_pct": 7.9
+      "zdf": 1.69,
+      "net_inflow_yi": 13.41,
+      "net_inflow_pct": 6.85
     },
     {
       "name": "航空装备Ⅱ",
-      "zdf": 1.83,
-      "net_inflow_yi": 13.21,
-      "net_inflow_pct": 7.9
-    },
-    {
-      "name": "地面兵装Ⅲ",
-      "zdf": 6.09,
-      "net_inflow_yi": 12.04,
-      "net_inflow_pct": 13.21
-    },
-    {
-      "name": "地面兵装Ⅱ",
-      "zdf": 6.09,
-      "net_inflow_yi": 12.04,
-      "net_inflow_pct": 13.21
+      "zdf": 1.69,
+      "net_inflow_yi": 13.41,
+      "net_inflow_pct": 6.85
     },
     {
       "name": "医疗研发外包",
-      "zdf": -0.9,
-      "net_inflow_yi": 10.84,
-      "net_inflow_pct": 6.93
+      "zdf": -0.82,
+      "net_inflow_yi": 12.5,
+      "net_inflow_pct": 6.6
     },
     {
-      "name": "玻纤制造",
-      "zdf": 3.06,
-      "net_inflow_yi": 10.7,
-      "net_inflow_pct": 6.46
+      "name": "地面兵装Ⅲ",
+      "zdf": 6.0,
+      "net_inflow_yi": 12.33,
+      "net_inflow_pct": 12.36
     },
     {
-      "name": "玻璃玻纤",
-      "zdf": 1.2,
-      "net_inflow_yi": 10.68,
-      "net_inflow_pct": 6.28
+      "name": "地面兵装Ⅱ",
+      "zdf": 6.0,
+      "net_inflow_yi": 12.33,
+      "net_inflow_pct": 12.36
+    },
+    {
+      "name": "消费电子零部件及组装",
+      "zdf": 0.74,
+      "net_inflow_yi": 10.82,
+      "net_inflow_pct": 2.25
+    },
+    {
+      "name": "医疗服务",
+      "zdf": -1.05,
+      "net_inflow_yi": 10.52,
+      "net_inflow_pct": 4.6
     }
   ],
   "temperature_history": [
@@ -396,6 +396,11 @@
     {
       "time": "13:38",
       "score": 44.7,
+      "position": 60
+    },
+    {
+      "time": "14:46",
+      "score": 43.4,
       "position": 60
     }
   ]
