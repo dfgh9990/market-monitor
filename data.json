@@ -1,34 +1,34 @@
 {
-  "updated_at": "2026-09-04 10:10",
+  "updated_at": "2026-09-04 11:08",
   "trading": true,
   "caliber": "intraday_realtime",
-  "score": 77.5,
-  "position_pct": 80,
-  "position_label": "偏强操作",
-  "verdict": "顺势加码",
+  "score": 80.3,
+  "position_pct": 100,
+  "position_label": "强势主升",
+  "verdict": "贪婪持股",
   "dimensions": {
     "breadth": {
-      "score": 54.5,
-      "label": "🔥 极度高潮，警惕退潮"
+      "score": 69.8,
+      "label": "偏热"
     },
     "volume": {
       "score": 100,
       "label": "强势"
     },
     "sector": {
-      "score": 74.7,
+      "score": 69.9,
       "label": "偏强"
     },
     "fund": {
-      "score": 92.2,
+      "score": 99.2,
       "label": "强势"
     },
     "trend": {
-      "score": 90.3,
-      "label": "强势"
+      "score": 72.1,
+      "label": "偏强"
     },
     "sentiment": {
-      "score": 65.0,
+      "score": 67.8,
       "label": "✅ 情绪正常偏暖"
     }
   },
@@ -36,152 +36,151 @@
     {
       "name": "上证指数",
       "code": "000001",
-      "close": 3973.48,
-      "chg_pct": 0.8
+      "close": 3959.22,
+      "chg_pct": 0.43
     },
     {
       "name": "深证成指",
       "code": "399001",
-      "close": 13746.82,
-      "chg_pct": 0.89
+      "close": 13682.83,
+      "chg_pct": 0.42
     },
     {
       "name": "创业板指",
       "code": "399006",
-      "close": 3350.19,
-      "chg_pct": 1.14
+      "close": 3332.72,
+      "chg_pct": 0.61
     }
   ],
   "sectors_top": [
     {
-      "name": "传媒娱乐",
-      "zdf": 3.9364763562724,
-      "zljlr": null
-    },
-    {
-      "name": "印刷包装",
-      "zdf": 3.1538531858488,
-      "zljlr": null
-    },
-    {
       "name": "船舶制造",
-      "zdf": 3.0265596046943,
+      "zdf": 4.2618900555899,
       "zljlr": null
     },
     {
       "name": "酿酒行业",
-      "zdf": 2.9668220193299,
+      "zdf": 3.120582954502,
+      "zljlr": null
+    },
+    {
+      "name": "传媒娱乐",
+      "zdf": 2.9985433616371,
+      "zljlr": null
+    },
+    {
+      "name": "印刷包装",
+      "zdf": 2.9984459274157,
       "zljlr": null
     },
     {
       "name": "农林牧渔",
-      "zdf": 2.2819660014782,
-      "zljlr": 11.66
+      "zdf": 2.9268292682927,
+      "zljlr": 19.42
     }
   ],
   "sectors_rank": [
     {
-      "name": "传媒娱乐",
-      "zdf": 3.9364763562724,
-      "leader": "出版传媒",
-      "leader_zdf": 9.955,
-      "stock_count": 40.0,
-      "amount": 772983424.0
-    },
-    {
-      "name": "印刷包装",
-      "zdf": 3.1538531858488,
-      "leader": "蓝色光标",
-      "leader_zdf": 10.766,
-      "stock_count": 20.0,
-      "amount": 585892813.0
-    },
-    {
       "name": "船舶制造",
-      "zdf": 3.0265596046943,
+      "zdf": 4.2618900555899,
       "leader": "中国船舶",
-      "leader_zdf": 5.012,
+      "leader_zdf": 6.556,
       "stock_count": 8.0,
-      "amount": 179416613.0
+      "amount": 288324912.0
     },
     {
       "name": "酿酒行业",
-      "zdf": 2.9668220193299,
+      "zdf": 3.120582954502,
       "leader": "古越龙山",
       "leader_zdf": 10.06,
       "stock_count": 33.0,
-      "amount": 208719317.0
+      "amount": 293046055.0
+    },
+    {
+      "name": "传媒娱乐",
+      "zdf": 2.9985433616371,
+      "leader": "出版传媒",
+      "leader_zdf": 6.835,
+      "stock_count": 40.0,
+      "amount": 1073617563.0
+    },
+    {
+      "name": "印刷包装",
+      "zdf": 2.9984459274157,
+      "leader": "蓝色光标",
+      "leader_zdf": 8.34,
+      "stock_count": 20.0,
+      "amount": 816071650.0
     },
     {
       "name": "农林牧渔",
-      "zdf": 2.2819660014782,
+      "zdf": 2.9268292682927,
       "leader": "亚盛集团",
       "leader_zdf": 10.101,
       "stock_count": 64.0,
-      "amount": 1789773851.0
+      "amount": 2624022999.0
     },
     {
       "name": "酒店旅游",
-      "zdf": 1.9724144424046,
+      "zdf": 1.9182789624818,
       "leader": "华天酒店",
       "leader_zdf": 10.094,
       "stock_count": 35.0,
-      "amount": 582722210.0
+      "amount": 785293415.0
+    },
+    {
+      "name": "水泥行业",
+      "zdf": 1.8843161151214,
+      "leader": "福建水泥",
+      "leader_zdf": 9.916,
+      "stock_count": 26.0,
+      "amount": 271817246.0
+    },
+    {
+      "name": "物资外贸",
+      "zdf": 1.8340402652488,
+      "leader": "远大控股",
+      "leader_zdf": 7.222,
+      "stock_count": 21.0,
+      "amount": 217555356.0
     },
     {
       "name": "房地产",
-      "zdf": 1.9468475018919,
+      "zdf": 1.8014274903177,
       "leader": "信达地产",
       "leader_zdf": 10.119,
       "stock_count": 123.0,
-      "amount": 2343228293.0
+      "amount": 3255109981.0
     },
     {
-      "name": "电子信息",
-      "zdf": 1.8301815282878,
-      "leader": "欢瑞世纪",
-      "leader_zdf": 10.039,
-      "stock_count": 247.0,
-      "amount": 3982302999.0
-    },
-    {
-      "name": "开发区",
-      "zdf": 1.7024377318495,
-      "leader": "电子城",
-      "leader_zdf": 3.704,
-      "stock_count": 10.0,
-      "amount": 59871351.0
-    },
-    {
-      "name": "农药化肥",
-      "zdf": 1.6615197251098,
-      "leader": "国发股份",
-      "leader_zdf": 5.743,
-      "stock_count": 46.0,
-      "amount": 672369146.0
+      "name": "发电设备",
+      "zdf": 1.7446078374924,
+      "leader": "双杰电气",
+      "leader_zdf": 7.182,
+      "stock_count": 65.0,
+      "amount": 1193895244.0
     }
   ],
   "diagnostics": [
-    "主线集中于传媒娱乐（3.94%），注意板块轮动风险",
-    "⚠️ 市场情绪进入高潮区（涨跌比/涨跌停比极端），系统已自动降权防范退潮，建议降低仓位"
+    "主线集中于船舶制造（4.26%），注意板块轮动风险"
   ],
   "breadth_detail": {
-    "up": 4650,
-    "down": 826,
-    "flat": 79,
+    "up": 4303,
+    "down": 1179,
+    "flat": 73,
     "total": 5555,
-    "limit_up": 46,
-    "limit_down": 3,
-    "上涨比例": "83.7%",
+    "limit_up": 52,
+    "limit_down": 2,
+    "上涨比例": "77.5%",
     "涨跌停比": null,
-    "市场状态": "🔥 高潮预警 · 警惕退潮",
+    "市场状态": "偏热",
     "计分模型": "反身性冷却(抛物线)",
     "情绪定性": "✅ 情绪正常偏暖",
-    "overheat": true
+    "overheat": false
   },
   "breadth_realtime": true,
-  "overheat": true,
-  "market_status": "🔥 高潮预警 · 警惕退潮",
+  "overheat": false,
+  "market_status": "偏热",
   "icepoint": {
     "active": false,
     "days": 0,
@@ -189,15 +188,15 @@
     "corrected_score": null,
     "message": "",
     "note": "",
-    "up_ratio": 83.7
+    "up_ratio": 77.5
   },
   "source": "新浪/腾讯公开接口 (GitHub Actions)",
   "volume_detail": {
-    "累计成交额_亿": 7893.6,
-    "当前时点": "10:10",
-    "预期累计占比": "19.3%",
-    "预期累计额_亿": 2900.0,
-    "量能节奏_pace": 2.72,
+    "累计成交额_亿": 11525.0,
+    "当前时点": "11:08",
+    "预期累计占比": "44.5%",
+    "预期累计额_亿": 6670.0,
+    "量能节奏_pace": 1.73,
     "量价配合": "普涨放量 ×1.15",
     "基准日成交额_亿": 15000.0
   },
@@ -209,7 +208,7 @@
     },
     "volume": {
       "数据源": "新浪两市累计成交额(实时累加)",
-      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（10:10 时点预期占比 19.3%）",
+      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（11:08 时点预期占比 44.5%）",
       "说明": "用盘中时点匹配的累计占比归一化，解决上午被全天阈值压低的问题"
     },
     "sector": {
@@ -236,21 +235,21 @@
   "range_warning": {
     "available": true,
     "index_name": "上证指数",
-    "current": 3973.38,
+    "current": 3959.22,
     "current_high": 3980.2,
     "short": {
       "available": true,
       "window_days": 33,
       "support": 3743.36,
       "resistance": 3995.18,
-      "position_pct": 91.3,
+      "position_pct": 85.7,
       "zone": "mid",
       "signal": "none",
       "chip": "观望",
       "signal_text": "指数处于区间中部，方向不明；建议持仓观望，等待向上突破或向下回踩确认。",
       "breakout": false,
       "failed_breakout": false,
-      "vol_ratio": 0.38,
+      "vol_ratio": 0.56,
       "note": "区间基于近33个交易日的高低(下沿3743.36~上沿3995.18)；接近上/下沿±5%触发预警；有效突破需收盘站稳上沿上方1%"
     },
     "medium": {
@@ -258,19 +257,19 @@
       "window_days": 99,
       "support": 3741.11,
       "resistance": 4258.86,
-      "position_pct": 44.9,
+      "position_pct": 42.1,
       "zone": "mid",
       "signal": "none",
       "chip": "观望",
       "signal_text": "指数处于区间中部，方向不明；建议持仓观望，等待向上突破或向下回踩确认。",
       "breakout": false,
       "failed_breakout": false,
-      "vol_ratio": 0.34,
+      "vol_ratio": 0.5,
       "note": "区间基于近99个交易日的高低(下沿3741.11~上沿4258.86)；接近上/下沿±5%触发预警；有效突破需收盘站稳上沿上方1%"
     },
     "summary_signal": "none",
     "summary_chip": "观望",
-    "summary_text": "短线位于区间91%、中线位于区间45%，均未触发预警；市场处震荡格局、方向不明，建议持仓观望，等待向上突破或向下回踩确认。"
+    "summary_text": "短线位于区间86%、中线位于区间42%，均未触发预警；市场处震荡格局、方向不明，建议持仓观望，等待向上突破或向下回踩确认。"
   },
   "limitup": {
     "highest": {
@@ -317,69 +316,69 @@
         "price": 14.64
       }
     ],
-    "total": 43,
+    "total": 50,
     "calc_note": "连板天数由腾讯日K从最新往回连续涨停计数(阈值:北交所30/双创20/ST5/主板10)；题材与行业需东方财富涨停池(当前限流)暂未补充，故仅输出可验证的连板高度与天数"
   },
   "sector_fund_top": [
     {
       "name": "传媒",
-      "zdf": 4.67,
-      "net_inflow_yi": 54.59,
-      "net_inflow_pct": 12.2
+      "zdf": 3.53,
+      "net_inflow_yi": 59.57,
+      "net_inflow_pct": 9.88
     },
     {
       "name": "广告营销",
-      "zdf": 5.57,
-      "net_inflow_yi": 29.58,
-      "net_inflow_pct": 18.69
+      "zdf": 4.42,
+      "net_inflow_yi": 36.84,
+      "net_inflow_pct": 17.15
     },
     {
       "name": "营销代理",
-      "zdf": 5.8,
-      "net_inflow_yi": 28.78,
-      "net_inflow_pct": 18.78
+      "zdf": 4.61,
+      "net_inflow_yi": 36.25,
+      "net_inflow_pct": 17.43
     },
     {
       "name": "软件开发",
-      "zdf": 4.01,
-      "net_inflow_yi": 26.06,
-      "net_inflow_pct": 9.53
+      "zdf": 3.41,
+      "net_inflow_yi": 29.28,
+      "net_inflow_pct": 7.71
     },
     {
       "name": "计算机",
-      "zdf": 3.08,
-      "net_inflow_yi": 18.55,
-      "net_inflow_pct": 2.85
+      "zdf": 2.58,
+      "net_inflow_yi": 21.25,
+      "net_inflow_pct": 2.34
     },
     {
       "name": "垂直应用软件",
-      "zdf": 3.73,
-      "net_inflow_yi": 16.75,
-      "net_inflow_pct": 9.14
-    },
-    {
-      "name": "非银金融",
-      "zdf": 1.75,
-      "net_inflow_yi": 14.31,
-      "net_inflow_pct": 6.3
-    },
-    {
-      "name": "汽车",
-      "zdf": 1.15,
-      "net_inflow_yi": 12.18,
-      "net_inflow_pct": 4.04
-    },
-    {
-      "name": "食品饮料",
-      "zdf": 2.14,
-      "net_inflow_yi": 11.87,
-      "net_inflow_pct": 8.32
+      "zdf": 3.16,
+      "net_inflow_yi": 19.69,
+      "net_inflow_pct": 7.63
     },
     {
       "name": "农林牧渔",
-      "zdf": 2.62,
-      "net_inflow_yi": 11.66,
-      "net_inflow_pct": 6.87
+      "zdf": 3.24,
+      "net_inflow_yi": 19.42,
+      "net_inflow_pct": 7.95
+    },
+    {
+      "name": "非银金融",
+      "zdf": 1.84,
+      "net_inflow_yi": 17.37,
+      "net_inflow_pct": 5.2
+    },
+    {
+      "name": "食品饮料",
+      "zdf": 2.52,
+      "net_inflow_yi": 17.34,
+      "net_inflow_pct": 7.75
+    },
+    {
+      "name": "通信网络设备及器件",
+      "zdf": 0.41,
+      "net_inflow_yi": 16.08,
+      "net_inflow_pct": 3.52
     }
   ],
   "temperature_history": [
@@ -387,6 +386,11 @@
       "time": "10:10",
       "score": 77.5,
       "position": 80
+    },
+    {
+      "time": "11:08",
+      "score": 80.3,
+      "position": 100
     }
   ]
 }
