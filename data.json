@@ -1,182 +1,183 @@
 {
-  "updated_at": "2026-09-04 14:44",
+  "updated_at": "2026-09-04 15:03",
   "trading": true,
   "caliber": "intraday_realtime",
-  "score": 60.9,
+  "score": 67.3,
   "position_pct": 80,
   "position_label": "偏强操作",
   "verdict": "顺势加码",
   "dimensions": {
     "breadth": {
-      "score": 64.0,
+      "score": 82.8,
       "label": "正常"
     },
     "volume": {
-      "score": 57.5,
+      "score": 56.8,
       "label": "中性"
     },
     "sector": {
-      "score": 49.7,
+      "score": 57.3,
       "label": "中性"
     },
     "fund": {
-      "score": 97.3,
+      "score": 98.6,
       "label": "强势"
     },
     "trend": {
-      "score": 17.1,
+      "score": 17.6,
       "label": "极弱"
     },
     "sentiment": {
-      "score": 51.8,
-      "label": "⚠️ 涨跌停结构偏热，市场偏弱（涨股比37%）"
+      "score": 51.2,
+      "label": "⚠️ 涨跌停结构偏热，市场偏弱（涨股比44%）"
     }
   },
   "indices": [
     {
       "name": "上证指数",
       "code": "000001",
-      "close": 3923.08,
-      "chg_pct": -0.48
+      "close": 3930.12,
+      "chg_pct": -0.3
     },
     {
       "name": "深证成指",
       "code": "399001",
-      "close": 13482.31,
-      "chg_pct": -1.05
+      "close": 13516.97,
+      "chg_pct": -0.79
     },
     {
       "name": "创业板指",
       "code": "399006",
-      "close": 3276.82,
-      "chg_pct": -1.08
+      "close": 3286.55,
+      "chg_pct": -0.78
     }
   ],
   "sectors_top": [
     {
       "name": "船舶制造",
-      "zdf": 5.0854436895203,
+      "zdf": 5.1780934733375,
       "zljlr": null
     },
     {
       "name": "农林牧渔",
-      "zdf": 3.039541759054,
-      "zljlr": 30.11
+      "zdf": 3.2871396895787,
+      "zljlr": 30.16
     },
     {
       "name": "酿酒行业",
-      "zdf": 2.6817435152997,
+      "zdf": 2.7314054322497,
       "zljlr": null
     },
     {
       "name": "传媒娱乐",
-      "zdf": 1.2505773261804,
+      "zdf": 1.6875688350446,
       "zljlr": null
     },
     {
-      "name": "飞机制造",
-      "zdf": 0.98389708803129,
+      "name": "印刷包装",
+      "zdf": 1.3620989121492,
       "zljlr": null
     }
   ],
   "sectors_rank": [
     {
       "name": "船舶制造",
-      "zdf": 5.0854436895203,
+      "zdf": 5.1780934733375,
       "leader": "中国船舶",
-      "leader_zdf": 9.353,
+      "leader_zdf": 9.178,
       "stock_count": 8.0,
-      "amount": 584637505.0
+      "amount": 630812034.0
     },
     {
       "name": "农林牧渔",
-      "zdf": 3.039541759054,
+      "zdf": 3.2871396895787,
       "leader": "亚盛集团",
       "leader_zdf": 10.101,
       "stock_count": 64.0,
-      "amount": 4228817441.0
+      "amount": 4514881587.0
     },
     {
       "name": "酿酒行业",
-      "zdf": 2.6817435152997,
+      "zdf": 2.7314054322497,
       "leader": "古越龙山",
       "leader_zdf": 10.06,
       "stock_count": 33.0,
-      "amount": 424419866.0
+      "amount": 451724335.0
     },
     {
       "name": "传媒娱乐",
-      "zdf": 1.2505773261804,
+      "zdf": 1.6875688350446,
       "leader": "出版传媒",
-      "leader_zdf": 5.349,
+      "leader_zdf": 6.241,
       "stock_count": 40.0,
-      "amount": 1436052558.0
-    },
-    {
-      "name": "飞机制造",
-      "zdf": 0.98389708803129,
-      "leader": "航发科技",
-      "leader_zdf": 3.791,
-      "stock_count": 14.0,
-      "amount": 321524310.0
+      "amount": 1546684151.0
     },
     {
       "name": "印刷包装",
-      "zdf": 0.90501874028705,
+      "zdf": 1.3620989121492,
       "leader": "蓝色光标",
-      "leader_zdf": 5.08,
+      "leader_zdf": 5.914,
       "stock_count": 20.0,
-      "amount": 1076912616.0
+      "amount": 1156048318.0
+    },
+    {
+      "name": "飞机制造",
+      "zdf": 1.1763986922113,
+      "leader": "航发科技",
+      "leader_zdf": 4.148,
+      "stock_count": 14.0,
+      "amount": 350249147.0
     },
     {
       "name": "食品行业",
-      "zdf": 0.86591047194653,
+      "zdf": 1.1326041455675,
       "leader": "海欣食品",
       "leader_zdf": 10.0,
       "stock_count": 58.0,
-      "amount": 1486115974.0
-    },
-    {
-      "name": "商业百货",
-      "zdf": 0.83465285419071,
-      "leader": "我爱我家",
-      "leader_zdf": 10.14,
-      "stock_count": 93.0,
-      "amount": 3847476598.0
-    },
-    {
-      "name": "服装鞋类",
-      "zdf": 0.68263848930272,
-      "leader": "开开实业",
-      "leader_zdf": 8.333,
-      "stock_count": 49.0,
-      "amount": 1078615440.0
+      "amount": 1608247442.0
     },
     {
       "name": "酒店旅游",
-      "zdf": 0.64256460951843,
+      "zdf": 1.0168055359413,
       "leader": "华天酒店",
       "leader_zdf": 10.094,
       "stock_count": 35.0,
-      "amount": 1049502722.0
+      "amount": 1127076300.0
+    },
+    {
+      "name": "商业百货",
+      "zdf": 0.99165347145809,
+      "leader": "我爱我家",
+      "leader_zdf": 10.14,
+      "stock_count": 93.0,
+      "amount": 4120620138.0
+    },
+    {
+      "name": "服装鞋类",
+      "zdf": 0.93110843751635,
+      "leader": "开开实业",
+      "leader_zdf": 7.659,
+      "stock_count": 49.0,
+      "amount": 1179750194.0
     }
   ],
   "diagnostics": [
     "指数低于中长期均线，中期趋势仍偏弱",
-    "主线集中于船舶制造（5.09%），注意板块轮动风险"
+    "主线集中于船舶制造（5.18%），注意板块轮动风险",
+    "普涨格局（涨股比44%），情绪高涨"
   ],
   "breadth_detail": {
-    "up": 2078,
-    "down": 3281,
-    "flat": 196,
+    "up": 2444,
+    "down": 2913,
+    "flat": 198,
     "total": 5555,
-    "limit_up": 51,
-    "limit_down": 11,
-    "上涨比例": "37.4%",
+    "limit_up": 50,
+    "limit_down": 12,
+    "上涨比例": "44.0%",
     "涨跌停比": null,
     "市场状态": "正常",
     "计分模型": "反身性冷却(非对称)",
-    "情绪定性": "⚠️ 涨跌停结构偏热，市场偏弱（涨股比37%）",
+    "情绪定性": "⚠️ 涨跌停结构偏热，市场偏弱（涨股比44%）",
     "overheat": false
   },
   "breadth_realtime": true,
@@ -189,15 +190,15 @@
     "corrected_score": null,
     "message": "",
     "note": "",
-    "up_ratio": 37.4
+    "up_ratio": 44.0
   },
   "source": "新浪/腾讯公开接口 (GitHub Actions)",
   "volume_detail": {
-    "累计成交额_亿": 19069.3,
-    "当前时点": "14:44",
-    "预期累计占比": "92.0%",
-    "预期累计额_亿": 13800.0,
-    "量能节奏_pace": 1.38,
+    "累计成交额_亿": 20507.7,
+    "当前时点": "15:03",
+    "预期累计占比": "100.0%",
+    "预期累计额_亿": 15000.0,
+    "量能节奏_pace": 1.37,
     "量价配合": "弱市放量 ×0.75",
     "基准日成交额_亿": 15000.0
   },
@@ -209,7 +210,7 @@
     },
     "volume": {
       "数据源": "新浪两市累计成交额(实时累加)",
-      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（14:44 时点预期占比 92.0%）",
+      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（15:03 时点预期占比 100.0%）",
       "说明": "用盘中时点匹配的累计占比归一化，解决上午被全天阈值压低的问题"
     },
     "sector": {
@@ -236,21 +237,21 @@
   "range_warning": {
     "available": true,
     "index_name": "上证指数",
-    "current": 3923.38,
+    "current": 3930.12,
     "current_high": 3980.2,
     "short": {
       "available": true,
       "window_days": 33,
       "support": 3743.36,
       "resistance": 3995.18,
-      "position_pct": 71.5,
+      "position_pct": 74.2,
       "zone": "mid",
       "signal": "none",
       "chip": "观望",
       "signal_text": "指数处于区间中部，方向不明；建议持仓观望，等待向上突破或向下回踩确认。",
       "breakout": false,
       "failed_breakout": false,
-      "vol_ratio": 0.92,
+      "vol_ratio": 1.0,
       "note": "区间基于近33个交易日的高低(下沿3743.36~上沿3995.18)；接近上/下沿±5%触发预警；有效突破需收盘站稳上沿上方1%"
     },
     "medium": {
@@ -258,19 +259,19 @@
       "window_days": 99,
       "support": 3741.11,
       "resistance": 4258.86,
-      "position_pct": 35.2,
+      "position_pct": 36.5,
       "zone": "mid",
       "signal": "none",
       "chip": "观望",
       "signal_text": "指数处于区间中部，方向不明；建议持仓观望，等待向上突破或向下回踩确认。",
       "breakout": false,
       "failed_breakout": false,
-      "vol_ratio": 0.82,
+      "vol_ratio": 0.89,
       "note": "区间基于近99个交易日的高低(下沿3741.11~上沿4258.86)；接近上/下沿±5%触发预警；有效突破需收盘站稳上沿上方1%"
     },
     "summary_signal": "none",
     "summary_chip": "观望",
-    "summary_text": "短线位于区间72%、中线位于区间35%，均未触发预警；市场处震荡格局、方向不明，建议持仓观望，等待向上突破或向下回踩确认。"
+    "summary_text": "短线位于区间74%、中线位于区间36%，均未触发预警；市场处震荡格局、方向不明，建议持仓观望，等待向上突破或向下回踩确认。"
   },
   "limitup": {
     "highest": {
@@ -317,69 +318,69 @@
         "price": 22.47
       }
     ],
-    "total": 49,
+    "total": 48,
     "calc_note": "连板天数由腾讯日K从最新往回连续涨停计数(阈值:北交所30/双创20/ST5/主板10)；题材与行业需东方财富涨停池(当前限流)暂未补充，故仅输出可验证的连板高度与天数"
   },
   "sector_fund_top": [
     {
       "name": "传媒",
-      "zdf": 1.93,
-      "net_inflow_yi": 59.95,
-      "net_inflow_pct": 7.47
+      "zdf": 2.32,
+      "net_inflow_yi": 61.74,
+      "net_inflow_pct": 7.24
     },
     {
       "name": "广告营销",
-      "zdf": 2.26,
-      "net_inflow_yi": 37.43,
-      "net_inflow_pct": 13.8
+      "zdf": 2.66,
+      "net_inflow_yi": 38.62,
+      "net_inflow_pct": 13.44
     },
     {
       "name": "营销代理",
-      "zdf": 2.38,
-      "net_inflow_yi": 36.62,
-      "net_inflow_pct": 13.99
+      "zdf": 2.79,
+      "net_inflow_yi": 37.72,
+      "net_inflow_pct": 13.59
     },
     {
       "name": "农林牧渔",
-      "zdf": 3.4,
-      "net_inflow_yi": 30.11,
-      "net_inflow_pct": 7.06
+      "zdf": 3.61,
+      "net_inflow_yi": 30.16,
+      "net_inflow_pct": 6.59
     },
     {
       "name": "软件开发",
-      "zdf": 0.9,
-      "net_inflow_yi": 24.42,
-      "net_inflow_pct": 4.67
+      "zdf": 1.26,
+      "net_inflow_yi": 23.58,
+      "net_inflow_pct": 4.2
     },
     {
       "name": "航海装备Ⅲ",
-      "zdf": 2.8,
-      "net_inflow_yi": 21.2,
-      "net_inflow_pct": 13.53
+      "zdf": 3.1,
+      "net_inflow_yi": 21.87,
+      "net_inflow_pct": 12.97
     },
     {
       "name": "航海装备Ⅱ",
-      "zdf": 2.8,
-      "net_inflow_yi": 21.2,
-      "net_inflow_pct": 13.53
+      "zdf": 3.1,
+      "net_inflow_yi": 21.87,
+      "net_inflow_pct": 12.97
     },
     {
       "name": "垂直应用软件",
-      "zdf": 0.69,
-      "net_inflow_yi": 16.43,
-      "net_inflow_pct": 4.62
+      "zdf": 1.04,
+      "net_inflow_yi": 15.58,
+      "net_inflow_pct": 4.07
     },
     {
       "name": "食品饮料",
-      "zdf": 1.94,
-      "net_inflow_yi": 13.5,
-      "net_inflow_pct": 3.9
+      "zdf": 2.19,
+      "net_inflow_yi": 13.85,
+      "net_inflow_pct": 3.73
     },
     {
       "name": "国防军工",
-      "zdf": -0.11,
-      "net_inflow_yi": 13.12,
-      "net_inflow_pct": 2.12
+      "zdf": 0.14,
+      "net_inflow_yi": 11.56,
+      "net_inflow_pct": 1.72
     }
   ],
   "temperature_history": [
@@ -401,6 +402,11 @@
     {
       "time": "14:44",
       "score": 60.9,
+      "position": 80
+    },
+    {
+      "time": "15:03",
+      "score": 67.3,
       "position": 80
     }
   ]
