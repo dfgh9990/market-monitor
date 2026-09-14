@@ -1,183 +1,183 @@
 {
-  "updated_at": "2026-09-14 13:36",
+  "updated_at": "2026-09-14 14:47",
   "trading": true,
   "caliber": "intraday_realtime",
-  "score": 65.9,
+  "score": 64.1,
   "position_pct": 80,
   "position_label": "偏强操作",
   "verdict": "顺势加码",
   "dimensions": {
     "breadth": {
-      "score": 99.6,
+      "score": 98.7,
       "label": "正常"
     },
     "volume": {
-      "score": 70.3,
-      "label": "偏强"
+      "score": 56.4,
+      "label": "中性"
     },
     "sector": {
-      "score": 41.1,
+      "score": 44.6,
       "label": "中性"
     },
     "fund": {
-      "score": 81.9,
-      "label": "强势"
+      "score": 79.9,
+      "label": "偏强"
     },
     "trend": {
       "score": 0,
       "label": "极弱"
     },
     "sentiment": {
-      "score": 58.6,
-      "label": "✅ 情绪正常偏暖"
+      "score": 60.9,
+      "label": "🚀 涨停潮，情绪高涨"
     }
   },
   "indices": [
     {
       "name": "上证指数",
       "code": "000001",
-      "close": 3882.38,
-      "chg_pct": -0.15
+      "close": 3885.06,
+      "chg_pct": -0.08
     },
     {
       "name": "深证成指",
       "code": "399001",
-      "close": 13369.23,
-      "chg_pct": -0.76
+      "close": 13388.33,
+      "chg_pct": -0.62
     },
     {
       "name": "创业板指",
       "code": "399006",
-      "close": 3284.71,
-      "chg_pct": -1.12
+      "close": 3289.12,
+      "chg_pct": -0.99
     }
   ],
   "sectors_top": [
     {
       "name": "摩托车",
-      "zdf": 1.9010303294152,
+      "zdf": 2.2783340589174,
       "zljlr": null
     },
     {
       "name": "医疗器械",
-      "zdf": 1.4036735545815,
+      "zdf": 1.6437069505322,
       "zljlr": null
     },
     {
       "name": "生物制药",
-      "zdf": 0.8954063000939,
+      "zdf": 1.3663482789039,
       "zljlr": null
     },
     {
       "name": "水泥行业",
-      "zdf": 0.6722929480761,
+      "zdf": 0.94883898345492,
       "zljlr": null
     },
     {
-      "name": "次新股",
-      "zdf": 0.60274111271389,
+      "name": "其它行业",
+      "zdf": 0.8221417810811,
       "zljlr": null
     }
   ],
   "sectors_rank": [
     {
       "name": "摩托车",
-      "zdf": 1.9010303294152,
+      "zdf": 2.2783340589174,
       "leader": "隆鑫通用",
-      "leader_zdf": 4.246,
+      "leader_zdf": 4.813,
       "stock_count": 6.0,
-      "amount": 66061340.0
+      "amount": 85254043.0
     },
     {
       "name": "医疗器械",
-      "zdf": 1.4036735545815,
-      "leader": "宝莱特",
-      "leader_zdf": 7.394,
+      "zdf": 1.6437069505322,
+      "leader": "东富龙",
+      "leader_zdf": 8.016,
       "stock_count": 31.0,
-      "amount": 229957188.0
+      "amount": 279298332.0
     },
     {
       "name": "生物制药",
-      "zdf": 0.8954063000939,
+      "zdf": 1.3663482789039,
       "leader": "津药药业",
       "leader_zdf": 10.094,
       "stock_count": 155.0,
-      "amount": 2269742100.0
+      "amount": 2780571760.0
     },
     {
       "name": "水泥行业",
-      "zdf": 0.6722929480761,
+      "zdf": 0.94883898345492,
       "leader": "柘中股份",
       "leader_zdf": 9.989,
       "stock_count": 26.0,
-      "amount": 341646557.0
-    },
-    {
-      "name": "次新股",
-      "zdf": 0.60274111271389,
-      "leader": "高凯技术",
-      "leader_zdf": 20.001,
-      "stock_count": 159.0,
-      "amount": 507837896.0
+      "amount": 405604192.0
     },
     {
       "name": "其它行业",
-      "zdf": 0.58019362991839,
+      "zdf": 0.8221417810811,
       "leader": "黄河旋风",
       "leader_zdf": 9.98,
       "stock_count": 202.0,
-      "amount": 893727852.0
+      "amount": 1020382951.0
     },
     {
-      "name": "塑料制品",
-      "zdf": 0.54045586277121,
-      "leader": "双星新材",
-      "leader_zdf": 10.04,
-      "stock_count": 33.0,
-      "amount": 505307554.0
+      "name": "次新股",
+      "zdf": 0.80700498548461,
+      "leader": "高凯技术",
+      "leader_zdf": 20.001,
+      "stock_count": 159.0,
+      "amount": 615657941.0
     },
     {
-      "name": "公路桥梁",
-      "zdf": 0.42401628222524,
-      "leader": "湖南投资",
-      "leader_zdf": 1.754,
-      "stock_count": 20.0,
-      "amount": 163453828.0
+      "name": "化纤行业",
+      "zdf": 0.70872342287164,
+      "leader": "澳洋健康",
+      "leader_zdf": 10.088,
+      "stock_count": 26.0,
+      "amount": 880318838.0
     },
     {
       "name": "化工行业",
-      "zdf": 0.42280815080157,
+      "zdf": 0.69244621919471,
       "leader": "康达新材",
       "leader_zdf": 10.0,
       "stock_count": 150.0,
-      "amount": 3115041467.0
+      "amount": 3722505035.0
+    },
+    {
+      "name": "塑料制品",
+      "zdf": 0.62269914623639,
+      "leader": "双星新材",
+      "leader_zdf": 10.04,
+      "stock_count": 33.0,
+      "amount": 586894679.0
     },
     {
       "name": "仪器仪表",
-      "zdf": 0.40839767723821,
-      "leader": "万讯自控",
-      "leader_zdf": 15.038,
+      "zdf": 0.61387275859869,
+      "leader": "*ST益通",
+      "leader_zdf": 17.419,
       "stock_count": 48.0,
-      "amount": 1120067822.0
+      "amount": 1249195688.0
     }
   ],
   "diagnostics": [
     "指数低于中长期均线，中期趋势仍偏弱",
-    "主线集中于摩托车（1.90%），注意板块轮动风险",
-    "普涨格局（涨股比53%），情绪高涨"
+    "主线集中于摩托车（2.28%），注意板块轮动风险",
+    "普涨格局（涨股比56%），情绪高涨"
   ],
   "breadth_detail": {
-    "up": 2963,
-    "down": 2373,
-    "flat": 225,
+    "up": 3095,
+    "down": 2261,
+    "flat": 205,
     "total": 5561,
-    "limit_up": 50,
-    "limit_down": 17,
-    "上涨比例": "53.3%",
+    "limit_up": 61,
+    "limit_down": 22,
+    "上涨比例": "55.7%",
     "涨跌停比": null,
     "市场状态": "正常",
     "计分模型": "反身性冷却(抛物线)",
-    "情绪定性": "✅ 情绪正常偏暖",
+    "情绪定性": "🚀 涨停潮，情绪高涨",
     "overheat": false
   },
   "breadth_realtime": true,
@@ -190,15 +190,15 @@
     "corrected_score": null,
     "message": "",
     "note": "",
-    "up_ratio": 53.3
+    "up_ratio": 55.7
   },
   "source": "新浪/腾讯公开接口 (GitHub Actions)",
   "volume_detail": {
-    "累计成交额_亿": 12583.3,
-    "当前时点": "13:36",
-    "预期累计占比": "65.0%",
-    "预期累计额_亿": 9750.0,
-    "量能节奏_pace": 1.29,
+    "累计成交额_亿": 15300.3,
+    "当前时点": "14:47",
+    "预期累计占比": "93.5%",
+    "预期累计额_亿": 14025.0,
+    "量能节奏_pace": 1.09,
     "量价配合": "—",
     "基准日成交额_亿": 15000.0
   },
@@ -210,7 +210,7 @@
     },
     "volume": {
       "数据源": "新浪两市累计成交额(实时累加)",
-      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（13:36 时点预期占比 65.0%）",
+      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（14:47 时点预期占比 93.5%）",
       "说明": "用盘中时点匹配的累计占比归一化，解决上午被全天阈值压低的问题"
     },
     "sector": {
@@ -237,21 +237,21 @@
   "range_warning": {
     "available": true,
     "index_name": "上证指数",
-    "current": 3882.38,
+    "current": 3885.06,
     "current_high": 3895.51,
     "short": {
       "available": true,
       "window_days": 33,
       "support": 3767.5,
       "resistance": 3995.18,
-      "position_pct": 50.5,
+      "position_pct": 51.6,
       "zone": "mid",
       "signal": "none",
       "chip": "观望",
       "signal_text": "指数处于区间中部，方向不明；建议持仓观望，等待向上突破或向下回踩确认。",
       "breakout": false,
       "failed_breakout": false,
-      "vol_ratio": 0.67,
+      "vol_ratio": 0.81,
       "note": "区间基于近33个交易日的高低(下沿3767.5~上沿3995.18)；接近上/下沿±5%触发预警；有效突破需收盘站稳上沿上方1%"
     },
     "medium": {
@@ -259,19 +259,19 @@
       "window_days": 99,
       "support": 3741.11,
       "resistance": 4258.86,
-      "position_pct": 27.3,
+      "position_pct": 27.8,
       "zone": "mid",
       "signal": "none",
       "chip": "观望",
       "signal_text": "指数处于区间中部，方向不明；建议持仓观望，等待向上突破或向下回踩确认。",
       "breakout": false,
       "failed_breakout": false,
-      "vol_ratio": 0.59,
+      "vol_ratio": 0.71,
       "note": "区间基于近99个交易日的高低(下沿3741.11~上沿4258.86)；接近上/下沿±5%触发预警；有效突破需收盘站稳上沿上方1%"
     },
     "summary_signal": "none",
     "summary_chip": "观望",
-    "summary_text": "短线位于区间50%、中线位于区间27%，均未触发预警；市场处震荡格局、方向不明，建议持仓观望，等待向上突破或向下回踩确认。"
+    "summary_text": "短线位于区间52%、中线位于区间28%，均未触发预警；市场处震荡格局、方向不明，建议持仓观望，等待向上突破或向下回踩确认。"
   },
   "limitup": {
     "highest": {
@@ -318,69 +318,69 @@
         "price": 10.96
       }
     ],
-    "total": 50,
+    "total": 61,
     "calc_note": "连板天数由腾讯日K从最新往回连续涨停计数(阈值:北交所30/双创20/ST5/主板10)；题材与行业需东方财富涨停池(当前限流)暂未补充，故仅输出可验证的连板高度与天数"
   },
   "sector_fund_top": [
     {
-      "name": "元件",
-      "zdf": 2.18,
-      "net_inflow_yi": 31.86,
-      "net_inflow_pct": 2.72
+      "name": "医药生物",
+      "zdf": 1.98,
+      "net_inflow_yi": 28.49,
+      "net_inflow_pct": 3.39
     },
     {
-      "name": "医药生物",
-      "zdf": 1.67,
-      "net_inflow_yi": 25.73,
-      "net_inflow_pct": 3.81
+      "name": "元件",
+      "zdf": 2.75,
+      "net_inflow_yi": 27.93,
+      "net_inflow_pct": 2.05
     },
     {
       "name": "印制电路板",
-      "zdf": 2.65,
-      "net_inflow_yi": 25.42,
-      "net_inflow_pct": 2.94
+      "zdf": 3.27,
+      "net_inflow_yi": 22.1,
+      "net_inflow_pct": 2.18
     },
     {
       "name": "通用设备",
-      "zdf": 0.73,
-      "net_inflow_yi": 18.54,
-      "net_inflow_pct": 4.42
+      "zdf": 0.83,
+      "net_inflow_yi": 18.34,
+      "net_inflow_pct": 3.69
     },
     {
       "name": "磨具磨料",
-      "zdf": 2.9,
-      "net_inflow_yi": 17.05,
-      "net_inflow_pct": 16.17
-    },
-    {
-      "name": "电池",
-      "zdf": 1.37,
-      "net_inflow_yi": 16.75,
-      "net_inflow_pct": 5.18
+      "zdf": 2.89,
+      "net_inflow_yi": 17.98,
+      "net_inflow_pct": 15.69
     },
     {
       "name": "电子化学品Ⅲ",
-      "zdf": 1.8,
-      "net_inflow_yi": 16.35,
-      "net_inflow_pct": 7.58
+      "zdf": 2.24,
+      "net_inflow_yi": 17.2,
+      "net_inflow_pct": 6.86
     },
     {
       "name": "电子化学品Ⅱ",
-      "zdf": 1.8,
-      "net_inflow_yi": 16.35,
-      "net_inflow_pct": 7.58
+      "zdf": 2.24,
+      "net_inflow_yi": 17.2,
+      "net_inflow_pct": 6.86
+    },
+    {
+      "name": "电池",
+      "zdf": 1.58,
+      "net_inflow_yi": 16.39,
+      "net_inflow_pct": 4.26
     },
     {
       "name": "医疗服务",
-      "zdf": 3.69,
-      "net_inflow_yi": 13.19,
-      "net_inflow_pct": 6.57
+      "zdf": 4.09,
+      "net_inflow_yi": 15.72,
+      "net_inflow_pct": 6.36
     },
     {
       "name": "锂电池",
-      "zdf": 1.06,
-      "net_inflow_yi": 13.11,
-      "net_inflow_pct": 6.71
+      "zdf": 1.21,
+      "net_inflow_yi": 13.36,
+      "net_inflow_pct": 5.77
     }
   ],
   "temperature_history": [
@@ -397,6 +397,11 @@
     {
       "time": "13:36",
       "score": 65.9,
+      "position": 80
+    },
+    {
+      "time": "14:47",
+      "score": 64.1,
       "position": 80
     }
   ]
