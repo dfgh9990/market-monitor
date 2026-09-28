@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-09-28 19:51",
+  "updated_at": "2026-09-28 22:20",
   "trading": true,
   "caliber": "intraday_realtime",
-  "score": 21.8,
+  "score": 21.2,
   "position_pct": 30,
   "position_label": "偏弱防守",
   "verdict": "只卖不买",
@@ -20,7 +20,7 @@
       "label": "极弱"
     },
     "fund": {
-      "score": 58.0,
+      "score": 55,
       "label": "中性"
     },
     "trend": {
@@ -195,7 +195,7 @@
   "source": "新浪/腾讯公开接口 (GitHub Actions)",
   "volume_detail": {
     "累计成交额_亿": 17165.1,
-    "当前时点": "19:51",
+    "当前时点": "22:20",
     "预期累计占比": "100.0%",
     "预期累计额_亿": 15000.0,
     "量能节奏_pace": 1.14,
@@ -210,7 +210,7 @@
     },
     "volume": {
       "数据源": "新浪两市累计成交额(实时累加)",
-      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（19:51 时点预期占比 100.0%）",
+      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（22:20 时点预期占比 100.0%）",
       "说明": "用盘中时点匹配的累计占比归一化，解决上午被全天阈值压低的问题"
     },
     "sector": {
@@ -321,68 +321,6 @@
     "total": 35,
     "calc_note": "连板天数由腾讯日K从最新往回连续涨停计数(阈值:北交所30/双创20/ST5/主板10)；题材与行业需东方财富涨停池(当前限流)暂未补充，故仅输出可验证的连板高度与天数"
   },
-  "sector_fund_top": [
-    {
-      "name": "电力",
-      "zdf": -0.14,
-      "net_inflow_yi": 6.44,
-      "net_inflow_pct": 2.32
-    },
-    {
-      "name": "公用事业",
-      "zdf": -0.2,
-      "net_inflow_yi": 6.43,
-      "net_inflow_pct": 2.1
-    },
-    {
-      "name": "商用车",
-      "zdf": 1.59,
-      "net_inflow_yi": 6.3,
-      "net_inflow_pct": 9.35
-    },
-    {
-      "name": "商用载货车",
-      "zdf": 1.89,
-      "net_inflow_yi": 5.76,
-      "net_inflow_pct": 10.51
-    },
-    {
-      "name": "光伏加工设备",
-      "zdf": -1.55,
-      "net_inflow_yi": 4.62,
-      "net_inflow_pct": 7.76
-    },
-    {
-      "name": "其他酒类",
-      "zdf": 1.42,
-      "net_inflow_yi": 4.39,
-      "net_inflow_pct": 9.52
-    },
-    {
-      "name": "非白酒",
-      "zdf": 1.15,
-      "net_inflow_yi": 4.32,
-      "net_inflow_pct": 8.21
-    },
-    {
-      "name": "火力发电",
-      "zdf": -0.02,
-      "net_inflow_yi": 4.18,
-      "net_inflow_pct": 4.96
-    },
-    {
-      "name": "个护用品",
-      "zdf": -0.32,
-      "net_inflow_yi": 3.52,
-      "net_inflow_pct": 19.73
-    },
-    {
-      "name": "生活用纸",
-      "zdf": -0.62,
-      "net_inflow_yi": 3.51,
-      "net_inflow_pct": 21.27
-    }
-  ],
   "temperature_history": [
     {
       "time": "16:12",
@@ -397,6 +335,11 @@
     {
       "time": "19:51",
       "score": 21.8,
+      "position": 30
+    },
+    {
+      "time": "22:20",
+      "score": 21.2,
       "position": 30
     }
   ]
