@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-10-09 16:29",
+  "updated_at": "2026-10-09 17:56",
   "trading": true,
   "caliber": "intraday_realtime",
-  "score": 69.5,
+  "score": 73.9,
   "position_pct": 80,
   "position_label": "偏强操作",
   "verdict": "顺势加码",
@@ -20,8 +20,8 @@
       "label": "偏强"
     },
     "fund": {
-      "score": 70.5,
-      "label": "偏强"
+      "score": 92.8,
+      "label": "强势"
     },
     "trend": {
       "score": 0,
@@ -71,7 +71,7 @@
     {
       "name": "农林牧渔",
       "zdf": 2.7093783249734,
-      "zljlr": null
+      "zljlr": 18.91
     },
     {
       "name": "纺织机械",
@@ -195,7 +195,7 @@
   "source": "新浪/腾讯公开接口 (GitHub Actions)",
   "volume_detail": {
     "累计成交额_亿": 19164.4,
-    "当前时点": "16:29",
+    "当前时点": "17:56",
     "预期累计占比": "100.0%",
     "预期累计额_亿": 15000.0,
     "量能节奏_pace": 1.28,
@@ -210,7 +210,7 @@
     },
     "volume": {
       "数据源": "新浪两市累计成交额(实时累加)",
-      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（16:29 时点预期占比 100.0%）",
+      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（17:56 时点预期占比 100.0%）",
       "说明": "用盘中时点匹配的累计占比归一化，解决上午被全天阈值压低的问题"
     },
     "sector": {
@@ -321,10 +321,77 @@
     "total": 76,
     "calc_note": "连板天数由腾讯日K从最新往回连续涨停计数(阈值:北交所30/双创20/ST5/主板10)；题材与行业需东方财富涨停池(当前限流)暂未补充，故仅输出可验证的连板高度与天数"
   },
+  "sector_fund_top": [
+    {
+      "name": "电池",
+      "zdf": 2.23,
+      "net_inflow_yi": 50.44,
+      "net_inflow_pct": 5.1
+    },
+    {
+      "name": "电池化学品",
+      "zdf": 2.9,
+      "net_inflow_yi": 32.57,
+      "net_inflow_pct": 8.29
+    },
+    {
+      "name": "有色金属",
+      "zdf": 0.75,
+      "net_inflow_yi": 31.27,
+      "net_inflow_pct": 3.35
+    },
+    {
+      "name": "传媒",
+      "zdf": 5.56,
+      "net_inflow_yi": 29.19,
+      "net_inflow_pct": 5.48
+    },
+    {
+      "name": "电力设备",
+      "zdf": 0.3,
+      "net_inflow_yi": 25.31,
+      "net_inflow_pct": 1.38
+    },
+    {
+      "name": "农林牧渔",
+      "zdf": 2.49,
+      "net_inflow_yi": 18.91,
+      "net_inflow_pct": 6.26
+    },
+    {
+      "name": "锂电池",
+      "zdf": 1.56,
+      "net_inflow_yi": 18.63,
+      "net_inflow_pct": 4.37
+    },
+    {
+      "name": "贵金属",
+      "zdf": 5.42,
+      "net_inflow_yi": 17.34,
+      "net_inflow_pct": 8.81
+    },
+    {
+      "name": "工业金属",
+      "zdf": 0.96,
+      "net_inflow_yi": 16.28,
+      "net_inflow_pct": 5.31
+    },
+    {
+      "name": "铜",
+      "zdf": 1.32,
+      "net_inflow_yi": 16.17,
+      "net_inflow_pct": 8.82
+    }
+  ],
   "temperature_history": [
     {
       "time": "16:29",
       "score": 69.5,
+      "position": 80
+    },
+    {
+      "time": "17:56",
+      "score": 73.9,
       "position": 80
     }
   ]
