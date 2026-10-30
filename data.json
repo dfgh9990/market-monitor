@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-10-30 19:31",
+  "updated_at": "2026-10-30 21:19",
   "trading": true,
   "caliber": "intraday_realtime",
-  "score": 24.3,
+  "score": 28.7,
   "position_pct": 30,
   "position_label": "偏弱防守",
   "verdict": "只卖不买",
@@ -20,8 +20,8 @@
       "label": "偏弱"
     },
     "fund": {
-      "score": 55,
-      "label": "中性"
+      "score": 77.0,
+      "label": "偏强"
     },
     "trend": {
       "score": 0,
@@ -61,7 +61,7 @@
     {
       "name": "医疗器械",
       "zdf": 1.8124590163934,
-      "zljlr": null
+      "zljlr": 2.97
     },
     {
       "name": "食品行业",
@@ -195,7 +195,7 @@
   "source": "新浪/腾讯公开接口 (GitHub Actions)",
   "volume_detail": {
     "累计成交额_亿": 16874.3,
-    "当前时点": "19:31",
+    "当前时点": "21:19",
     "预期累计占比": "100.0%",
     "预期累计额_亿": 15000.0,
     "量能节奏_pace": 1.12,
@@ -210,7 +210,7 @@
     },
     "volume": {
       "数据源": "新浪两市累计成交额(实时累加)",
-      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（19:31 时点预期占比 100.0%）",
+      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（21:19 时点预期占比 100.0%）",
       "说明": "用盘中时点匹配的累计占比归一化，解决上午被全天阈值压低的问题"
     },
     "sector": {
@@ -321,6 +321,68 @@
     "total": 52,
     "calc_note": "连板天数由腾讯日K从最新往回连续涨停计数(阈值:北交所30/双创20/ST5/主板10)；题材与行业需东方财富涨停池(当前限流)暂未补充，故仅输出可验证的连板高度与天数"
   },
+  "sector_fund_top": [
+    {
+      "name": "食品饮料",
+      "zdf": 0.83,
+      "net_inflow_yi": 30.05,
+      "net_inflow_pct": 6.23
+    },
+    {
+      "name": "医药生物",
+      "zdf": -0.61,
+      "net_inflow_yi": 26.49,
+      "net_inflow_pct": 2.16
+    },
+    {
+      "name": "白酒Ⅲ",
+      "zdf": 5.15,
+      "net_inflow_yi": 25.0,
+      "net_inflow_pct": 10.21
+    },
+    {
+      "name": "白酒Ⅱ",
+      "zdf": 5.15,
+      "net_inflow_yi": 25.0,
+      "net_inflow_pct": 10.21
+    },
+    {
+      "name": "医疗服务",
+      "zdf": 1.58,
+      "net_inflow_yi": 16.36,
+      "net_inflow_pct": 4.71
+    },
+    {
+      "name": "医疗研发外包",
+      "zdf": 3.37,
+      "net_inflow_yi": 14.39,
+      "net_inflow_pct": 5.79
+    },
+    {
+      "name": "锂电池",
+      "zdf": -2.19,
+      "net_inflow_yi": 7.54,
+      "net_inflow_pct": 3.13
+    },
+    {
+      "name": "电池",
+      "zdf": -1.92,
+      "net_inflow_yi": 6.33,
+      "net_inflow_pct": 1.38
+    },
+    {
+      "name": "生物制品",
+      "zdf": -0.66,
+      "net_inflow_yi": 5.58,
+      "net_inflow_pct": 3.52
+    },
+    {
+      "name": "石油石化",
+      "zdf": -1.06,
+      "net_inflow_yi": 5.51,
+      "net_inflow_pct": 3.26
+    }
+  ],
   "temperature_history": [
     {
       "time": "16:03",
@@ -335,6 +397,11 @@
     {
       "time": "19:31",
       "score": 24.3,
+      "position": 30
+    },
+    {
+      "time": "21:19",
+      "score": 28.7,
       "position": 30
     }
   ]
