@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-09 17:04",
+  "updated_at": "2026-11-09 18:48",
   "trading": true,
   "caliber": "intraday_realtime",
-  "score": 56.4,
-  "position_pct": 60,
-  "position_label": "震荡灵活",
-  "verdict": "高抛低吸",
+  "score": 63.7,
+  "position_pct": 80,
+  "position_label": "偏强操作",
+  "verdict": "顺势加码",
   "dimensions": {
     "breadth": {
       "score": 72.0,
@@ -20,8 +20,8 @@
       "label": "中性"
     },
     "fund": {
-      "score": 63.6,
-      "label": "偏强"
+      "score": 100,
+      "label": "强势"
     },
     "trend": {
       "score": 50.1,
@@ -194,7 +194,7 @@
   "source": "新浪/腾讯公开接口 (GitHub Actions)",
   "volume_detail": {
     "累计成交额_亿": 14943.9,
-    "当前时点": "17:04",
+    "当前时点": "18:48",
     "预期累计占比": "100.0%",
     "预期累计额_亿": 15000.0,
     "量能节奏_pace": 1.0,
@@ -209,7 +209,7 @@
     },
     "volume": {
       "数据源": "新浪两市累计成交额(实时累加)",
-      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（17:04 时点预期占比 100.0%）",
+      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（18:48 时点预期占比 100.0%）",
       "说明": "用盘中时点匹配的累计占比归一化，解决上午被全天阈值压低的问题"
     },
     "sector": {
@@ -320,11 +320,78 @@
     "total": 64,
     "calc_note": "连板天数由腾讯日K从最新往回连续涨停计数(阈值:北交所30/双创20/ST5/主板10)；题材与行业需东方财富涨停池(当前限流)暂未补充，故仅输出可验证的连板高度与天数"
   },
+  "sector_fund_top": [
+    {
+      "name": "电子",
+      "zdf": 0.91,
+      "net_inflow_yi": 93.39,
+      "net_inflow_pct": 2.7
+    },
+    {
+      "name": "元件",
+      "zdf": 2.49,
+      "net_inflow_yi": 38.42,
+      "net_inflow_pct": 4.94
+    },
+    {
+      "name": "印制电路板",
+      "zdf": 3.07,
+      "net_inflow_yi": 37.63,
+      "net_inflow_pct": 5.5
+    },
+    {
+      "name": "通信设备",
+      "zdf": 1.7,
+      "net_inflow_yi": 37.34,
+      "net_inflow_pct": 4.07
+    },
+    {
+      "name": "通信",
+      "zdf": 0.97,
+      "net_inflow_yi": 32.46,
+      "net_inflow_pct": 3.17
+    },
+    {
+      "name": "通信网络设备及器件",
+      "zdf": 1.53,
+      "net_inflow_yi": 27.56,
+      "net_inflow_pct": 4.36
+    },
+    {
+      "name": "消费电子",
+      "zdf": 1.2,
+      "net_inflow_yi": 26.55,
+      "net_inflow_pct": 5.43
+    },
+    {
+      "name": "消费电子零部件及组装",
+      "zdf": 1.24,
+      "net_inflow_yi": 26.13,
+      "net_inflow_pct": 5.9
+    },
+    {
+      "name": "机械设备",
+      "zdf": 0.63,
+      "net_inflow_yi": 23.37,
+      "net_inflow_pct": 1.84
+    },
+    {
+      "name": "半导体",
+      "zdf": 0.46,
+      "net_inflow_yi": 23.12,
+      "net_inflow_pct": 1.36
+    }
+  ],
   "temperature_history": [
     {
       "time": "17:04",
       "score": 56.4,
       "position": 60
+    },
+    {
+      "time": "18:48",
+      "score": 63.7,
+      "position": 80
     }
   ]
 }
