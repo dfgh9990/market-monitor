@@ -1,206 +1,204 @@
 {
-  "updated_at": "2026-11-06 22:41",
+  "updated_at": "2026-11-09 17:04",
   "trading": true,
   "caliber": "intraday_realtime",
-  "score": 25.0,
-  "position_pct": 30,
-  "position_label": "偏弱防守",
-  "verdict": "只卖不买",
+  "score": 56.4,
+  "position_pct": 60,
+  "position_label": "震荡灵活",
+  "verdict": "高抛低吸",
   "dimensions": {
     "breadth": {
-      "score": 0,
-      "label": "极弱 · 冰点（强制空仓）"
+      "score": 72.0,
+      "label": "正常"
     },
     "volume": {
-      "score": 26.1,
+      "score": 37.3,
       "label": "偏弱"
     },
     "sector": {
-      "score": 20.6,
-      "label": "偏弱"
+      "score": 46.9,
+      "label": "中性"
     },
     "fund": {
-      "score": 60.2,
+      "score": 63.6,
       "label": "偏强"
     },
     "trend": {
-      "score": 12.9,
-      "label": "极弱"
+      "score": 50.1,
+      "label": "中性"
     },
     "sentiment": {
-      "score": 36.5,
-      "label": "⚠️ 结构性偏热，但市场普跌（涨股比14%）"
+      "score": 56.7,
+      "label": "⚠️ 涨跌停结构偏热，市场偏弱（涨股比40%）"
     }
   },
   "indices": [
     {
       "name": "上证指数",
       "code": "000001",
-      "close": 3649.18,
-      "chg_pct": -1.1
+      "close": 3660.79,
+      "chg_pct": 0.32
     },
     {
       "name": "深证成指",
       "code": "399001",
-      "close": 11175.78,
-      "chg_pct": -2.57
+      "close": 11145.49,
+      "chg_pct": -0.27
     },
     {
       "name": "创业板指",
       "code": "399006",
-      "close": 2465.23,
-      "chg_pct": -3.96
+      "close": 2458.56,
+      "chg_pct": -0.27
     }
   ],
   "sectors_top": [
     {
-      "name": "公路桥梁",
-      "zdf": 1.3858497447119,
+      "name": "陶瓷行业",
+      "zdf": 3.3578988197484,
       "zljlr": null
     },
     {
-      "name": "电力行业",
-      "zdf": 0.94325497829016,
+      "name": "次新股",
+      "zdf": 2.6414590863543,
       "zljlr": null
     },
     {
-      "name": "农林牧渔",
-      "zdf": 0.3238226873334,
-      "zljlr": 2.18
-    },
-    {
-      "name": "家电行业",
-      "zdf": 0.2884533808433,
+      "name": "煤炭行业",
+      "zdf": 2.4741896449628,
       "zljlr": null
     },
     {
-      "name": "家具行业",
-      "zdf": 0.027671702916597,
+      "name": "供水供气",
+      "zdf": 1.3222757060836,
+      "zljlr": null
+    },
+    {
+      "name": "有色金属",
+      "zdf": 1.1120229412361,
       "zljlr": null
     }
   ],
   "sectors_rank": [
     {
-      "name": "公路桥梁",
-      "zdf": 1.3858497447119,
-      "leader": "龙江交通",
-      "leader_zdf": 10.116,
-      "stock_count": 20.0,
-      "amount": 533522983.0
-    },
-    {
-      "name": "电力行业",
-      "zdf": 0.94325497829016,
-      "leader": "乐山电力",
-      "leader_zdf": 8.247,
-      "stock_count": 62.0,
-      "amount": 2962888689.0
-    },
-    {
-      "name": "农林牧渔",
-      "zdf": 0.3238226873334,
-      "leader": "天山生物",
-      "leader_zdf": 12.734,
-      "stock_count": 64.0,
-      "amount": 3331920849.0
-    },
-    {
-      "name": "家电行业",
-      "zdf": 0.2884533808433,
-      "leader": "日出东方",
-      "leader_zdf": 10.037,
-      "stock_count": 37.0,
-      "amount": 1206127661.0
-    },
-    {
-      "name": "家具行业",
-      "zdf": 0.027671702916597,
-      "leader": "ST喜临门",
-      "leader_zdf": 1.667,
-      "stock_count": 16.0,
-      "amount": 233139957.0
-    },
-    {
-      "name": "金融行业",
-      "zdf": -0.136519921796,
-      "leader": "建设银行",
-      "leader_zdf": 2.144,
-      "stock_count": 51.0,
-      "amount": 3871267039.0
-    },
-    {
-      "name": "酿酒行业",
-      "zdf": -0.28255597786572,
-      "leader": "山西汾酒",
-      "leader_zdf": 1.289,
-      "stock_count": 33.0,
-      "amount": 387639223.0
-    },
-    {
-      "name": "船舶制造",
-      "zdf": -0.34275031159119,
-      "leader": "ST亚光",
-      "leader_zdf": 13.649,
+      "name": "陶瓷行业",
+      "zdf": 3.3578988197484,
+      "leader": "松发股份",
+      "leader_zdf": 3.888,
       "stock_count": 8.0,
-      "amount": 190295092.0
+      "amount": 53352485.0
     },
     {
-      "name": "物资外贸",
-      "zdf": -0.49932190851929,
-      "leader": "东方创业",
-      "leader_zdf": 10.046,
-      "stock_count": 21.0,
-      "amount": 397866182.0
+      "name": "次新股",
+      "zdf": 2.6414590863543,
+      "leader": "通则康威",
+      "leader_zdf": 20.0,
+      "stock_count": 158.0,
+      "amount": 856479336.0
     },
     {
-      "name": "农药化肥",
-      "zdf": -0.51200309133942,
-      "leader": "红太阳",
-      "leader_zdf": 10.088,
-      "stock_count": 46.0,
-      "amount": 767618726.0
+      "name": "煤炭行业",
+      "zdf": 2.4741896449628,
+      "leader": "郑州煤电",
+      "leader_zdf": 10.0,
+      "stock_count": 41.0,
+      "amount": 1841520618.0
+    },
+    {
+      "name": "供水供气",
+      "zdf": 1.3222757060836,
+      "leader": "ST金鸿",
+      "leader_zdf": 9.91,
+      "stock_count": 25.0,
+      "amount": 447039823.0
+    },
+    {
+      "name": "有色金属",
+      "zdf": 1.1120229412361,
+      "leader": "西部材料",
+      "leader_zdf": 9.989,
+      "stock_count": 72.0,
+      "amount": 1975849461.0
+    },
+    {
+      "name": "飞机制造",
+      "zdf": 1.1049386484342,
+      "leader": "中国卫星",
+      "leader_zdf": 4.546,
+      "stock_count": 14.0,
+      "amount": 390579783.0
+    },
+    {
+      "name": "开发区",
+      "zdf": 0.92902832774901,
+      "leader": "派斯林",
+      "leader_zdf": 2.218,
+      "stock_count": 10.0,
+      "amount": 90996777.0
+    },
+    {
+      "name": "酒店旅游",
+      "zdf": 0.90770423345253,
+      "leader": "大连圣亚",
+      "leader_zdf": 9.109,
+      "stock_count": 35.0,
+      "amount": 437197474.0
+    },
+    {
+      "name": "仪器仪表",
+      "zdf": 0.77198625630529,
+      "leader": "汉威科技",
+      "leader_zdf": 8.493,
+      "stock_count": 48.0,
+      "amount": 849631147.0
+    },
+    {
+      "name": "综合行业",
+      "zdf": 0.69466882067851,
+      "leader": "大晟文化",
+      "leader_zdf": 9.935,
+      "stock_count": 33.0,
+      "amount": 685388434.0
     }
   ],
   "diagnostics": [
-    "量能节奏为预期的111%，盘中缩量，反弹持续性存疑",
-    "指数低于中长期均线，中期趋势仍偏弱",
-    "主线集中于公路桥梁（1.39%），注意板块轮动风险",
-    "❄️ 市场冰点（首日出现）：恐慌初期，不抄底，继续观望。"
+    "量能节奏为预期的100%，盘中缩量，反弹持续性存疑",
+    "主线集中于陶瓷行业（3.36%），注意板块轮动风险"
   ],
   "breadth_detail": {
-    "up": 758,
-    "down": 4740,
-    "flat": 80,
+    "up": 2242,
+    "down": 3147,
+    "flat": 189,
     "total": 5578,
-    "limit_up": 36,
-    "limit_down": 17,
-    "上涨比例": "13.6%",
+    "limit_up": 64,
+    "limit_down": 5,
+    "上涨比例": "40.2%",
     "涨跌停比": null,
-    "市场状态": "冰点·首日（恐慌初期·不抄底·继续观望）",
-    "计分模型": "冰点（首日·不抄底）",
-    "情绪定性": "⚠️ 结构性偏热，但市场普跌（涨股比14%）",
+    "市场状态": "正常",
+    "计分模型": "反身性冷却(非对称)",
+    "情绪定性": "⚠️ 涨跌停结构偏热，市场偏弱（涨股比40%）",
     "overheat": false
   },
   "breadth_realtime": true,
   "overheat": false,
-  "market_status": "冰点·首日（恐慌初期·不抄底·继续观望）",
+  "market_status": "正常",
   "icepoint": {
-    "active": true,
-    "days": 1,
-    "level": 1,
+    "active": false,
+    "days": 0,
+    "level": 0,
     "corrected_score": null,
-    "message": "❄️ 市场冰点（首日出现）：恐慌初期，不抄底，继续观望。",
-    "note": "冰点·首日（恐慌初期·不抄底·继续观望）",
-    "up_ratio": 13.6
+    "message": "",
+    "note": "",
+    "up_ratio": 40.2
   },
   "source": "新浪/腾讯公开接口 (GitHub Actions)",
   "volume_detail": {
-    "累计成交额_亿": 16713.6,
-    "当前时点": "22:41",
+    "累计成交额_亿": 14943.9,
+    "当前时点": "17:04",
     "预期累计占比": "100.0%",
     "预期累计额_亿": 15000.0,
-    "量能节奏_pace": 1.11,
-    "量价配合": "普跌放量 ×0.45",
+    "量能节奏_pace": 1.0,
+    "量价配合": "弱市放量 ×0.75",
     "基准日成交额_亿": 15000.0
   },
   "methodology": {
@@ -211,7 +209,7 @@
     },
     "volume": {
       "数据源": "新浪两市累计成交额(实时累加)",
-      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（22:41 时点预期占比 100.0%）",
+      "时段口径": "当前时点累计成交额 ÷ 该时点预期累计占比（17:04 时点预期占比 100.0%）",
       "说明": "用盘中时点匹配的累计占比归一化，解决上午被全天阈值压低的问题"
     },
     "sector": {
@@ -238,21 +236,21 @@
   "range_warning": {
     "available": true,
     "index_name": "上证指数",
-    "current": 3649.18,
-    "current_high": 3660.49,
+    "current": 3660.79,
+    "current_high": 3679.09,
     "short": {
       "available": true,
       "window_days": 33,
       "support": 3574.27,
       "resistance": 3967.68,
-      "position_pct": 19.0,
+      "position_pct": 22.0,
       "zone": "mid",
       "signal": "none",
       "chip": "观望",
       "signal_text": "指数处于区间中部，方向不明；建议持仓观望，等待向上突破或向下回踩确认。",
       "breakout": false,
       "failed_breakout": false,
-      "vol_ratio": 1.01,
+      "vol_ratio": 0.91,
       "note": "区间基于近33个交易日的高低(下沿3574.27~上沿3967.68)；接近上/下沿±5%触发预警；有效突破需收盘站稳上沿上方1%"
     },
     "medium": {
@@ -260,155 +258,73 @@
       "window_days": 99,
       "support": 3574.27,
       "resistance": 4175.35,
-      "position_pct": 12.5,
+      "position_pct": 14.4,
       "zone": "mid",
       "signal": "none",
       "chip": "观望",
       "signal_text": "指数处于区间中部，方向不明；建议持仓观望，等待向上突破或向下回踩确认。",
       "breakout": false,
       "failed_breakout": false,
-      "vol_ratio": 0.88,
+      "vol_ratio": 0.79,
       "note": "区间基于近99个交易日的高低(下沿3574.27~上沿4175.35)；接近上/下沿±5%触发预警；有效突破需收盘站稳上沿上方1%"
     },
     "summary_signal": "none",
     "summary_chip": "观望",
-    "summary_text": "短线位于区间19%、中线位于区间12%，均未触发预警；市场处震荡格局、方向不明，建议持仓观望，等待向上突破或向下回踩确认。"
+    "summary_text": "短线位于区间22%、中线位于区间14%，均未触发预警；市场处震荡格局、方向不明，建议持仓观望，等待向上突破或向下回踩确认。"
   },
   "limitup": {
     "highest": {
-      "code": "600537",
-      "name": "*ST亿晶",
-      "consecutive_days": 5,
-      "chg": 10.21,
-      "price": 2.05
+      "code": "002578",
+      "name": "闽发铝业",
+      "consecutive_days": 6,
+      "chg": 9.98,
+      "price": 5.51
     },
     "top5": [
       {
-        "code": "600537",
-        "name": "*ST亿晶",
-        "chg": 10.21,
-        "consecutive_days": 5,
-        "price": 2.05
-      },
-      {
         "code": "002578",
         "name": "闽发铝业",
-        "chg": 10.11,
-        "consecutive_days": 5,
-        "price": 5.01
+        "chg": 9.98,
+        "consecutive_days": 6,
+        "price": 5.51
       },
       {
-        "code": "601599",
-        "name": "浙文影业",
-        "chg": 9.96,
-        "consecutive_days": 5,
-        "price": 5.08
+        "code": "002086",
+        "name": "东方海洋",
+        "chg": 10.08,
+        "consecutive_days": 3,
+        "price": 4.37
       },
       {
-        "code": "603381",
-        "name": "永臻股份",
-        "chg": 10.03,
-        "consecutive_days": 4,
-        "price": 20.74
+        "code": "603366",
+        "name": "日出东方",
+        "chg": 10.01,
+        "consecutive_days": 2,
+        "price": 9.89
       },
       {
-        "code": "002088",
-        "name": "鲁阳节能",
-        "chg": 10.02,
-        "consecutive_days": 4,
-        "price": 11.09
+        "code": "001316",
+        "name": "润贝航科",
+        "chg": 9.99,
+        "consecutive_days": 2,
+        "price": 30.6
+      },
+      {
+        "code": "002889",
+        "name": "东方嘉盛",
+        "chg": 9.99,
+        "consecutive_days": 2,
+        "price": 16.4
       }
     ],
-    "total": 35,
+    "total": 64,
     "calc_note": "连板天数由腾讯日K从最新往回连续涨停计数(阈值:北交所30/双创20/ST5/主板10)；题材与行业需东方财富涨停池(当前限流)暂未补充，故仅输出可验证的连板高度与天数"
   },
-  "sector_fund_top": [
-    {
-      "name": "公用事业",
-      "zdf": 0.55,
-      "net_inflow_yi": 9.59,
-      "net_inflow_pct": 2.54
-    },
-    {
-      "name": "电力",
-      "zdf": 0.76,
-      "net_inflow_yi": 9.4,
-      "net_inflow_pct": 2.69
-    },
-    {
-      "name": "银行",
-      "zdf": 0.99,
-      "net_inflow_yi": 8.53,
-      "net_inflow_pct": 2.41
-    },
-    {
-      "name": "银行Ⅱ",
-      "zdf": 0.99,
-      "net_inflow_yi": 8.53,
-      "net_inflow_pct": 2.41
-    },
-    {
-      "name": "半导体设备",
-      "zdf": -2.33,
-      "net_inflow_yi": 7.4,
-      "net_inflow_pct": 1.54
-    },
-    {
-      "name": "水力发电",
-      "zdf": 1.46,
-      "net_inflow_yi": 6.33,
-      "net_inflow_pct": 6.97
-    },
-    {
-      "name": "国有大型银行Ⅲ",
-      "zdf": 1.04,
-      "net_inflow_yi": 5.09,
-      "net_inflow_pct": 3.77
-    },
-    {
-      "name": "集成电路制造",
-      "zdf": -1.87,
-      "net_inflow_yi": 4.97,
-      "net_inflow_pct": 3.27
-    },
-    {
-      "name": "铁路公路",
-      "zdf": 0.7,
-      "net_inflow_yi": 4.81,
-      "net_inflow_pct": 8.24
-    },
-    {
-      "name": "电信运营商",
-      "zdf": 2.87,
-      "net_inflow_yi": 4.05,
-      "net_inflow_pct": 11.12
-    }
-  ],
   "temperature_history": [
     {
-      "time": "16:56",
-      "score": 25.0,
-      "position": 30
-    },
-    {
-      "time": "18:17",
-      "score": 25.0,
-      "position": 30
-    },
-    {
-      "time": "21:05",
-      "score": 25.0,
-      "position": 30
-    },
-    {
-      "time": "22:30",
-      "score": 25.0,
-      "position": 30
-    },
-    {
-      "time": "22:41",
-      "score": 25.0,
-      "position": 30
+      "time": "17:04",
+      "score": 56.4,
+      "position": 60
     }
   ]
 }
